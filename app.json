@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/canvas/canvas",
+    "pages/posts/post",
     "pages/login/login",
+    "pages/canvas/canvas",
     "pages/network/network",
     "pages/swiper/swiper",
-    "pages/posts/post",
     "pages/location/location",
     "pages/userInfo/userInfo",
     "pages/heihei/heihei",
