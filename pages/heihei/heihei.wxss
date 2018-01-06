@@ -1,0 +1,11 @@
+@import "heihei-item/heihei-item-template.wxss";
+
+ swiper{
+     width:100%;
+     height:400rpx;
+ }
+ /*less sass*/
+ swiper image{
+     width:100%;
+     height:400rpx;
+ }

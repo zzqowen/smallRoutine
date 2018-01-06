@@ -1,0 +1,27 @@
+<template name="postItem">
+    <view class="post-container">
+        <view class="post-like">
+            <image class="post-like-image" 
+            src="/images/post/icon_shang.png"></image>
+            <text class="post-like-font">{{price}}币</text>
+            <text class="post-content">{{content}}</text>
+        </view>
+        <view class="image-content" wx:if="{{photofiles.length > 0}}" class="flex-wrap">
+          <block wx:for="{{photofiles}}" wx:for-item="item" wx:for-index="idx" >
+            <image class="post-detail-image" src="{{server + item.srcMin}}" background-size="cover"></image>
+          </block>
+        </view>
+        <view class="image-content" wx:else>
+          <image class="post-image" src="/images/post/img_hongbao.png"></image>
+          <text>{{price}}币</text>
+        </view>
+        <view class="post-like">
+            <text class="post-like-font">#{{category}}</text>
+            <text class="post-like-font">偷看次数{{peekCount}}</text>
+        </view>
+        <view class="post-author-date">
+            <image class="post-author" src="{{server + authorMap.avatar}}"></image>
+            <text class="post-date">{{authorMap.displayname}}</text>
+        </view>
+    </view>
+</template>

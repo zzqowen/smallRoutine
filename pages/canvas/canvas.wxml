@@ -1,0 +1,5 @@
+<view>
+  <canvas wx:if="{{true}}" canvas-id='myCanvas' style="width: {{windowWidth - 24}}px; height: {{windowHeight/2}}px; border: 1px solid black;margin: 0 auto;"></canvas>
+  <canvas wx:if="{{true}}" catchtouchstart="touchStart" catchtouchmove="touchMove" catchtouchend="touchEnd" catchtouchcancel="touchCancel" canvas-id="gameCanvas" style="width: {{windowWidth}}px; height: {{windowHeight}}px; border: 1px solid #ccc;margin: 0 auto;"></canvas>
+  <view id="view"></view>
+</view>
