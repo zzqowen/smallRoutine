@@ -1,18 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/posts/post",
-    "pages/login/login",
-    "pages/canvas/canvas",
-    "pages/network/network",
-    "pages/swiper/swiper",
-    "pages/location/location",
     "pages/userInfo/userInfo",
-    "pages/heihei/heihei",
-    "pages/heihei/heihei-detail/heihei-detail",
     "pages/posts/post-detail/post-detail",
-    "pages/movies/more-movie/more-movie",
-    "pages/movies/movies",
-    "pages/movies/movie-detail/movie-detail"
+    "pages/phone/phone",
+    "pages/question/question"
   ],
   "window": {
     "navigationBarBackgroundColor": "#405f80",

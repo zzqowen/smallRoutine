@@ -1,0 +1,19 @@
+<!--pages/index/index.wxml-->
+<view class='body'>
+  <view class='header'>
+    <image class="avatar" style="border-radius: 50%;" src="{{userInfo.avatarUrl}}"></image>
+  </view>
+  <view class='flex_container content'>
+    <view class="flex_column_container list_container">
+        <view class = "list" catchtap='questionTap'>答题</view>
+        <view class = "list">更多</view>
+        <view class = "list" catchtap='phoneTap'>绑定手机</view>
+    </view>
+    <view class="flex_column_container list_container">
+      <view class = "list">排行</view>
+      <view class = "list">奖品</view>
+      <view class = "list">设置</view>
+    </view>
+  </view>
+</view>
+
