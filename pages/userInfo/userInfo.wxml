@@ -1,9 +1,6 @@
 <view class="body">
-  <view class='container'>
-       <block wx:for="{{accountList}}" wx:for-item="item" wx:for-index="idx">
-         <text class='name'>{{item.name}}</text>
-      </block>
-      <canvas class='my_canvas' canvas-id='my_canvas'></canvas>
+  <view class='container' style="height: {{canvasHeight}}px">
+      <canvas class='my_canvas' canvas-id='my_canvas' style="width: {{canvasWidth}}px; height: {{canvasHeight}}px"></canvas>
   </view>
   <text class='text'>只懂得喝酒的酒鬼
         有酒就喝，不懂社交

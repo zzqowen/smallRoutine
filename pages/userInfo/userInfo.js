@@ -15,17 +15,18 @@ Page({
       var that = this;
       wx.getSystemInfo({
         success: function (res) {
+          var data = that.data.accountList;
+          var circleSize = res.windowWidth / 3;
+          var fontSize = 85 * circleSize/750;
+          var distance = 8;
           that.setData({
             windowHeight: res.windowHeight,
-            windowWidth: res.windowWidth
+            windowWidth: res.windowWidth,
+            canvasWidth: circleSize * 2 + 4 * fontSize + 2 * distance,
+            canvasHeight: circleSize * 2 + 2 * fontSize + 2 * distance
           })
 
-          var w = that.data.windowWidth;
-          var h = that.data.windowHeight;
-          var data = that.data.accountList;
-          var circleSize = w / 4;
-
-          app.ability("my_canvas", that.data.accountList, w, h, circleSize);
+          app.ability("my_canvas", that.data.accountList, circleSize, fontSize, distance);
         }
       });
     },

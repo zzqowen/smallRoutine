@@ -20,13 +20,13 @@ App({
       //   }
       // })
     },
-    ability: function (id, arr, w, h, circleSize) {
+    ability: function (id, arr, circleSize, fontSize, distance) {
       var ctx = wx.createCanvasContext(id);
       ctx.save();
-      ctx.translate(w / 4, circleSize);
+      ctx.translate(circleSize + 2 * fontSize + distance, circleSize + fontSize + distance);
       ctx.beginPath();
       ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
-      ctx.setFillStyle("black");
+      ctx.setFillStyle("violet");
       ctx.fill();
       ctx.beginPath();
       ctx.arc(0, 0, circleSize * 3 / 4, 0, 2 * Math.PI);
@@ -58,6 +58,25 @@ App({
       ctx.lineTo(0, circleSize);
       ctx.setStrokeStyle("white");
       ctx.stroke();
+
+      ctx.beginPath();
+      ctx.setFontSize(fontSize);
+      ctx.setFillStyle("black");
+      ctx.setTextAlign("center");
+      ctx.setTextBaseline("bottom");
+      ctx.fillText(arr[0].name, 0, -circleSize - (distance - 3));
+      
+      ctx.setTextAlign("left");
+      ctx.setTextBaseline("middle");
+      ctx.fillText(arr[1].name, circleSize + (distance - 3), 0);
+
+      ctx.setTextAlign("center");
+      ctx.setTextBaseline("top");
+      ctx.fillText(arr[2].name, 0, circleSize + (distance - 3));
+
+      ctx.setTextAlign("right");
+      ctx.setTextBaseline("middle");
+      ctx.fillText(arr[3].name, -circleSize - (distance - 3), 0);
 
       ctx.draw()
       ctx.restore();
