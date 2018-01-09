@@ -18,36 +18,6 @@
     "navigationBarBackgroundColor": "#405f80",
     "navigationBarTitleText": "答尔文"
   },
-  "tabBar": {
-    "borderStyle": "white",
-    "position": "bottom",
-    "list": [
-      {
-        "pagePath": "pages/posts/post",
-        "text": "主页",
-        "iconPath": "images/tab/home.png",
-        "selectedIconPath": "images/tab/home-outline.png"
-      },
-      {
-        "pagePath": "pages/heihei/heihei",
-        "text": "嘿嘿",
-        "iconPath": "images/tab/friendsCircle.png",
-        "selectedIconPath": "images/tab/friendsCircle-outline.png"
-      },
-      {
-        "pagePath": "pages/userInfo/userInfo",
-        "text": "个人",
-        "iconPath": "images/tab/account.png",
-        "selectedIconPath": "images/tab/account-outline.png"
-      },
-      {
-        "pagePath": "pages/canvas/canvas",
-        "text": "canvas",
-        "iconPath": "images/tab/account.png",
-        "selectedIconPath": "images/tab/account-outline.png"
-      }
-    ]
-  },
   "networkTimeout": {
     "request": 10000,
     "downloadFile": 10000
