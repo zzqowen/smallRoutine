@@ -1,2 +1,6 @@
 <!--pages/question/question.wxml-->
-<text>pages/question/question.wxml</text>
+<view class='body'>
+  <view class='header'>
+   <canvas class='my_canvas' canvas-id='my_canvas_time' style="width: {{canvasWidth}}px; height: {{canvasWidth}}px"></canvas>
+  </view>
+</view>

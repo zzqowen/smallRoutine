@@ -1,3 +1,4 @@
+var time = null;
 App({
     globalData:{
         g_isPlayingMusic:false,
@@ -61,4 +62,44 @@ App({
       ctx.draw()
       ctx.restore();
     },
+
+    countDown: function (id, circleSize, lineWidth){
+      var ctx = wx.createCanvasContext(id);
+      var num = 0;
+      time = setInterval(function () {
+        ctx.clearRect(0, 0, 2*circleSize, 2*circleSize);
+        num++
+        if (num == 501) {
+          num = 1;
+        }
+
+        ctx.save();
+        ctx.translate(circleSize + (lineWidth+6)/2, circleSize + (lineWidth+6)/2);
+
+        ctx.beginPath();
+        ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
+        ctx.setStrokeStyle("black");
+        ctx.setLineWidth(lineWidth + 6);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.setFontSize(lineWidth + 8);
+        ctx.setTextAlign("center");
+        ctx.setTextBaseline("middle");
+        ctx.fillText(11 - Math.ceil(num / 50), 0, 0);
+        ctx.setFillStyle("red");
+
+        ctx.beginPath();
+        ctx.rotate(-90 * Math.PI / 180);
+        ctx.arc(0, 0, circleSize, 0, num * 0.72 * Math.PI / 180, true);
+        ctx.setStrokeStyle("red");
+        ctx.setLineWidth(lineWidth)
+        ctx.stroke();
+        ctx.draw();
+        ctx.restore();
+      }, 20);
+    },
+    clearTime: function(){
+      clearInterval(time);
+    }
 })

@@ -28,18 +28,6 @@ Page({
           app.ability("my_canvas", that.data.accountList, w, h, circleSize);
         }
       });
-
-      wx.getSetting({
-        success: (res) => {
-          console.log(res);
-          /*
-           * res.authSetting = {
-           *   "scope.userInfo": true,
-           *   "scope.userLocation": true
-           * }
-           */
-        }
-      })
     },
 
     continueTap: function(event){
@@ -54,20 +42,19 @@ Page({
 
     saveTap: function(event){
         console.log(event);
-        wx.getImageInfo({
-          src: '../../images/avatar/1.png',
-          success: function (res) {
-            console.log(res.width)
-            console.log(res.height)
-            var path = res.path;
-            wx.saveImageToPhotosAlbum({
-              filePath: path,
-              success(res) {
-                console.log(res);
-              }
-            })
-          }
-        })
+      wx.canvasToTempFilePath({
+        quality: 1,
+        canvasId: 'my_canvas',
+        success: function (res) {
+          console.log(res.tempFilePath)
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(res) {
+              console.log(res);
+            }
+          })
+        }
+      })
     },
 
     onShareAppMessage: function (res) {

@@ -1,4 +1,5 @@
 // pages/question/question.js
+var app = getApp();
 Page({
 
   /**
@@ -12,14 +13,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        var w = res.windowWidth;
+        var h = res.windowHeight;
+        var data = that.data.accountList;
+        var circleSize = res.windowWidth / 10;
+        var lineWidth = 15;
+        that.setData({
+          windowHeight: res.windowHeight,
+          windowWidth: res.windowWidth,
+          canvasWidth: 2 * circleSize + lineWidth + 6
+        })
+        app.countDown("my_canvas_time", circleSize, lineWidth);
+      }
+    });    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
 
   /**
@@ -33,14 +49,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    app.clearTime();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    app.clearTime();
   },
 
   /**
