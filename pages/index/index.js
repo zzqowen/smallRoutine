@@ -34,9 +34,23 @@ Page({
     })
   },
 
-  phoneTap: function (event){
+  phoneTap: function(event){
     wx.navigateTo({
       url: '../phone/phone',
+    })
+  },
+
+  userInfoTap: function(event){
+    wx.navigateTo({
+      url: '../userInfo/userInfo',
+    })
+  },
+
+  settingTap: function(event){
+    wx.openSetting({
+      success: (res) => {
+         
+      }
     })
   },
 

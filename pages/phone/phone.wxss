@@ -1,1 +1,15 @@
 /* pages/phone/phone.wxss */
+input{
+  border: 1px solid #242424;
+  size: 14rpx;
+}
+.input_placeholder{
+  color: #ccc;
+  size: 12rpx;
+}
+.get_code{
+  border: 1px solid black;
+  border-radius: 5px;
+  size: 12rpx;
+  color: #242424;
+}

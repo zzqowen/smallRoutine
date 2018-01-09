@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    getCode: "获取验证码"
   },
 
   /**
@@ -20,6 +20,14 @@ Page({
    */
   onReady: function () {
   
+  },
+
+  getCodeTap: function(event){
+    console.log(event);
+  },
+
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
   },
 
   /**

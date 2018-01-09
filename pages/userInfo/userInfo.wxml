@@ -1,37 +1,24 @@
-<view class="container">
-  <view class="userInfo-top">
-      <view class="userInfo-name">
-        <text class="name">{{userInfo.nickName}}</text>
-        <text class="credit">信用积分{{'>'}}</text>
-      </view>
-      <image class="avatar" style="border-radius: 50%;" src="{{userInfo.avatarUrl}}"></image>
+<view class="body">
+  <view class='container'>
+       <block wx:for="{{accountList}}" wx:for-item="item" wx:for-index="idx">
+         <text class='name'>{{item.name}}</text>
+      </block>
+      <canvas class='my_canvas' canvas-id='my_canvas'></canvas>
   </view>
-  <view class="userInfo-info">
-    <view class="moto">
-      <text>0</text>
-      <text>关注</text>
+  <text class='text'>只懂得喝酒的酒鬼
+        有酒就喝，不懂社交
+        红的，白的，喝倒为止</text>
+
+  <view class='flex_container'>
+    <view class="flex_content">
+      <button open-type="share" class="friends" catchtap='Page.onShareAppMessage()'>分享好友</button>
     </view>
-    <view class="moto">
-      <text>0</text>
-      <text>回答</text>
-    </view>
-    <view class="moto">
-      <text>0</text>
-      <text>提问</text>
+    <view class="flex_content">
+      <button class="photo" catchtap='saveTap'>保存相册</button>
     </view>
   </view>
-  <view class="userInfo-bottom">
-    <block wx:for="{{accountList}}" wx:for-item="item" wx:for-index="idx">
-      <view class="flex-acount">
-        <text>{{item.name}}</text>
-        <image src="{{item.img}}"></image>
-      </view>
-    </block>
-  </view>
-  <view class="userInfo-url">
-    <image src="/images/avatar/wechat_62@2x.png"></image>
-    <text style="margin-right: 30rpx;">答尔文(daerwen)</text>
-    <image src="/images/avatar/weibo_62@2x.png"></image>
-    <text>答尔文(微博)</text>
+
+  <view class='continue' catchtap='continueTap'>
+    <text>继续挑战</text>
   </view>
 </view>
