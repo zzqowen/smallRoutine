@@ -128,10 +128,11 @@ App({
     },
     //打乱选项
     random: function(errData, rightData){
-      errData.push(rightData[0]);
-      errData.sort(function(){
+      var arr = errData;
+      arr[3] = rightData[0];
+      arr.sort(function(){
         return 0.5 - Math.random();
-      })
-      return errData;
+      });
+      return arr;
     }
 })

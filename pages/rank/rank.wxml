@@ -1,0 +1,24 @@
+<!--pages/rank/rank.wxml-->
+<view class='body'>
+  <view class='header flex_container'>
+    <block wx:for="{{tabs}}" wx:for-item="item" wx:for-index="idx">
+      <text id="{{idx}}" class="rank {{activeIndex == idx ? 'cur' : ''}}" catchtap='tabTap'>{{item}}</text>
+    </block>
+  </view>
+  <view class='content'>
+    <scroll-view class="friends_rank" wx:if="{{activeIndex == 0}}" scroll-y="true">
+        <view>
+            <block wx:for="{{rankList}}" wx:for-item="item" wx:for-index="idx">
+                <view class="friends_item" id='{{idx}}'>{{idx}}</view>
+            </block>
+        </view>
+    </scroll-view>
+    <scroll-view class="world_rank" wx:if="{{activeIndex == 1}}" scroll-y="true">
+        <view>
+            <block wx:for="{{rankList}}" wx:for-item="item" wx:for-index="idx">
+                <view class="world_item" id='{{idx}}'>{{idx}}</view>
+            </block>
+        </view>
+    </scroll-view>
+  </view>
+</view>

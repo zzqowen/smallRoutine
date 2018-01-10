@@ -14,7 +14,8 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.login({
-      success: function () {
+      success: function (res) {
+        console.log(res);
         wx.getUserInfo({
           success: function (res) {
             console.log(res);
@@ -27,6 +28,7 @@ Page({
     });
   },
 
+  //答题点击事件
   questionTap: function(event){
     console.log(5555);
     wx.navigateTo({
@@ -34,23 +36,33 @@ Page({
     })
   },
 
+  //绑定手机点击事件
   phoneTap: function(event){
     wx.navigateTo({
       url: '../phone/phone',
     })
   },
 
+  //个人信息点击事件
   userInfoTap: function(event){
     wx.navigateTo({
       url: '../userInfo/userInfo',
     })
   },
 
+  //设置点击事件
   settingTap: function(event){
     wx.openSetting({
       success: (res) => {
          
       }
+    })
+  },
+
+  //排行点击事件
+  rankTap: function(){
+    wx.navigateTo({
+      url: '../rank/rank',
     })
   },
 

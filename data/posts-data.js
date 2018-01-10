@@ -181,8 +181,22 @@
       "created_date": "",
       "category": 4
     }
-  ]
+  ];
+
+var rankList = [
+  { rank: 1, name: "离开家水电费垃圾筐水电费", score: 5555 },
+  { rank: 2, name: "阿里", score: 544 },
+  { rank: 3, name: "矮冬瓜", score: 511 },
+  { rank: 4, name: "阿斯蒂芬", score: 300 },
+  { rank: 5, name: "舒服点", score: 222 },
+  { rank: 6, name: "阿斯蒂芬防守打法", score: 100 },
+  { rank: 7, name: "得分", score: 40 },
+  { rank: 8, name: "动感", score: 20 },
+  { rank: 9, name: "刚", score: 5 },
+  {rank: 10, name: "啊是的噶", score: 1},
+]
 
 module.exports = {
     question: question,
+    rankList: rankList
 }

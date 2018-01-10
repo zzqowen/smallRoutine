@@ -10,7 +10,7 @@
         <view class = "list" catchtap='phoneTap'>绑定手机</view>
     </view>
     <view class="flex_column_container list_container">
-      <view class = "list">排行</view>
+      <view class = "list" catchtap='rankTap'>排行</view>
       <view class = "list">奖品</view>
       <view class = "list" catchtap='settingTap'>设置</view>
     </view>

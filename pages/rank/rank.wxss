@@ -1,0 +1,32 @@
+/* pages/rank/rank.wxss */
+.header{
+  width: 100%;
+  text-align: center;
+}
+.rank{
+  flex: 1;
+  size: 14rpx;
+}
+.cur{
+  color: red;
+  border-bottom: 1px solid violet;
+}
+.content{
+  position: relative;
+  top: 20rpx;
+}
+.content scroll-view{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 400rpx;
+  border: 1px solid black;
+}
+.friends_item{
+  height: 150rpx;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
