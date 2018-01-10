@@ -1,392 +1,188 @@
-var local_database = {
-  "msg": "成功",
-  "pages": 1,
-  "count_total": 303,
-  "data": [
+
+  var question = [
     {
-      "expert": "",
-      "expiredate": "",
-      "msgUid": "",
-      "title": "",
-      "startdate": "",
-      "content": "央视网消息：“我的执政理念，概括起来说就是：为人民服务，担当起该担当的责任。”2014年，黑海之滨的索契，习近平回答俄罗斯电视台记者的提问。这是中国共产党最高领导人对祖国、对人民的深情告白。2012年11月15日，刚刚当选为中共中央总书记的习近平庄严宣示：“人民对美好生活的向往，就是我们的奋斗目标。”　念兹在兹，五年来，中国大地书写着立党为公、执政为民的新时期“赶考”答卷。一系列顶层设计、一项项改革举措，无不紧紧围绕“人民”二字。",
-      "parentid": -1,
-      "isquestion": 0,
-      "checktype": 0,
-      "top": 0,
-      "price": 10,
-      "funded": "",
-      "audiofiles": "",
-      "photofiles": [
-        {
-          "src": "/static/upload/20171011/20171011150413964.jpg",
-          "srcMin": "/static/upload/20171011/20171011150413964_min.jpg"
-        },
-        {
-          "src": "/static/upload/20171011/20171011150413711.jpg",
-          "srcMin": "/static/upload/20171011/20171011150413711_min.jpg"
-        }
+      "type": "问题一",
+      "content": "洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色。洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色",
+      "correct": [
+        "漂白水",
+        "50%的盐水",
+        "醋"
       ],
-      "id": 4830,
-      "createDate": 1507705491000,
-      "authorMap": {
-        "id": 1380988,
-        "fromtype": "phone",
-        "username": "15011827074",
-        "avatar": "/static/upload/20171009/20171009154718899.jpg",
-        "displayname": "天天向上2",
-        "channel": "1",
-        "logindate": 1507705225000,
-        "gender": 0,
-        "language": null,
-        "country": null,
-        "provice": null,
-        "city": null,
-        "openid": null,
-        "qqOpenId": null,
-        "xlOpenId": null,
-        "accounttype": 0,
-        "credit": 5409.9,
-        "score": 2061,
-        "rating": null,
-        "interests": null,
-        "grabnum": null,
-        "createTime": 1505382064000,
-        "updateTime": 1507705491000,
-        "param1": null,
-        "param2": null,
-        "param3": null,
-        "param4": null,
-        "param5": null,
-        "mobile": "15011827074",
-        "password": "123456",
-        "autograph": "我是一直小鸭子呀，咿呀咿呀呦，呱呱。。。。。",
-        "registrationId": "171976fa8a84aeeb39f",
-        "token": "CDaDa/gO1X538tOS5Aaoe8+epIt3Qff2PQpnVLvzKk+ky6c4wmKG5mx5hmAE0mn6Y/sbQ2qxV+qrA8tg3NHvU35qIwWa2eEJ"
-      },
-      "comments": "",
-      "peekCount": 0,
-      "author": "1380988",
-      "commentCount": "",
-      "expire": "",
-      "anonymous": 0,
-      "lastupdated": 1507705491000,
-      "category": "1",
-      "status": 0
-    },
-    {
-      "expert": "",
-      "expiredate": "",
-      "msgUid": "",
-      "title": "",
-      "startdate": "",
-      "content": "摸摸头像了？",
-      "parentid": -1,
-      "isquestion": 0,
-      "checktype": 0,
-      "top": 0,
-      "price": 10,
-      "funded": "",
-      "audiofiles": "",
-      "photofiles": [],
-      "id": 4829,
-      "createDate": 1507705421000,
-      "authorMap": {
-        "id": 1380988,
-        "fromtype": "phone",
-        "username": "15011827074",
-        "avatar": "/static/upload/20171009/20171009154718899.jpg",
-        "displayname": "天天向上2",
-        "channel": "1",
-        "logindate": 1507705225000,
-        "gender": 0,
-        "language": null,
-        "country": null,
-        "provice": null,
-        "city": null,
-        "openid": null,
-        "qqOpenId": null,
-        "xlOpenId": null,
-        "accounttype": 0,
-        "credit": 5409.9,
-        "score": 2061,
-        "rating": null,
-        "interests": null,
-        "grabnum": null,
-        "createTime": 1505382064000,
-        "updateTime": 1507705491000,
-        "param1": null,
-        "param2": null,
-        "param3": null,
-        "param4": null,
-        "param5": null,
-        "mobile": "15011827074",
-        "password": "123456",
-        "autograph": "我是一直小鸭子呀，咿呀咿呀呦，呱呱。。。。。",
-        "registrationId": "171976fa8a84aeeb39f",
-        "token": "CDaDa/gO1X538tOS5Aaoe8+epIt3Qff2PQpnVLvzKk+ky6c4wmKG5mx5hmAE0mn6Y/sbQ2qxV+qrA8tg3NHvU35qIwWa2eEJ"
-      },
-      "comments": "",
-      "peekCount": 0,
-      "author": "1380988",
-      "commentCount": "",
-      "expire": "",
-      "anonymous": 0,
-      "lastupdated": 1507705421000,
-      "category": "1",
-      "status": 0
+      "ans": [
+        "5%的盐水"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 1
+    }, {
+      "type": "问题二",
+      "content": "方便面里必然有哪种食品添加剂",
+      "correct": [
+        "防腐剂",
+        "食用色素",
+        "漂白剂"
+      ],
+      "ans": [
+        "合成抗氧化剂"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 1
+    }, {
+      "type": "问题三",
+      "content": "新文化运动中，首先提出“德先生”、“赛先生”口号的是:_____",
+      "correct": [
+        "胡适",
+        "李大钊  ",
+        "鲁迅"
+      ],
+      "ans": [
+        "陈独秀"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 1
+    }, {
+      "type": "问题四",
+      "content": "白洋淀派”的创始人是____",
+      "correct": [
+        "赵树理",
+        "许地山 ",
+        "周立波"
+      ],
+      "ans": [
+        "孙犁"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 2
+    }, {
+      "type": "问题五",
+      "content": "柴可夫斯基的歌剧作品是____",
+      "correct": [
+        "《胡桃夹子》",
+        "《天鹅湖》",
+        "《睡美人》"
+      ],
+      "ans": [
+        "《叶甫盖尼•奥涅金》"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 2
+    }, {
+      "type": "问题六",
+      "content": "电影《重庆森林》的导演是？",
+      "correct": [
+        "李安",
+        "徐克",
+        "张艺谋"
+      ],
+      "ans": [
+        "王家卫"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 2
+    }, {
+      "type": "问题七",
+      "content": "有8个篮球队参加单淘汰赛 共有几场比赛",
+      "correct": [
+        "8",
+        "6",
+        "5"
+      ],
+      "ans": [
+        "7"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 3
+    }, {
+      "type": "问题八",
+      "content": "下累不是地图三要素的是",
+      "correct": [
+        "比例尺",
+        "方向",
+        "图例和注记"
+      ],
+      "ans": [
+        "颜色"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 3
+    }, {
+      "type": "问题九",
+      "content": "哪位名人的航海切身证实了地球是圆的这一理论。",
+      "correct": [
+        "郑和",
+        "哥伦布",
+        "巴尔托洛梅乌·迪亚斯"
+      ],
+      "ans": [
+        "麦哲伦"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 3
+    }, {
+      "type": "问题十",
+      "content": "“文章合为时而著，歌诗合为事而作”是由谁提出的（   ）。",
+      "correct": [
+        "周敦颐",
+        "刘禹锡",
+        "柳宗元"
+      ],
+      "ans": [
+        "白居易"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 4
+    }, {
+      "type": "问题一",
+      "content": "洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色。洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色",
+      "correct": [
+        "漂白水",
+        "50%的盐水",
+        "醋"
+      ],
+      "ans": [
+        "5%的盐水"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 4
+    }, {
+      "type": "问题二",
+      "content": "方便面里必然有哪种食品添加剂",
+      "correct": [
+        "防腐剂",
+        "食用色素",
+        "漂白剂"
+      ],
+      "ans": [
+        "合成抗氧化剂"
+      ],
+      "multi": false,
+      "picture": [],
+      "created_date": "",
+      "category": 4
     }
-  ],
-  "count": 2,
-  "status": "OK"
-}
+  ]
 
-var post_detail = {
-  "msg": "成功",
-  "data": {
-    "expert": "1381018",
-    "expiredate": "",
-    "msgUid": "",
-    "title": "",
-    "startdate": "",
-    "content": "注意！常被误诊颈椎病或肩周炎这个病的诊断并不困难，简单来说，要查体，找到肩胛提肌和它附着点的压痛，再通过影像检查排除器质性病变即可。遗憾的是，现行的医疗体系，包括我们的医学教育体系，都忽视了这个病。阮祥才说，在浩如烟海的医学资料里面，提及这个病的文献屈指可数。这屈指可数的文献都存在着语焉不详、认识模糊的缺陷，至于发病情况和机制，就更不清楚了。事实上，这个病的误诊极为普遍，大多会被当作颈椎病或肩周炎，漏诊也很常见，治疗效果自然很差。打一针肉毒素，肩痛好了六成如果这个病诊断清楚了，预后就很好。赵小姐选择在肩胛角打了一针，便消除了六成的难受感觉。隔了两天，她又做了肉毒毒素注射，便很快恢复了正常生活和工作，再也不用抬着手睡觉了。阮祥才表示，对于口服药物和单纯的物理治疗肩胛提肌综合症，很多人反映效果不是很好，但因为很方便，成本也低，还是值得先尝试。",
-    "parentid": -1,
-    "isquestion": 0,
-    "checktype": 0,
-    "top": 0,
-    "price": 50,
-    "funded": "",
-    "audiofiles": [],
-    "photofiles": [
-      {
-        "src": "/static/upload/20171011/20171011094206834.jpg",
-        "srcMin": "/static/upload/20171011/20171011094206834_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094206592.jpg",
-        "srcMin": "/static/upload/20171011/20171011094206592_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094206639.jpg",
-        "srcMin": "/static/upload/20171011/20171011094206639_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094206483.jpg",
-        "srcMin": "/static/upload/20171011/20171011094206483_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094206358.jpg",
-        "srcMin": "/static/upload/20171011/20171011094206358_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094207838.jpg",
-        "srcMin": "/static/upload/20171011/20171011094207838_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094207201.jpg",
-        "srcMin": "/static/upload/20171011/20171011094207201_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094207665.jpg",
-        "srcMin": "/static/upload/20171011/20171011094207665_min.jpg"
-      },
-      {
-        "src": "/static/upload/20171011/20171011094207893.jpg",
-        "srcMin": "/static/upload/20171011/20171011094207893_min.jpg"
-      }
-    ],
-    "id": 4791,
-    "createDate": 1507686184000,
-    "authorMap": {
-      "id": 1380988,
-      "fromtype": "phone",
-      "username": "15011827074",
-      "avatar": "/static/upload/20171009/20171009154718899.jpg",
-      "displayname": "天天向上2",
-      "channel": "1",
-      "logindate": 1507705225000,
-      "gender": 0,
-      "language": null,
-      "country": null,
-      "provice": null,
-      "city": null,
-      "openid": null,
-      "qqOpenId": null,
-      "xlOpenId": null,
-      "accounttype": 0,
-      "credit": 5409.9,
-      "score": 2061,
-      "rating": null,
-      "interests": null,
-      "grabnum": null,
-      "createTime": 1505382064000,
-      "updateTime": 1507705491000,
-      "param1": null,
-      "param2": null,
-      "param3": null,
-      "param4": null,
-      "param5": null,
-      "mobile": "15011827074",
-      "password": "123456",
-      "autograph": "我是一直小鸭子呀，咿呀咿呀呦，呱呱。。。。。",
-      "registrationId": "171976fa8a84aeeb39f",
-      "token": "CDaDa/gO1X538tOS5Aaoe8+epIt3Qff2PQpnVLvzKk+ky6c4wmKG5mx5hmAE0mn6Y/sbQ2qxV+qrA8tg3NHvU35qIwWa2eEJ"
-    },
-    "comments": "",
-    "peekCount": 0,
-    "author": "1380988",
-    "commentCount": "",
-    "expire": "",
-    "anonymous": 0,
-    "lastupdated": 1507701793000,
-    "category": "2",
-    "status": 1
-  },
-  "status": "OK"
-}
-
-var peekPost = {
-  "msg": "成功",
-  "pages": 1,
-  "count_total": 56,
-  "data": [
-    {
-      "expert": "1380998",
-      "expiredate": "",
-      "msgUid": "",
-      "peekType": 0,
-      "title": "",
-      "startdate": "",
-      "content": "2222",
-      "parentid": -1,
-      "isquestion": 0,
-      "checktype": 0,
-      "top": 0,
-      "price": 10,
-      "funded": "",
-      "audiofiles": [],
-      "photofiles": [],
-      "id": 4631,
-      "createDate": 1506665830000,
-      "authorMap": null,
-      "comments": "",
-      "peekCount": 1,
-      "author": "1381000",
-      "commentCount": "",
-      "expire": "",
-      "anonymous": 0,
-      "lastupdated": 1506668790000,
-      "category": "1",
-      "status": 4
-    },
-    {
-      "expert": "",
-      "expiredate": "",
-      "msgUid": "",
-      "peekType": 0,
-      "title": "",
-      "startdate": "",
-      "content": "1122",
-      "parentid": -1,
-      "isquestion": 0,
-      "checktype": 0,
-      "top": 0,
-      "price": 10,
-      "funded": "",
-      "audiofiles": [],
-      "photofiles": [],
-      "id": 4630,
-      "createDate": 1506664413000,
-      "authorMap": null,
-      "comments": "",
-      "peekCount": 1,
-      "author": "1381000",
-      "commentCount": "",
-      "expire": "",
-      "anonymous": 0,
-      "lastupdated": 1506664413000,
-      "category": "0",
-      "status": 4
-    }
-  ],
-  "count": 2,
-  "status": "OK"
-}
-
-var peekDetail = {
-  "msg": "成功",
-  "pages": 1,
-  "count_total": 2,
-  "data": [
-    {
-      "expert": "",
-      "expiredate": "",
-      "msgUid": "",
-      "title": "",
-      "startdate": "",
-      "content": "其实关注一下最近的英雄排行榜单就可以发现，单排而言，自己能够拿到好的carry位英雄与队友配合是非常好上分的，这里我只推荐一个比较常用的英雄—芈月，自从芈月重做后一直是强势的万金油，即使最近被削弱了还是法师上分首选之一，瑞然偷龙能力被削弱，但是凭借超强续航游走能力，依然是上单和中单让人头疼的英雄，如果你主玩法师，应该对她不陌生，那么可以尝试多用下她，十分好带节奏。 上分技巧还是跟自己对英雄的熟练度有关，对技能的CD、伤害数值与控制效果的把控越精道，就越能够占据优势，同时现在小学生还在放假，单排可能还是要谨慎哦",
-      "parentid": 3346,
-      "isquestion": 1,
-      "checktype": 0,
-      "top": 0,
-      "price": "",
-      "funded": "",
-      "audiofiles": [],
-      "photofiles": [],
-      "id": 3454,
-      "createDate": 1504203172000,
-      "authorMap": {
-        "id": 1379885,
-        "fromtype": "yy",
-        "username": "1379885@darwin.com",
-        "avatar": "https://svc.aihuawen.com/file/s_1504087163944_e6af9a80-8d69-11e7-9aee-d9ec648bb387.jpg",
-        "displayname": "偷吃的猫",
-        "channel": null,
-        "logindate": null,
-        "gender": null,
-        "language": null,
-        "country": null,
-        "provice": null,
-        "city": null,
-        "openid": null,
-        "qqOpenId": null,
-        "xlOpenId": null,
-        "accounttype": 8,
-        "credit": 97,
-        "score": 2045,
-        "rating": "0",
-        "interests": null,
-        "grabnum": null,
-        "createTime": 1505360921000,
-        "updateTime": null,
-        "param1": null,
-        "param2": null,
-        "param3": null,
-        "param4": null,
-        "param5": null,
-        "mobile": "",
-        "password": "138088",
-        "autograph": null,
-        "registrationId": null,
-        "token": null
-      },
-      "comments": "[]",
-      "peekCount": 0,
-      "author": "1379885",
-      "commentCount": "",
-      "expire": "",
-      "anonymous": 0,
-      "lastupdated": "",
-      "category": "0",
-      "status": 0
-    }
-  ],
-  "count": 1,
-  "status": "OK"
-}
 module.exports = {
-    postList: local_database,
-    postDetail: post_detail,
-    peekPost: peekPost,
-    peekDetail: peekDetail
+    question: question,
 }

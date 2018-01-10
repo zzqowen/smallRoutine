@@ -1,6 +1,16 @@
 <!--pages/question/question.wxml-->
-<view class='body'>
-  <view class='header'>
+<view class='body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
+  <view class='header' style='height: {{canvasWidth}}px'>
    <canvas class='my_canvas' canvas-id='my_canvas_time' style="width: {{canvasWidth}}px; height: {{canvasWidth}}px"></canvas>
+  </view>
+  <view class='question'>
+    <text>{{idx + 1}}、{{questionData.content}}</text>
+  </view>
+  <view class="answer">
+    <block wx:for="{{answerData}}" wx:for-item="item" wx:for-index="idx">
+      <view class='content'>
+        <text catchtap='answerTap' data-item="{{item}}">{{item}}</text>
+      </view>
+    </block>
   </view>
 </view>

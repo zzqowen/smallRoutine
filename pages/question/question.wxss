@@ -10,3 +10,19 @@
   top: 0;
   transform: translate(-50%, 0);
 }
+.question{
+  text-align: center;
+}
+.answer{
+  text-align: center;
+}
+.content text{
+  display: inline-block;
+  width: 400rpx;
+  height: 100rpx;
+  border-radius: 5rpx;
+  background: #ccc;
+  color: white;
+  line-height: 100rpx;
+  margin-top: 20rpx;
+}

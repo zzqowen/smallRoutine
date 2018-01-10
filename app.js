@@ -82,7 +82,7 @@ App({
       ctx.restore();
     },
 
-    countDown: function (id, circleSize, lineWidth){
+    countDown: function (id, circleSize, lineWidth, callBack){
       var ctx = wx.createCanvasContext(id);
       var num = 0;
       time = setInterval(function () {
@@ -116,9 +116,22 @@ App({
         ctx.stroke();
         ctx.draw();
         ctx.restore();
+
+        if (num == 500){
+          clearInterval(time);
+          callBack(); 
+        }
       }, 20);
     },
     clearTime: function(){
       clearInterval(time);
+    },
+    //打乱选项
+    random: function(errData, rightData){
+      errData.push(rightData[0]);
+      errData.sort(function(){
+        return 0.5 - Math.random();
+      })
+      return errData;
     }
 })
