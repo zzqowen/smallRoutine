@@ -194,9 +194,19 @@ var rankList = [
   { rank: 8, name: "动感", score: 20 },
   { rank: 9, name: "刚", score: 5 },
   {rank: 10, name: "啊是的噶", score: 1},
-]
+];
+
+var resultInfo = [
+  ["惹事", "折腾"],
+  ["吐", "睡觉"],
+  ["吹牛逼", "胆量大"],
+  ["K歌之王", "品味差"],
+  ["记忆差", "不服人,只服墙"],
+  ["躺马路", "力量大"]
+];
 
 module.exports = {
     question: question,
-    rankList: rankList
+    rankList: rankList,
+    resultInfo: resultInfo
 }

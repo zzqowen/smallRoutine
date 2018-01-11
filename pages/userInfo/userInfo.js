@@ -11,24 +11,33 @@ Page({
       userInfo: null
     },
 
-    onLoad: function(){
+    onLoad: function(option){
       var that = this;
+      var userInfo;
+      if (option.userInfo != null){
+        userInfo = JSON.parse(option.userInfo);
+      }
       wx.getSystemInfo({
         success: function (res) {
           var data = that.data.accountList;
           var circleSize = res.windowWidth / 3;
           var fontSize = 85 * circleSize/750;
-          var distance = 8;
+          var distance = 8;//文字离图的距离
           that.setData({
+            userInfo: userInfo,
             windowHeight: res.windowHeight,
             windowWidth: res.windowWidth,
+            circleSize : res.windowWidth / 3,
             canvasWidth: circleSize * 2 + 4 * fontSize + 2 * distance,
             canvasHeight: circleSize * 2 + 2 * fontSize + 2 * distance
           })
-
-          app.ability("my_canvas", that.data.accountList, circleSize, fontSize, distance);
+          app.ability("my_canvas", that.data.accountList, circleSize, fontSize, distance, that.data.userInfo);
         }
       });
+    },
+
+    imgLoad: function(re){
+      console.log(re)
     },
 
     continueTap: function(event){
@@ -42,7 +51,7 @@ Page({
     },
 
     saveTap: function(event){
-        console.log(event);
+      console.log(event);
       wx.canvasToTempFilePath({
         quality: 1,
         canvasId: 'my_canvas',

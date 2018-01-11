@@ -1,5 +1,5 @@
 <!--pages/question/question.wxml-->
-<view class='body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
+<view wx:if="{{false}}" class='body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
   <view class='header' style='height: {{canvasWidth}}px'>
    <canvas class='my_canvas' canvas-id='my_canvas_time' style="width: {{canvasWidth}}px; height: {{canvasWidth}}px"></canvas>
   </view>
@@ -13,4 +13,6 @@
       </view>
     </block>
   </view>
+  
 </view>
+<canvas canvas-id='result_question' style='width:{{3*canvasWidth}}px; height:{{3*canvasWidth}}px'></canvas>

@@ -14,18 +14,29 @@ Page({
    * 页面的初始数据
    */
   data: {
+      resultInfo: postsData.resultInfo,
       idx: index,
       questionList: postsData.question,//所有的问题和答案
       questionData: postsData.question[index],//某一个的问题和答案
-      answerData: app.random(postsData.question[index].correct, postsData.question[index].ans),//答案
+      answerData: app.random(postsData.question[index].correct,                    postsData.question[index].ans),//答案
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var userInfo;
+    if (options.userInfo != null){
+        userInfo = options.userInfo;
+    }
     index = 0;
     that = this;
+
+    wx.getUserInfo({
+      success: function(res1){
+        
+    
+
     wx.getSystemInfo({
       success: function (res) {
         var w = res.windowWidth;
@@ -33,13 +44,19 @@ Page({
         circleSize = res.windowWidth / 10;
         lineWidth = 15;
         that.setData({
+          userInfo: userInfo,
           windowHeight: res.windowHeight,
           windowWidth: res.windowWidth,
           canvasWidth: 2 * circleSize + lineWidth + 6
         })
-        app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack)
+        app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
+        app.resultQuestion("result_question", that.resultRandom([2, 3, 4], that.data.resultInfo), that.data.canvasWidth, res1.userInfo);
       }
-    });    
+    }); 
+    
+
+      }
+    })   
   },
 
   callBack: function(){
@@ -81,6 +98,31 @@ Page({
       }
       console.log(data);
       that.nextQuestion();
+  },
+
+  resultRandom: function (resultScore, resultInfo){
+      var mapAry = [];
+      var queNum = [3, 3, 4];
+      var result = [];
+      for (var j = 0; j < queNum.length; j++) {
+        var score = 1 - (resultScore[j] - 1) / queNum[j];
+        mapAry.push(score);
+        mapAry.push(0);
+      }
+      for (var i = 0; i < resultInfo.length; i++) {
+        if (i % 2 != 0) {
+          mapAry[i] = (mapAry[i - 1] + mapAry[(i + 1) % 6]) / 2;
+        }
+        var name = resultInfo[i][parseInt(Math.random() * 2)];
+        console.log(mapAry[i]);
+        result[i] = {
+          'name': name,
+          'score': mapAry[i]
+        };
+        console.log(result);
+      }
+      console.log(result);
+      return result;
   },
 
   /**

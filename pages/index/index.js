@@ -52,7 +52,7 @@ Page({
               })
         } else {
           wx.navigateTo({
-            url: '../question/question',
+            url: '../question/question?userInfo=' + JSON.stringify(that.data.userInfo),
           })
         }
       }
@@ -89,7 +89,7 @@ Page({
           })
         } else {
           wx.navigateTo({
-            url: '../userInfo/userInfo',
+            url: '../userInfo/userInfo?userInfo='+ JSON.stringify(that.data.userInfo),
           })
         }
       }

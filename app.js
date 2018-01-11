@@ -6,6 +6,19 @@ App({
         doubanBase: "https://api.douban.com",
     },
     onLaunch:function(){
+      // wx.getSystemInfo({
+      //   success: function (res) {
+      //     // check sdk version
+      //     console.log('SDKVersion:' + res.SDKVersion)
+      //     if (res.SDKVersion < '1.6.0') {
+      //       wx.showModal({
+      //         title: '提示',
+      //         showCancel: false,
+      //         content: '当前微信版本过低，无法使用某些功能，请升级到最新微信版本后重试。'
+      //       })
+      //     }
+      //   },
+      // })
       wx.getSetting({
         success(res) {
           if (!res.authSetting['scope.userInfo']) {
@@ -37,66 +50,150 @@ App({
         }
       })
     },
-    ability: function (id, arr, circleSize, fontSize, distance) {
+    ability: function (id, arr, circleSize, fontSize, distance, userInfo) {
       var ctx = wx.createCanvasContext(id);
-      ctx.save();
-      ctx.translate(circleSize + 2 * fontSize + distance, circleSize + fontSize + distance);
-      ctx.beginPath();
-      ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
-      ctx.setFillStyle("violet");
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(0, 0, circleSize * 3 / 4, 0, 2 * Math.PI);
-      ctx.setFillStyle("blue");
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(0, 0, circleSize / 2, 0, 2 * Math.PI);
-      ctx.setFillStyle("green");
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(0, 0, circleSize / 4, 0, 2 * Math.PI);
-      ctx.setFillStyle("yellow");
-      ctx.fill();
+      wx.downloadFile({
+        url: userInfo.avatarUrl,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            ctx.translate(circleSize + 2 * fontSize + distance, circleSize + fontSize + distance);
+            ctx.beginPath();
+            ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
+            ctx.setFillStyle("violet");
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(0, 0, circleSize * 3 / 4, 0, 2 * Math.PI);
+            ctx.setFillStyle("blue");
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(0, 0, circleSize / 2, 0, 2 * Math.PI);
+            ctx.setFillStyle("green");
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(0, 0, circleSize / 4, 0, 2 * Math.PI);
+            ctx.setFillStyle("yellow");
+            ctx.fill();
 
-      ctx.beginPath();
-      ctx.moveTo(0, -(arr[0].size * circleSize / 4));
-      ctx.lineTo((arr[1].size * circleSize / 4), 0);
-      ctx.lineTo(0, (arr[2].size * circleSize / 4));
-      ctx.lineTo(-(arr[3].size * circleSize / 4), 0);
-      ctx.setStrokeStyle("red");
-      ctx.closePath();
-      ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, -(arr[0].size * circleSize / 4));
+            ctx.lineTo((arr[1].size * circleSize / 4), 0);
+            ctx.lineTo(0, (arr[2].size * circleSize / 4));
+            ctx.lineTo(-(arr[3].size * circleSize / 4), 0);
+            ctx.setStrokeStyle("red");
+            ctx.closePath();
+            ctx.stroke();
 
-      ctx.beginPath();
-      ctx.moveTo(-circleSize, 0);
-      ctx.lineTo(circleSize, 0);
-      ctx.setStrokeStyle("white");
-      ctx.moveTo(0, -circleSize);
-      ctx.lineTo(0, circleSize);
-      ctx.setStrokeStyle("white");
-      ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(-circleSize, 0);
+            ctx.lineTo(circleSize, 0);
+            ctx.setStrokeStyle("white");
+            ctx.moveTo(0, -circleSize);
+            ctx.lineTo(0, circleSize);
+            ctx.setStrokeStyle("white");
+            ctx.stroke();
 
-      ctx.beginPath();
-      ctx.setFontSize(fontSize);
-      ctx.setFillStyle("black");
-      ctx.setTextAlign("center");
-      ctx.setTextBaseline("bottom");
-      ctx.fillText(arr[0].name, 0, -circleSize - (distance - 3));
-      
-      ctx.setTextAlign("left");
-      ctx.setTextBaseline("middle");
-      ctx.fillText(arr[1].name, circleSize + (distance - 3), 0);
+            ctx.beginPath();
+            ctx.setFontSize(fontSize);
+            ctx.setFillStyle("black");
+            ctx.setTextAlign("center");
+            ctx.setTextBaseline("bottom");
+            ctx.fillText(arr[0].name, 0, -circleSize - (distance - 3));
 
-      ctx.setTextAlign("center");
-      ctx.setTextBaseline("top");
-      ctx.fillText(arr[2].name, 0, circleSize + (distance - 3));
+            ctx.setTextAlign("left");
+            ctx.setTextBaseline("middle");
+            ctx.fillText(arr[1].name, circleSize + (distance - 3), 0);
 
-      ctx.setTextAlign("right");
-      ctx.setTextBaseline("middle");
-      ctx.fillText(arr[3].name, -circleSize - (distance - 3), 0);
+            ctx.setTextAlign("center");
+            ctx.setTextBaseline("top");
+            ctx.fillText(arr[2].name, 0, circleSize + (distance - 3));
 
-      ctx.draw()
-      ctx.restore();
+            ctx.setTextAlign("right");
+            ctx.setTextBaseline("middle");
+            ctx.fillText(arr[3].name, -circleSize - (distance - 3), 0);
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(0, 0, circleSize/4, 0, 2 * Math.PI);
+            ctx.clip();
+            ctx.drawImage(res.tempFilePath, -circleSize / 4, -circleSize / 4, circleSize / 2, circleSize/2);
+            ctx.restore();
+            ctx.draw();
+          }
+        }
+      })
+    },
+
+    resultQuestion: function (id, arr, circleSize, userInfo){
+      var ctx = wx.createCanvasContext(id);
+      console.log(arr)
+      var r = circleSize;
+      wx.downloadFile({
+        url: userInfo.avatarUrl,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            ctx.save();
+            ctx.translate(circleSize+50, circleSize+20);
+
+            for (var i = 1; i<= 3; i++){
+              ctx.beginPath();
+              ctx.moveTo(r*i/3, 0);
+              ctx.lineTo(r * i / 3 / 2, r * i / 3 * Math.sin(60 * Math.PI / 180));
+              ctx.lineTo(-r * i / 3 / 2, r * i / 3 * Math.sin(60 * Math.PI / 180));
+              ctx.lineTo(-r * i / 3, 0);
+              ctx.lineTo(-r * i / 3 / 2, -r * i / 3 * Math.sin(60 * Math.PI / 180));
+              ctx.lineTo(r * i / 3 / 2, -r * i / 3 * Math.sin(60 * Math.PI / 180));
+              ctx.closePath();
+              ctx.setStrokeStyle("black");
+              ctx.stroke();
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(r/3, 0);
+            ctx.lineTo(r, 0);
+
+            ctx.moveTo(r / 3/2, r/3 * Math.sin(60 * Math.PI / 180));
+            ctx.lineTo(r / 2, r * Math.sin(60 * Math.PI / 180));
+
+            ctx.moveTo(-r / 3/2, r/3 * Math.sin(60 * Math.PI / 180));
+            ctx.lineTo(-r / 2, r * Math.sin(60 * Math.PI / 180));
+
+            ctx.moveTo(-r/3, 0);
+            ctx.lineTo(-r, 0);
+
+            ctx.moveTo(-r /3/ 2, -r/3 * Math.sin(60 * Math.PI / 180));
+            ctx.lineTo(-r / 2, -r * Math.sin(60 * Math.PI / 180));
+
+            ctx.moveTo(r /3/ 2, -r/3 * Math.sin(60 * Math.PI / 180));
+            ctx.lineTo(r / 2, -r * Math.sin(60 * Math.PI / 180));
+            ctx.setStrokeStyle("black");
+            ctx.stroke();
+
+            //分数点
+            ctx.beginPath();
+            for (var j = 0; j< arr.length; j ++){
+              ctx.lineTo((r / 3 + (r * 2 / 3) * arr[j].score) * Math.cos(j * Math.PI / 3), (r / 3 + (r * 2 / 3) * arr[j].score) * Math.sin(j * Math.PI / 3));
+              ctx.setFontSize(14);
+              ctx.setFillStyle("red");
+              ctx.setTextAlign("center");
+              ctx.setTextBaseline("middle")
+              ctx.fillText(arr[j].name, (r+20) * Math.cos(j * Math.PI / 3), (r+20) * Math.sin(j * Math.PI / 3))
+            }
+            ctx.closePath();
+            ctx.setGlobalAlpha(0.2)
+            ctx.setFillStyle("blue");
+            ctx.fill();
+            
+            
+            ctx.save();
+            ctx.setGlobalAlpha(1)
+            ctx.arc(0, 0, r / 3, 0, 2 * Math.PI);
+            ctx.clip();
+            ctx.drawImage(res.tempFilePath, -r / 6, -r / 6, r / 3, r / 3);
+            ctx.restore();
+            ctx.draw();
+          }
+        }
+      })
     },
 
     countDown: function (id, circleSize, lineWidth, callBack){
