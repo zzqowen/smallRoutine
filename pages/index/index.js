@@ -1,4 +1,5 @@
 // pages/index/index.js
+var that;
 Page({
 
   /**
@@ -12,7 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
+    that = this;
     wx.login({
       success: function (res) {
         console.log(res);
@@ -30,9 +31,31 @@ Page({
 
   //答题点击事件
   questionTap: function(event){
-    console.log(5555);
-    wx.navigateTo({
-      url: '../question/question',
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+              wx.showModal({
+                title: '需要用户信息授权',
+                content: '',
+                success: function (res) {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                    wx.openSetting({
+                      success: (res) => {
+                        console.log(res);
+                      }
+                    });
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+        } else {
+          wx.navigateTo({
+            url: '../question/question',
+          })
+        }
+      }
     })
   },
 
@@ -45,8 +68,31 @@ Page({
 
   //个人信息点击事件
   userInfoTap: function(event){
-    wx.navigateTo({
-      url: '../userInfo/userInfo',
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.showModal({
+            title: '需要用户信息授权',
+            content: '',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+                wx.openSetting({
+                  success: (res) => {
+                    console.log(res);
+                  }
+                });
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        } else {
+          wx.navigateTo({
+            url: '../userInfo/userInfo',
+          })
+        }
+      }
     })
   },
 
@@ -61,8 +107,31 @@ Page({
 
   //排行点击事件
   rankTap: function(){
-    wx.navigateTo({
-      url: '../rank/rank',
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.showModal({
+            title: '需要用户信息授权',
+            content: '',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+                wx.openSetting({
+                  success: (res) => {
+                    console.log(res);
+                  }
+                });
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        } else {
+          wx.navigateTo({
+            url: '../rank/rank',
+          })
+        }
+      }
     })
   },
 
@@ -77,7 +146,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    wx.getUserInfo({
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          userInfo: res.userInfo
+        });
+      }
+    })
   },
 
   /**

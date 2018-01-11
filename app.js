@@ -6,19 +6,36 @@ App({
         doubanBase: "https://api.douban.com",
     },
     onLaunch:function(){
-      // wx.getSetting({
-      //   success(res){
-      //     console.log(res);
-      //   }
-      // });
-      // wx.openSetting({
-      //   success:function(res){ 
-      //      res.authSetting = {
-      //        "scope.userInfo": true,
-      //        "scope.userLocation": true
-      //     }
-      //   }
-      // })
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.userInfo']) {
+            wx.authorize({
+              scope: 'scope.userInfo',
+              success() {
+                console.log("已经同意获取用户信息")
+              },
+              fail(){
+                wx.showModal({
+                  title: '设置用户信息授权',
+                  content: '',
+                  success: function (res) {
+                    if (res.confirm) {
+                      console.log('用户点击确定')
+                      wx.openSetting({
+                        success: (res) => {
+                          console.log(res);
+                        }
+                      });
+                    } else if (res.cancel) {
+                      console.log('用户点击取消')
+                    }
+                  }
+                })
+              }
+            })
+          }
+        }
+      })
     },
     ability: function (id, arr, circleSize, fontSize, distance) {
       var ctx = wx.createCanvasContext(id);
