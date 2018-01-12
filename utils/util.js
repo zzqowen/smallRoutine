@@ -1,4 +1,4 @@
-var server = "http://101.132.134.233:8080";
+var server = "http://test.aihuawen.com";
 
 function convertToStarsArray(stars) {
   var num = stars.toString().substring(0, 1);
@@ -16,7 +16,7 @@ function convertToStarsArray(stars) {
 
 function http(url, callBack) {
   wx.request({
-    url: url,
+    url: server + url,
     method: 'GET',
     header: {
       "Content-Type": "json"

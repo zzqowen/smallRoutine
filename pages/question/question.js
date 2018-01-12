@@ -1,5 +1,6 @@
 // pages/question/question.js
 var postsData = require('../../data/posts-data.js');
+var util = require('../../utils/util.js');
 var app = getApp();
 var index = 0;
 var circleSize;
@@ -35,6 +36,11 @@ Page({
     }
     index = 0;
     that = this;
+
+    util.http("/qBank/getRandBankList?mid=1388505", function(data){
+      console.log(data);
+    })
+
         
     wx.getSystemInfo({
       success: function (res) {
