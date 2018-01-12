@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/question/question",
     "pages/index/index",
-    "pages/userInfo/userInfo",
     "pages/rank/rank",
+    "pages/question/question",
+    "pages/userInfo/userInfo",
     "pages/posts/post",
     "pages/posts/post-detail/post-detail",
     "pages/phone/phone"

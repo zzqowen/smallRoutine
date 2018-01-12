@@ -149,51 +149,21 @@
       "multi": false,
       "picture": [],
       "created_date": "",
-      "category": 4
-    }, {
-      "type": "问题一",
-      "content": "洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色。洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色洗有颜色的衣服时，先用_____浸泡10分钟，然后再洗，不容易掉色",
-      "correct": [
-        "漂白水",
-        "50%的盐水",
-        "醋"
-      ],
-      "ans": [
-        "5%的盐水"
-      ],
-      "multi": false,
-      "picture": [],
-      "created_date": "",
-      "category": 4
-    }, {
-      "type": "问题二",
-      "content": "方便面里必然有哪种食品添加剂",
-      "correct": [
-        "防腐剂",
-        "食用色素",
-        "漂白剂"
-      ],
-      "ans": [
-        "合成抗氧化剂"
-      ],
-      "multi": false,
-      "picture": [],
-      "created_date": "",
-      "category": 4
+      "category": 3
     }
   ];
 
 var rankList = [
-  { rank: 1, name: "离开家水电费垃圾筐水电费", score: 5555 },
-  { rank: 2, name: "阿里", score: 544 },
-  { rank: 3, name: "矮冬瓜", score: 511 },
-  { rank: 4, name: "阿斯蒂芬", score: 300 },
-  { rank: 5, name: "舒服点", score: 222 },
-  { rank: 6, name: "阿斯蒂芬防守打法", score: 100 },
-  { rank: 7, name: "得分", score: 40 },
-  { rank: 8, name: "动感", score: 20 },
-  { rank: 9, name: "刚", score: 5 },
-  {rank: 10, name: "啊是的噶", score: 1},
+  { rank: 1, name: "离开家水电费垃圾筐水电费", score: 50, grade: "酒仙", message:"加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png"},
+  { rank: 2, name: "阿里", score: 30, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png"},
+  { rank: 3, name: "矮冬瓜", score: 20, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },
+  { rank: 4, name: "阿斯蒂芬", score: 30, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },
+  { rank: 5, name: "舒服点", score: 52, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },
+  { rank: 6, name: "阿斯蒂芬防守打法", score: 50, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },
+  { rank: 7, name: "得分", score: 40, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png"},
+  { rank: 8, name: "动感", score: 20, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },
+  { rank: 9, name: "刚", score: 5, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },
+  { rank: 10, name: "啊是的噶", score: 1, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png"},
 ];
 
 var resultInfo = [
@@ -205,8 +175,68 @@ var resultInfo = [
   ["躺马路", "力量大"]
 ];
 
+var gradeInfo = [
+  {
+    "grade": "酒渣",
+    "text": [
+      "只要心里有酒，茶水也是甘霖",
+      "见过你喝酒的人，恐怕不存在",
+      "不会喝酒，前途没有"
+    ]
+  },
+  {
+    "grade": "酒腻子",
+    "text": [
+      "我没醉，我还可以喝"
+    ]
+  },
+  {
+    "grade": "酒徒",
+    "text": [
+      "半斤不当酒，一斤扶墙走"
+    ]
+  },
+  {
+    "grade": "酒鬼",
+    "text": [
+      "你甘为革命献肠胃，革命的小酒天天醉！",
+      "革命小酒天天醉，两腿一站，喝了不算。"
+    ]
+  },
+  {
+    "grade": "酒人",
+    "text": [
+      "酒量都是炼出来的，多喝几次也就海量了！",
+      "酒量不高怕丢愁，自我约束不喝酒！"
+    ]
+  },
+  {
+    "grade": "酒仙",
+    "text": [
+      "天蓝蓝，海蓝蓝，一杯一杯往下传",
+      "活着不喝酒，枉在世上走！",
+      "辣酒刷牙，啤酒当茶！"
+    ]
+  },
+  {
+    "grade": "酒神",
+    "text": [
+      "人在江湖走，哪能不喝酒",
+      "东风吹，战鼓擂，今天喝酒谁怕谁！"
+    ]
+  },
+  {
+    "grade": "酒圣",
+    "text": [
+      "天上无云地下旱，刚才那杯不能算！",
+      "一两二两漱漱口，三两四两不算酒"
+    ]
+  }
+];
+
 module.exports = {
     question: question,
     rankList: rankList,
-    resultInfo: resultInfo
+    resultInfo: resultInfo,
+    gradeInfo: gradeInfo
 }

@@ -26,3 +26,19 @@
   line-height: 100rpx;
   margin-top: 20rpx;
 }
+.grade{
+  text-align: center;
+}
+.grade text{
+  display: inline-block;
+  font-size: 100rpx;
+  color: blueviolet;
+}
+.text{
+  text-align: center;
+}
+.text text{
+  display: inline-block;
+  font-size: 50rpx;
+  color: #ccc;
+}

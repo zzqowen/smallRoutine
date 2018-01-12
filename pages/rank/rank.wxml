@@ -9,14 +9,46 @@
     <scroll-view class="friends_rank" wx:if="{{activeIndex == 0}}" scroll-y="true">
         <view>
             <block wx:for="{{rankList}}" wx:for-item="item" wx:for-index="idx">
-                <view class="friends_item" id='{{idx}}'>{{idx}}</view>
+                <view class="friends_item" id='{{item.rank}}'>
+                  <view class='flex_container' style='height: 100%;'>
+                      <view class='avatar_content flex_item_center' style='flex: 1;justify-content: flex-end'>
+                        <image class="avatar_img" src='{{item.avatar}}' ></image>
+                      </view>
+                      <view style='height: 100%;flex: 4;'>
+                        <view class='flex_item_center' style='height: 50%;border-bottom: 1px solid black;'>
+                          <text>{{item.name}}</text>
+                          <text>{{item.score}}</text>
+                        </view>
+                        <view class="flex_item_center" style='height: 50%'>
+                          <text>{{item.grade}}</text>
+                          <text>{{item.message}}</text>
+                        </view>
+                      </view>
+                  </view>
+                </view>
             </block>
         </view>
     </scroll-view>
     <scroll-view class="world_rank" wx:if="{{activeIndex == 1}}" scroll-y="true">
         <view>
             <block wx:for="{{rankList}}" wx:for-item="item" wx:for-index="idx">
-                <view class="world_item" id='{{idx}}'>{{idx}}</view>
+              <view class="friends_item" id='{{item.rank}}'>
+                  <view class='flex_container' style='height: 100%;'>
+                      <view class='avatar_content flex_item_center' style='flex: 1;justify-content: flex-end'>
+                        <image class="avatar_img" src='{{item.avatar}}' ></image>
+                      </view>
+                      <view style='height: 100%;flex: 4;'>
+                        <view class='flex_item_center' style='height: 50%;border-bottom: 1px solid black;'>
+                          <text>{{item.name}}</text>
+                          <text>{{item.score}}</text>
+                        </view>
+                        <view class="flex_item_center" style='height: 50%'>
+                          <text>{{item.grade}}</text>
+                          <text>{{item.message}}</text>
+                        </view>
+                      </view>
+                  </view>
+              </view>
             </block>
         </view>
     </scroll-view>

@@ -113,8 +113,11 @@ App({
 
             ctx.save();
             ctx.beginPath();
+            ctx.setGlobalAlpha(0);
             ctx.arc(0, 0, circleSize/4, 0, 2 * Math.PI);
+            ctx.stroke();
             ctx.clip();
+            ctx.setGlobalAlpha(1);
             ctx.drawImage(res.tempFilePath, -circleSize / 4, -circleSize / 4, circleSize / 2, circleSize/2);
             ctx.restore();
             ctx.draw();
@@ -123,74 +126,65 @@ App({
       })
     },
 
-    resultQuestion: function (id, arr, circleSize, userInfo){
+    resultQuestion: function (id, arr, circleSize, windowWidth, userInfo){
       var ctx = wx.createCanvasContext(id);
-      console.log(arr)
+      ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
       var r = circleSize;
       wx.downloadFile({
         url: userInfo.avatarUrl,
         success: function (res) {
+          console.log(res);
           if (res.statusCode === 200) {
-            ctx.save();
-            ctx.translate(circleSize+50, circleSize+20);
-
-            for (var i = 1; i<= 3; i++){
+            ctx.translate(windowWidth/2, circleSize*10/9);
+            for (var n = 1; n<= 3; n++){
+              //绘制六边形
               ctx.beginPath();
-              ctx.moveTo(r*i/3, 0);
-              ctx.lineTo(r * i / 3 / 2, r * i / 3 * Math.sin(60 * Math.PI / 180));
-              ctx.lineTo(-r * i / 3 / 2, r * i / 3 * Math.sin(60 * Math.PI / 180));
-              ctx.lineTo(-r * i / 3, 0);
-              ctx.lineTo(-r * i / 3 / 2, -r * i / 3 * Math.sin(60 * Math.PI / 180));
-              ctx.lineTo(r * i / 3 / 2, -r * i / 3 * Math.sin(60 * Math.PI / 180));
+              for(var m = 0; m<6; m++){
+                ctx.lineTo(r*n/3 * Math.cos(m *Math.PI/3), r*n/3 * Math.sin(m * Math.PI/3));
+              }
               ctx.closePath();
               ctx.setStrokeStyle("black");
               ctx.stroke();
             }
 
+            //绘制六条线
             ctx.beginPath();
-            ctx.moveTo(r/3, 0);
-            ctx.lineTo(r, 0);
-
-            ctx.moveTo(r / 3/2, r/3 * Math.sin(60 * Math.PI / 180));
-            ctx.lineTo(r / 2, r * Math.sin(60 * Math.PI / 180));
-
-            ctx.moveTo(-r / 3/2, r/3 * Math.sin(60 * Math.PI / 180));
-            ctx.lineTo(-r / 2, r * Math.sin(60 * Math.PI / 180));
-
-            ctx.moveTo(-r/3, 0);
-            ctx.lineTo(-r, 0);
-
-            ctx.moveTo(-r /3/ 2, -r/3 * Math.sin(60 * Math.PI / 180));
-            ctx.lineTo(-r / 2, -r * Math.sin(60 * Math.PI / 180));
-
-            ctx.moveTo(r /3/ 2, -r/3 * Math.sin(60 * Math.PI / 180));
-            ctx.lineTo(r / 2, -r * Math.sin(60 * Math.PI / 180));
+            for (var k = 0; k < 6; k++) {
+              ctx.moveTo(r / 3 * Math.cos(k * Math.PI / 3), r / 3 * Math.sin(k * Math.PI / 3));
+              ctx.lineTo(r * Math.cos(k * Math.PI / 3), r * Math.sin(k * Math.PI / 3));
+            }
             ctx.setStrokeStyle("black");
             ctx.stroke();
 
             //分数点
+            var dis;
             ctx.beginPath();
             for (var j = 0; j< arr.length; j ++){
               ctx.lineTo((r / 3 + (r * 2 / 3) * arr[j].score) * Math.cos(j * Math.PI / 3), (r / 3 + (r * 2 / 3) * arr[j].score) * Math.sin(j * Math.PI / 3));
-              ctx.setFontSize(14);
+              ctx.setFontSize(circleSize/9);
               ctx.setFillStyle("red");
               ctx.setTextAlign("center");
-              ctx.setTextBaseline("middle")
-              ctx.fillText(arr[j].name, (r+20) * Math.cos(j * Math.PI / 3), (r+20) * Math.sin(j * Math.PI / 3))
+              ctx.setTextBaseline("middle");
+              if (j == 0 || j == 3){
+                dis = arr[j].name.length / 2 * circleSize / 9 +2
+              } else {
+                dis = circleSize / 9;
+              }
+              ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3), (r + dis) * Math.sin(j * Math.PI / 3))
             }
             ctx.closePath();
             ctx.setGlobalAlpha(0.2)
             ctx.setFillStyle("blue");
             ctx.fill();
             
-            
-            ctx.save();
+            ctx.beginPath()
+            ctx.setGlobalAlpha(0)
+            ctx.arc(0, 0, r/6, 0, 2 * Math.PI)
+            ctx.stroke();
+            ctx.clip()
             ctx.setGlobalAlpha(1)
-            ctx.arc(0, 0, r / 3, 0, 2 * Math.PI);
-            ctx.clip();
-            ctx.drawImage(res.tempFilePath, -r / 6, -r / 6, r / 3, r / 3);
-            ctx.restore();
-            ctx.draw();
+            ctx.drawImage(res.tempFilePath, -r/6, -r/6,r/3, r/3)
+            ctx.draw()
           }
         }
       })
@@ -241,9 +235,8 @@ App({
       clearInterval(time);
     },
     //打乱选项
-    random: function(errData, rightData){
-      var arr = errData;
-      arr[3] = rightData[0];
+    random: function(arr){
+      console.log(arr);
       arr.sort(function(){
         return 0.5 - Math.random();
       });

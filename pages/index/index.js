@@ -1,5 +1,6 @@
 // pages/index/index.js
 var that;
+var ableTap = [true, true, true, true, true];
 Page({
 
   /**
@@ -31,108 +32,127 @@ Page({
 
   //答题点击事件
   questionTap: function(event){
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-              wx.showModal({
-                title: '需要用户信息授权',
-                content: '',
-                success: function (res) {
-                  if (res.confirm) {
-                    console.log('用户点击确定')
-                    wx.openSetting({
-                      success: (res) => {
-                        console.log(res);
-                      }
-                    });
-                  } else if (res.cancel) {
-                    console.log('用户点击取消')
-                  }
+    if (ableTap[0]){
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.userInfo']) {
+            wx.showModal({
+              title: '需要用户信息授权',
+              content: '',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                  wx.openSetting({
+                    success: (res) => {
+                      console.log(res);
+                    }
+                  });
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
                 }
-              })
-        } else {
-          wx.navigateTo({
-            url: '../question/question?userInfo=' + JSON.stringify(that.data.userInfo),
-          })
+              }
+            })
+          } else {
+            wx.navigateTo({
+              url: '../question/question?userInfo=' + JSON.stringify(that.data.userInfo),
+            })
+          }
         }
-      }
-    })
+      });
+      ableTap[0] = false;
+    }
+    
   },
 
   //绑定手机点击事件
   phoneTap: function(event){
-    wx.navigateTo({
-      url: '../phone/phone',
-    })
+    if (ableTap[4]){
+      wx.navigateTo({
+        url: '../phone/phone',
+      })
+      ableTap[4] = false;
+    } 
   },
 
   //个人信息点击事件
   userInfoTap: function(event){
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          wx.showModal({
-            title: '需要用户信息授权',
-            content: '',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-                wx.openSetting({
-                  success: (res) => {
-                    console.log(res);
-                  }
-                });
-              } else if (res.cancel) {
-                console.log('用户点击取消')
+    if (ableTap[1]){
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.userInfo']) {
+            wx.showModal({
+              title: '需要用户信息授权',
+              content: '',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                  wx.openSetting({
+                    success: (res) => {
+                      console.log(res);
+                    }
+                  });
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
               }
-            }
-          })
-        } else {
-          wx.navigateTo({
-            url: '../userInfo/userInfo?userInfo='+ JSON.stringify(that.data.userInfo),
-          })
+            })
+          } else {
+            wx.navigateTo({
+              url: '../userInfo/userInfo?userInfo=' + JSON.stringify(that.data.userInfo),
+            })
+          }
         }
-      }
-    })
+      });
+      ableTap[1] = false;
+    }
+    
   },
 
   //设置点击事件
   settingTap: function(event){
-    wx.openSetting({
-      success: (res) => {
-         
-      }
-    })
+    if (ableTap[3]){
+      wx.openSetting({
+        success: (res) => {
+
+        }
+      });
+      ableTap[3] = false;
+    }
+    
   },
 
   //排行点击事件
   rankTap: function(){
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          wx.showModal({
-            title: '需要用户信息授权',
-            content: '',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-                wx.openSetting({
-                  success: (res) => {
-                    console.log(res);
-                  }
-                });
-              } else if (res.cancel) {
-                console.log('用户点击取消')
+    if (ableTap[2]){
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.userInfo']) {
+            wx.showModal({
+              title: '需要用户信息授权',
+              content: '',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                  wx.openSetting({
+                    success: (res) => {
+                      console.log(res);
+                    }
+                  });
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
               }
-            }
-          })
-        } else {
-          wx.navigateTo({
-            url: '../rank/rank',
-          })
+            })
+          } else {
+            wx.navigateTo({
+              url: '../rank/rank',
+            })
+          }
         }
-      }
-    })
+      });
+      ableTap[2] = false;
+    }
+    
   },
 
   /**
@@ -153,7 +173,8 @@ Page({
           userInfo: res.userInfo
         });
       }
-    })
+    });
+    ableTap = [true, true, true, true, true];
   },
 
   /**

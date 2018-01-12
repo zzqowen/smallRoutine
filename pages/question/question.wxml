@@ -1,5 +1,5 @@
 <!--pages/question/question.wxml-->
-<view wx:if="{{false}}" class='body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
+<view wx:if="{{challengeStatus}}" class='question_body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
   <view class='header' style='height: {{canvasWidth}}px'>
    <canvas class='my_canvas' canvas-id='my_canvas_time' style="width: {{canvasWidth}}px; height: {{canvasWidth}}px"></canvas>
   </view>
@@ -13,6 +13,25 @@
       </view>
     </block>
   </view>
-  
 </view>
-<canvas canvas-id='result_question' style='width:{{3*canvasWidth}}px; height:{{3*canvasWidth}}px'></canvas>
+<view class="result_body" wx:if="{{challengeResult}}" style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
+  <view class='container'>
+    <canvas canvas-id='result_question' style='width:{{windowWidth}}px; height:{{2*canvasWidth + 20}}px'></canvas>
+  </view>
+  <view class="grade">
+    <text>{{grade}}</text>
+  </view>
+  <view class="text">
+    <text>{{text}}</text>
+  </view>
+  <view>
+    <button open-type="share" class="friends" catchtap='Page.onShareAppMessage()'>炫耀成绩</button>
+  </view>
+  <view>
+    <button catchtap='continueQuestion'>继续挑战</button>
+  </view>
+</view>
+<view class='waiting_animation' wx:if="{{waitingStatus}}">
+    <text style="font-size: 15px;">加载中</text>
+</view>
+
