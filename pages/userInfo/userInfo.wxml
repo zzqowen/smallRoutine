@@ -1,6 +1,7 @@
 <view class="body">
-  <view class='container' style="height: {{canvasHeight}}px">
-      <canvas class='my_canvas' canvas-id='my_canvas' style="width: {{canvasWidth}}px; height: {{canvasHeight}}px">
+  <view class='header_container' style="height: {{canvasHeight}}px">
+      <image class='header_bg' src='/images/question/header_bg.png'></image>
+      <canvas class='my_canvas' canvas-id='my_canvas' style="width: {{windowWidth}}px; height: {{canvasHeight}}px">
       </canvas>
   </view>
   <text class='text'>只懂得喝酒的酒鬼

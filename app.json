@@ -1,15 +1,15 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/userInfo/userInfo",
     "pages/rank/rank",
     "pages/question/question",
-    "pages/userInfo/userInfo",
     "pages/posts/post",
     "pages/posts/post-detail/post-detail",
     "pages/phone/phone"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#000000",
+    "navigationBarBackgroundColor": "#ed6f9d",
     "navigationBarTitleText": "答尔文"
   },
   "networkTimeout": {

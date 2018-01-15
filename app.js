@@ -126,7 +126,7 @@ App({
       })
     },
 
-    resultQuestion: function (id, arr, circleSize, windowWidth, userInfo){
+    resultQuestion: function (id, arr, circleSize, windowWidth, userInfo, angle){
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
       var r = circleSize;
@@ -139,30 +139,33 @@ App({
             for (var n = 1; n<= 3; n++){
               //绘制六边形
               ctx.beginPath();
+              if (n == 2){
+                n = 0;
+              }
               for(var m = 0; m<6; m++){
-                ctx.lineTo(r*n/3 * Math.cos(m *Math.PI/3), r*n/3 * Math.sin(m * Math.PI/3));
+                ctx.lineTo((r *(6-n) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6-n) / 6) * Math.sin(m * Math.PI/3 + angle));
               }
               ctx.closePath();
-              ctx.setStrokeStyle("black");
+              ctx.setStrokeStyle("white");
               ctx.stroke();
             }
 
             //绘制六条线
             ctx.beginPath();
             for (var k = 0; k < 6; k++) {
-              ctx.moveTo(r / 3 * Math.cos(k * Math.PI / 3), r / 3 * Math.sin(k * Math.PI / 3));
-              ctx.lineTo(r * Math.cos(k * Math.PI / 3), r * Math.sin(k * Math.PI / 3));
+              ctx.moveTo(r / 2 * Math.cos(k * Math.PI / 3 + angle), r / 2 * Math.sin(k * Math.PI / 3 + angle));
+              ctx.lineTo(r * Math.cos(k * Math.PI / 3 + angle), r * Math.sin(k * Math.PI / 3 + angle));
             }
-            ctx.setStrokeStyle("black");
+            ctx.setStrokeStyle("white");
             ctx.stroke();
 
             //分数点
             var dis;
             ctx.beginPath();
             for (var j = 0; j< arr.length; j ++){
-              ctx.lineTo((r / 3 + (r * 2 / 3) * arr[j].score) * Math.cos(j * Math.PI / 3), (r / 3 + (r * 2 / 3) * arr[j].score) * Math.sin(j * Math.PI / 3));
+              ctx.lineTo((r / 3 + (r * 2 / 3) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 3 + (r * 2 / 3) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
               ctx.setFontSize(circleSize/9);
-              ctx.setFillStyle("red");
+              ctx.setFillStyle("white");
               ctx.setTextAlign("center");
               ctx.setTextBaseline("middle");
               if (j == 0 || j == 3){
@@ -170,11 +173,11 @@ App({
               } else {
                 dis = circleSize / 9;
               }
-              ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3), (r + dis) * Math.sin(j * Math.PI / 3))
+              ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
             }
             ctx.closePath();
-            ctx.setGlobalAlpha(0.2)
-            ctx.setFillStyle("blue");
+            ctx.setGlobalAlpha(0.8)
+            ctx.setFillStyle("#31b9e0");
             ctx.fill();
             
             ctx.beginPath()
@@ -236,7 +239,6 @@ App({
     },
     //打乱选项
     random: function(arr){
-      console.log(arr);
       arr.sort(function(){
         return 0.5 - Math.random();
       });

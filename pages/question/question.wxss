@@ -1,6 +1,17 @@
 /* pages/question/question.wxss */
 .header{
   display: block;
+  position: relative;
+  border-radius: 10rpx;
+  margin: 32rpx 22rpx 0;
+  height: 328rpx;
+}
+.header_bg{
+    width: 708rpx;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .my_canvas{
   border: 1px solid black;

@@ -1,4 +1,5 @@
 var server = "http://test.aihuawen.com";
+var wxServer = "https://api.weixin.qq.com";
 
 function convertToStarsArray(stars) {
   var num = stars.toString().substring(0, 1);
@@ -12,6 +13,38 @@ function convertToStarsArray(stars) {
     }
   }
   return array;
+}
+
+function wxHttp(url, callBack) {
+  wx.request({
+    url: wxServer + url,
+    method: 'GET',
+    header: {
+      "Content-Type": "json"
+    },
+    success: function (res) {
+      callBack(res.data);
+    },
+    fail: function (error) {
+      console.log(error)
+    }
+  })
+}
+
+function wxHttpPost(url, callBack) {
+  wx.request({
+    url: server + url,
+    method: 'POST',
+    header: {
+      "Content-Type": "json"
+    },
+    success: function (res) {
+      callBack(res.data);
+    },
+    fail: function (error) {
+      console.log(error)
+    }
+  })
 }
 
 function http(url, callBack) {
@@ -72,5 +105,7 @@ module.exports = {
   convertToCastString:convertToCastString,
   convertToCastInfos:convertToCastInfos,
   server: server,
-  httpPost: httpPost
+  httpPost: httpPost,
+  wxHttp: wxHttp,
+  wxHttpPost: wxHttpPost
 }

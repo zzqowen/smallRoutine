@@ -1,4 +1,7 @@
+var postsData = require('../../data/posts-data.js');
 var app = getApp();
+var scoreArr = [0, 0, 0];//得分数组
+var queNum = [3, 3, 4];
 
 Page({
     data: {
@@ -8,7 +11,8 @@ Page({
         { name: '酒文化', size: 3, img: '../../images/avatar/f_4@3x.png' },
         { name: '礼仪', size: 4, img: '../../images/avatar/f_5@3x.png' }
       ],
-      userInfo: null
+      userInfo: null,
+      resultInfo: postsData.resultInfo,
     },
 
     onLoad: function(option){
@@ -27,17 +31,36 @@ Page({
             userInfo: userInfo,
             windowHeight: res.windowHeight,
             windowWidth: res.windowWidth,
-            circleSize : res.windowWidth / 3,
+            circleSize : res.windowWidth * 185 / 750,
             canvasWidth: circleSize * 2 + 4 * fontSize + 2 * distance,
             canvasHeight: circleSize * 2 + 2 * fontSize + 2 * distance
           })
-          app.ability("my_canvas", that.data.accountList, circleSize, fontSize, distance, that.data.userInfo);
+          // app.resultQuestion("my_canvas", that.data.accountList, circleSize, fontSize, distance, that.data.userInfo);
+          console.log(that.resultRandom([2, 2, 3], that.data.resultInfo));
+          // app.resultQuestion("my_canvas", that.resultRandom([2, 2, 3], that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.userInfo, Math.PI/6);
         }
       });
     },
 
-    imgLoad: function(re){
-      console.log(re)
+    resultRandom: function (resultScore, resultInfo) {
+      var mapAry = [];
+      var result = [];
+      for (var j = 0; j < queNum.length; j++) {
+        var score = 1 - (resultScore[j]) / queNum[j];
+        mapAry.push(score);
+        mapAry.push(0);
+      }
+      for (var i = 0; i < resultInfo.length; i++) {
+        if (i % 2 != 0) {
+          mapAry[i] = (mapAry[i - 1] + mapAry[(i + 1) % 6]) / 2;
+        }
+        var name = resultInfo[i][parseInt(Math.random() * 2)];
+        result[i] = {
+          'name': name,
+          'score': mapAry[i]
+        };
+      }
+      return result;
     },
 
     continueTap: function(event){
@@ -68,6 +91,7 @@ Page({
     },
 
     onShareAppMessage: function (res) {
+      console.log(res);
       if (res.from === 'button') {
         // 来自页面内转发按钮
         // console.log(res.target)

@@ -154,7 +154,7 @@
   ];
 
 var rankList = [
-  { rank: 1, name: "离开家水电费垃圾筐水电费", score: 50, grade: "酒仙", message:"加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png"},
+  { rank: 1, name: "电费", score: 50, grade: "酒仙", message:"加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png"},
   { rank: 2, name: "阿里", score: 30, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png"},
   { rank: 3, name: "矮冬瓜", score: 20, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },
   { rank: 4, name: "阿斯蒂芬", score: 30, grade: "酒仙", message: "加入链接阿里健康橄榄", avatar: "../../images/avatar/1.png" },

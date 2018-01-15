@@ -1,18 +1,42 @@
 <!--pages/index/index.wxml-->
 <view class='body'>
   <view class='header' catchtap='userInfoTap'>
+    <image class='user_bg' src='/images/index/userBg.png'></image>
     <image class="avatar" style="border-radius: 50%;" src="{{userInfo.avatarUrl}}"></image>
+    <text class='nick_name'>{{userInfo.nickName}}</text>
+    <view class='level'>
+      <view class='level_container flex_item_between'>
+        <view class='level_content flex_item_between'>
+          <image src='/images/index/flag.png' class='level_img'></image>
+          <text class='level_font' style='padding-right: 20rpx;'>酒鬼</text>
+        </view>
+         <view class='level_content flex_item_between'>
+          <image src='/images/index/crown.png' class='level_img'></image>
+          <text class='level_font' style='padding-right: 10rpx;'>NO.99+</text>
+        </view>
+      </view>
+    </view>
   </view>
   <view class='flex_container content'>
     <view class="flex_column_container list_container">
-        <view class = "list" catchtap='questionTap'>答题</view>
-        <view class = "list">更多</view>
+        <view class = "list question" catchtap='questionTap'>
+          <image src='/images/index/drinking.png' class='question_bg'></image>
+        </view>
+        <view class = "list" class='more'>
+          <image src='/images/index/more.png' class='more_bg'></image>
+        </view>
         <view class = "list" catchtap='phoneTap'>绑定手机</view>
     </view>
     <view class="flex_column_container list_container">
-      <view class = "list" catchtap='rankTap'>排行</view>
-      <view class = "list">奖品</view>
-      <view class = "list" catchtap='settingTap'>设置</view>
+      <view class = "list" catchtap='rankTap' class='rank'>
+        <image src='/images/index/rank.png' class='rank_bg'></image>
+      </view>
+      <view class = "list" class='prize'>
+        <image class='prize_bg' src='/images/index/prize.png'></image>
+      </view>
+      <view class = "list" catchtap='settingTap' class='setting'>
+        <image class='setting_bg' src='/images/index/setting.png'></image>
+      </view>
     </view>
   </view>
 </view>

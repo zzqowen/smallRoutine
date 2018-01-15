@@ -11,7 +11,6 @@ var queNum = [3, 3, 4];
 var innerAudioContext;
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -21,9 +20,9 @@ Page({
       waitingStatus: true,
       resultInfo: postsData.resultInfo,
       idx: index,
-      questionList: postsData.question,//所有的问题和答案
-      questionData: postsData.question[index],//某一个的问题和答案
-      answerData: app.random(postsData.question[index].correct.concat(postsData.question[index].ans)),//答案
+      // questionList: postsData.question,//所有的问题和答案
+      // questionData: postsData.question[index],//某一个的问题和答案
+      // answerData: app.random(postsData.question[index].correct.concat(postsData.question[index].ans)),//答案
   },
 
   /**
@@ -37,11 +36,6 @@ Page({
     index = 0;
     that = this;
 
-    util.http("/qBank/getRandBankList?mid=1388505", function(data){
-      console.log(data);
-    })
-
-        
     wx.getSystemInfo({
       success: function (res) {
         var w = res.windowWidth;
@@ -53,18 +47,35 @@ Page({
           windowHeight: res.windowHeight,
           windowWidth: res.windowWidth,
           canvasWidth: 2 * circleSize + lineWidth + 6,
-
         })
-        setTimeout(function(){
-          that.setData({
-            waitingStatus: false,
-            challengeStatus: true,
-          })
-          app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
-        }, 1000);
-        
       }
     });
+
+    that.getQuestions();   
+  },
+
+  //调用获取问题接口
+  getQuestions: function(){
+    util.http("/qBank/getRandSpiritsBankList?mid=1387855", that.questionCallBack);
+  },
+
+  //获取问题回调
+  questionCallBack: function(data){
+    console.log(data);
+    that.setData({
+      questionList: data.questions,
+      questionData: data.questions[index],
+      answerData: app.random(data.questions[index].correct.concat(data.questions[index].ans))
+    });
+
+    setTimeout(function () {
+      that.setData({
+        waitingStatus: false,
+        challengeStatus: true,
+      })
+      app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
+    }, 1000);
+
   },
 
   callBack: function(){
@@ -83,7 +94,7 @@ Page({
         challengeStatus: false,
         challengeResult: true,
       });
-      app.resultQuestion("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, that.data.userInfo);
+      // app.resultQuestion("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, that.data.userInfo, Math.PI / 6);
     
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({
@@ -95,9 +106,9 @@ Page({
     }
     that.setData({
       idx: index,
-      questionList: postsData.question,
-      questionData: postsData.question[index],
-      answerData: app.random(postsData.question[index].correct.concat(postsData.question[index].ans)),
+      questionList: that.data.questionList,
+      questionData: that.data.questionList[index],
+      answerData: app.random(that.data.questionList[index].correct.concat(that.data.questionList[index].ans)),
     })
     app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
   },
@@ -121,7 +132,7 @@ Page({
       var data = event.currentTarget.dataset.item;
       if (data == that.data.questionData.ans[0]) {
         for (var i = 0, len = scoreArr.length; i< len; i++ ){
-          if (that.data.questionData.category == (i+1)){
+          if (that.data.questionData.type == (i+1)){
             scoreArr[i] += 1;
           }
         }
@@ -202,6 +213,7 @@ Page({
     return rlt;
   },
 
+  //继续挑战
   continueQuestion: function(){
     index = 0;
     scoreArr = [0, 0, 0];//得分数组
@@ -211,17 +223,12 @@ Page({
       challengeResult: false,
       challengeStatus: false,
       idx: index,
-      questionList: postsData.question,//所有的问题和答案
-      questionData: postsData.question[index],//某一个的问题和答案
-      answerData: app.random(postsData.question[index].correct.concat(postsData.question[index].ans)),//答案
+      // questionList: postsData.question,//所有的问题和答案
+      // questionData: postsData.question[index],//某一个的问题和答案
+      // answerData: app.random(postsData.question[index].correct.concat(postsData.question[index].ans)),//答案
     })
-    setTimeout(function () {
-      that.setData({
-        waitingStatus: false,
-        challengeStatus: true,
-      })
-      app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
-    }, 1000);
+
+    that.getQuestions();
   },
 
   /**
@@ -259,7 +266,7 @@ Page({
     }
     return {
       title: '自定义转发标题',
-      path: '/pages/index/index',
+      path: '/pages/index/index?',
       success: function (res) {
         // 转发成功
       },

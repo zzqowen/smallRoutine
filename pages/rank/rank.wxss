@@ -1,31 +1,77 @@
 /* pages/rank/rank.wxss */
-.header{
+.tips{
+  background-color: #ed6f9d;
+  padding-top: 35rpx;
+  padding-bottom: 22rpx;
+}
+.tips_content{
+  display: inline-block;
   width: 100%;
   text-align: center;
+  font-size: 24rpx;
+  color: white;
+}
+.header{
+  width: 100%;
+  height: 104rpx;
+  background-color: #ed6f9d;
+  text-align: center;
+  position: relative;
+}
+.center_line{
+  border-left: 1rpx solid white;
+  height: 52rpx;
 }
 .rank{
   flex: 1;
-  size: 14rpx;
+  font-size: 40rpx;
+  color: white;
+  height: 100rpx;
+  display: inline-block;
+  line-height: 100rpx;
 }
 .cur{
-  color: red;
-  border-bottom: 1px solid violet;
+  color: white;
+  border-bottom: 4rpx solid #4d4d4d;
 }
 .content{
-  position: relative;
+  flex: 1;
+  position: relative
 }
 .content scroll-view{
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  height: 400rpx;
-  border: 1px solid black;
+}
+.view_container{
+  padding: 45rpx 32rpx 0;
 }
 .friends_item{
-  height: 150rpx;
+  height: 182rpx;
   margin-bottom: 40rpx;
-  border: 1px solid black;
-  background-color: aliceblue;
+  background-color: white;
+  box-shadow: 0 0 20rpx #ccc;
+  position: relative;
+}
+.rank_icon{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60rpx;
+  height: 70rpx;
+}
+.rank_font{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60rpx;
+  height: 70rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: white;
+  font-weight: 500;
 }
 ::-webkit-scrollbar {
   width: 0;
@@ -34,8 +80,55 @@
 }
 .avatar_content{
   height: 100%;
+  padding-left: 80rpx;
 }
 .avatar_img{
-  width: 100rpx;
-  height: 100rpx;
+  width: 122rpx;
+  height: 122rpx;
+}
+.font_content{
+  flex: 1;
+  height: 100%;
+  padding: 22rpx 25rpx 16rpx 18rpx;
+  box-sizing: border-box;
+}
+.rank_text{
+  height: 50%;
+}
+.font_center_line{
+  justify-content: space-between;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+.rank_displayName{
+  font-size: 34rpx;
+  color: #4d4d4d;
+}
+.rank_time{
+  font-size: 24rpx;
+  color: #4d4d4d;
+}
+.rank_nickname{
+  font-size: 24rpx;
+  color:#4d4d4d;
+}
+.rank_message{
+  font-size: 20rpx;
+  color: #666;
+  margin-left: 22rpx;
+}
+.world_my_rank{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  text-align: center;
+  height: 140rpx;
+  line-height: 140rpx;
+  color: #999;
+  width: 100%;
+  background: white;
+  font-size: 30rpx;
+}
+.rank_view_container{
+  padding-bottom: 140rpx;
 }

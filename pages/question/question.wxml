@@ -1,6 +1,7 @@
 <!--pages/question/question.wxml-->
 <view wx:if="{{challengeStatus}}" class='question_body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
-  <view class='header' style='height: {{canvasWidth}}px'>
+  <view class='header'>
+    <image src='/images/question/header_bg.png' class='header_bg'></image>
    <canvas class='my_canvas' canvas-id='my_canvas_time' style="width: {{canvasWidth}}px; height: {{canvasWidth}}px"></canvas>
   </view>
   <view class='question'>

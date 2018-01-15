@@ -1,4 +1,6 @@
 // pages/index/index.js
+var util = require('../../utils/util.js');
+
 var that;
 var ableTap = [true, true, true, true, true];
 Page({
@@ -20,13 +22,19 @@ Page({
         console.log(res);
         wx.getUserInfo({
           success: function (res) {
-            console.log(res);
+            //console.log(res);
             that.setData({
               userInfo: res.userInfo
             });
           }
         })
       }
+    });
+
+    var str = "/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+
+    util.wxHttp(str, function(res){
+       // console.log(res);
     });
   },
 
@@ -168,7 +176,7 @@ Page({
   onShow: function () {
     wx.getUserInfo({
       success: function (res) {
-        console.log(res);
+        //console.log(res);
         that.setData({
           userInfo: res.userInfo
         });

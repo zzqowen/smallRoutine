@@ -17,6 +17,16 @@ Page({
    */
   onLoad: function (options) {
       that = this;
+      wx.getSystemInfo({
+        success: function (res) {
+          var w = res.windowWidth;
+          var h = res.windowHeight;
+          that.setData({
+            windowHeight: res.windowHeight,
+            windowWidth: res.windowWidth,
+          })
+        }
+      });
   },
 
   tabTap: function(event){
