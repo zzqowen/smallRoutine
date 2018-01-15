@@ -3,6 +3,7 @@
   <view class='header'>
     <image src='/images/question/header_bg.png' class='header_bg'></image>
    <canvas class='my_canvas' canvas-id='my_canvas_time' style="width: {{canvasWidth}}px; height: {{canvasWidth}}px"></canvas>
+   <text class='category'>{{questionData.category}}</text>
   </view>
   <view class='question'>
     <text>{{idx + 1}}、{{questionData.content}}</text>
@@ -32,7 +33,16 @@
     <button catchtap='continueQuestion'>继续挑战</button>
   </view>
 </view>
-<view class='waiting_animation' wx:if="{{waitingStatus}}">
-    <text style="font-size: 15px;">加载中</text>
+<view class='waiting_animation flex_column_container' wx:if="{{waitingStatus}}" style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
+  <view class='waiting_content flex_column_container'>
+    <text class='count_down'>{{countNum}}</text>
+    <text class='waiting_font'>答题准备开始......</text>
+  </view>
+  <view class='waiting_bottom flex_container'>
+    <image src='/images/question/octopus.png' class='bottom_icon4'></image>
+    <image src='/images/question/octopus.png' class='bottom_icon3'></image>
+    <image src='/images/question/octopus.png' class='bottom_icon2'></image>
+    <image src='/images/question/octopus.png' class='bottom_icon1'></image>
+  </view>
 </view>
 

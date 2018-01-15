@@ -135,15 +135,18 @@ App({
         success: function (res) {
           console.log(res);
           if (res.statusCode === 200) {
-            ctx.translate(windowWidth/2, circleSize*10/9);
+            ctx.translate(windowWidth/2, r*11/9);
+            var mult = 0;
             for (var n = 1; n<= 3; n++){
               //绘制六边形
               ctx.beginPath();
               if (n == 2){
-                n = 0;
+                mult = 0;
+              } else {
+                mult = n
               }
               for(var m = 0; m<6; m++){
-                ctx.lineTo((r *(6-n) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6-n) / 6) * Math.sin(m * Math.PI/3 + angle));
+                ctx.lineTo((r * (6 - mult) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6 - mult) / 6) * Math.sin(m * Math.PI/3 + angle));
               }
               ctx.closePath();
               ctx.setStrokeStyle("white");
@@ -159,19 +162,19 @@ App({
             ctx.setStrokeStyle("white");
             ctx.stroke();
 
-            //分数点
+            //分数点和文字
             var dis;
             ctx.beginPath();
             for (var j = 0; j< arr.length; j ++){
               ctx.lineTo((r / 3 + (r * 2 / 3) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 3 + (r * 2 / 3) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
-              ctx.setFontSize(circleSize/9);
+              ctx.setFontSize(r/9);
               ctx.setFillStyle("white");
               ctx.setTextAlign("center");
               ctx.setTextBaseline("middle");
-              if (j == 0 || j == 3){
-                dis = arr[j].name.length / 2 * circleSize / 9 +2
+              if (j == 1 || j == 4){
+                dis =r / 9;
               } else {
-                dis = circleSize / 9;
+                dis = r / 6;
               }
               ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
             }
@@ -182,11 +185,11 @@ App({
             
             ctx.beginPath()
             ctx.setGlobalAlpha(0)
-            ctx.arc(0, 0, r/6, 0, 2 * Math.PI)
+            ctx.arc(0, 0, r/3, 0, 2 * Math.PI)
             ctx.stroke();
             ctx.clip()
             ctx.setGlobalAlpha(1)
-            ctx.drawImage(res.tempFilePath, -r/6, -r/6,r/3, r/3)
+            ctx.drawImage(res.tempFilePath, -r/3, -r/3,r*2/3, r*2/3)
             ctx.draw()
           }
         }
@@ -207,22 +210,28 @@ App({
         ctx.translate(circleSize + (lineWidth+6)/2, circleSize + (lineWidth+6)/2);
 
         ctx.beginPath();
+        ctx.arc(0,0, circleSize, 0, 2*Math.PI);
+        ctx.setFillStyle("white");
+        ctx.fill();
+
+        ctx.beginPath();
         ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
-        ctx.setStrokeStyle("black");
-        ctx.setLineWidth(lineWidth + 6);
+        ctx.setStrokeStyle("#ed598c");
+        ctx.setLineWidth(lineWidth);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.setFontSize(lineWidth + 8);
+        ctx.setFontSize(lineWidth * 4.75);
+        ctx.setFillStyle("#ed598c");
         ctx.setTextAlign("center");
         ctx.setTextBaseline("middle");
         ctx.fillText(11 - Math.ceil(num / 50), 0, 0);
-        ctx.setFillStyle("red");
+        
 
         ctx.beginPath();
         ctx.rotate(-90 * Math.PI / 180);
         ctx.arc(0, 0, circleSize, 0, num * 0.72 * Math.PI / 180, true);
-        ctx.setStrokeStyle("red");
+        ctx.setStrokeStyle("#45b2d9");
         ctx.setLineWidth(lineWidth)
         ctx.stroke();
         ctx.draw();

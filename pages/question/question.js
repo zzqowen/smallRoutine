@@ -9,12 +9,14 @@ var that;
 var scoreArr = [0, 0, 0];//得分数组
 var queNum = [3, 3, 4];
 var innerAudioContext;
+var startAniTime = null;
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+      countNum: 3,
       challengeStatus: false,
       challengeResult: false,
       waitingStatus: true,
@@ -40,8 +42,8 @@ Page({
       success: function (res) {
         var w = res.windowWidth;
         var h = res.windowHeight;
-        circleSize = res.windowWidth / 10;
-        lineWidth = 15;
+        circleSize = res.windowWidth * 80 / 750;
+        lineWidth = res.windowWidth * 16 / 750;
         that.setData({
           userInfo: userInfo,
           windowHeight: res.windowHeight,
@@ -68,18 +70,26 @@ Page({
       answerData: app.random(data.questions[index].correct.concat(data.questions[index].ans))
     });
 
-    setTimeout(function () {
+    startAniTime = setInterval(function () {
+      console.log(that.data.countNum);
       that.setData({
-        waitingStatus: false,
-        challengeStatus: true,
-      })
-      app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
+        countNum: that.data.countNum - 1
+      });
+
+      if (that.data.countNum == 0){
+        that.setData({
+          waitingStatus: false,
+          challengeStatus: true,
+        });
+        clearInterval(startAniTime);
+        app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
+      }
     }, 1000);
 
   },
 
   callBack: function(){
-    that.nextQuestion();
+    //that.nextQuestion();
   },
 
   nextQuestion: function(){
@@ -140,7 +150,7 @@ Page({
       } else {
         that.audioPlay(false);
       }
-      that.nextQuestion();
+      //that.nextQuestion();
   },
 
   resultRandom: function (resultScore, resultInfo){
