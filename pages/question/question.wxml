@@ -1,24 +1,29 @@
 <!--pages/question/question.wxml-->
-<view wx:if="{{challengeStatus}}" class='question_body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
+<!-- 答题页面 -->
+<view wx:if="{{challengeStatus}}" animation="{{animationInData}}" class='question_body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
   <view class='header'>
     <image src='/images/question/header_bg.png' class='header_bg'></image>
    <canvas class='my_canvas' canvas-id='my_canvas_time' style="width: {{canvasWidth}}px; height: {{canvasWidth}}px"></canvas>
    <text class='category'>{{questionData.category}}</text>
   </view>
-  <view class='question'>
-    <text>{{idx + 1}}、{{questionData.content}}</text>
+  <view class='question flex_item_center'>
+    <text>{{questionData.content}}</text>
   </view>
   <view class="answer">
     <block wx:for="{{answerData}}" wx:for-item="item" wx:for-index="idx">
       <view class='content'>
-        <text catchtap='answerTap' data-item="{{item}}">{{item}}</text>
+        <text class='{{item.select != 0 ? (item.select == 1 ? "choose_right" : "choose_wrong") : ""}}' catchtap='answerTap' data-item="{{item.name}}" data-index="{{idx}}">{{item.name}}</text>
+        <image wx:if="{{item.select == 1}}" src='/images/question/right.png' class='choose_icon'></image>
+        <image wx:if="{{item.select == 2}}" src='/images/question/wrong.png' class='choose_icon' ></image>
       </view>
     </block>
   </view>
 </view>
+<!-- 结果页面 -->
 <view class="result_body" wx:if="{{challengeResult}}" style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
-  <view class='container'>
-    <canvas canvas-id='result_question' style='width:{{windowWidth}}px; height:{{2*canvasWidth + 20}}px'></canvas>
+  <view class='result_container'>
+    <canvas class='result_canvas' canvas-id='result_question' style='width:{{windowWidth}}px; height:{{canvasHeight1}}px'></canvas>
+    <image class='result_bg' src='/images/userInfo/user_header_bg.png'></image>
   </view>
   <view class="grade">
     <text>{{grade}}</text>
@@ -26,23 +31,24 @@
   <view class="text">
     <text>{{text}}</text>
   </view>
-  <view>
+  <view class='bottom_button'>
     <button open-type="share" class="friends" catchtap='Page.onShareAppMessage()'>炫耀成绩</button>
   </view>
-  <view>
-    <button catchtap='continueQuestion'>继续挑战</button>
+  <view class='bottom_button'>
+    <button class='continue' catchtap='continueQuestion'>继续挑战</button>
   </view>
 </view>
-<view class='waiting_animation flex_column_container' wx:if="{{waitingStatus}}" style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
+<!-- 等待页面 -->
+<view class='waiting_animation flex_column_container' animation="{{animationOutData}}" wx:if="{{waitingStatus}}" style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
   <view class='waiting_content flex_column_container'>
     <text class='count_down'>{{countNum}}</text>
-    <text class='waiting_font'>答题准备开始......</text>
+    <text class='waiting_font'>答题准备开始{{spot}}</text>
   </view>
   <view class='waiting_bottom flex_container'>
-    <image src='/images/question/octopus.png' class='bottom_icon4'></image>
-    <image src='/images/question/octopus.png' class='bottom_icon3'></image>
-    <image src='/images/question/octopus.png' class='bottom_icon2'></image>
-    <image src='/images/question/octopus.png' class='bottom_icon1'></image>
+    <image src='/images/question/octopus.png' class='bottom_icon4 {{reset ? "ani4" : ""}}'></image>
+    <image src='/images/question/octopus.png' class='bottom_icon3 {{reset ? "ani3" : ""}}'></image>
+    <image src='/images/question/octopus.png' class='bottom_icon2 {{reset ? "ani2" : ""}}'></image>
+    <image src='/images/question/octopus.png' class='bottom_icon1 {{reset ? "ani1" : ""}}'></image>
   </view>
 </view>
 

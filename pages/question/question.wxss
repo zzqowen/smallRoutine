@@ -1,4 +1,9 @@
 /* pages/question/question.wxss */
+.question_body, .result_body, .waiting_animation{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .header{
   display: block;
   position: relative;
@@ -32,19 +37,39 @@
 }
 .question{
   text-align: center;
+  height: 156rpx;
+  justify-content: center;
+}
+.question text{
+  font-size: 34rpx;
+  color: #4d4d4d;
+  font-weight: bold;
+  margin: 0 22rpx;
 }
 .answer{
   text-align: center;
 }
+.content{
+  position: relative;
+  margin-top: 20rpx;
+}
+.choose_icon{
+  position: absolute;
+  width: 75rpx;
+  height: 75rpx;
+  right: 48rpx;
+  top: 50%;
+  transform: translate(0, -50%);
+}
 .content text{
   display: inline-block;
-  width: 400rpx;
+  width: 706rpx;
   height: 100rpx;
   border-radius: 5rpx;
-  background: #ccc;
-  color: white;
+  background: #ffdeea;
+  color: #666;
+  font-size: 34rpx;
   line-height: 100rpx;
-  margin-top: 20rpx;
 }
 .grade{
   text-align: center;
@@ -107,21 +132,93 @@
   height: 65rpx;
   vertical-align: bottom;
   margin-left: 30rpx;
+  opacity: 0;
 }
 .bottom_icon2{
   width: 80rpx;
   height: 80rpx;
   vertical-align: bottom;
   margin-left: 30rpx;
+  opacity: 0;
 }
 .bottom_icon3{
   width: 95rpx;
   height: 95rpx;
   vertical-align: bottom;
   margin-left: 30rpx;
+  opacity: 0;
 }
 .bottom_icon4{
   width: 115rpx;
   height: 115rpx;
   vertical-align: bottom;
+  opacity: 0;
+}
+.ani1{
+  animation: myAni 4000ms linear 0ms;
+  animation-fill-mode: forwards;
+}
+.ani2{
+  animation: myAni 4000ms linear 1000ms;
+  animation-fill-mode: forwards;
+}
+.ani3{
+  animation: myAni 4000ms linear 2000ms;
+  animation-fill-mode: forwards;
+}
+.ani4{
+  animation: myAni 4000ms linear 3000ms;
+  animation-fill-mode: forwards;
+}
+@keyframes myAni{
+  0%{
+    opacity: 0;
+  }
+  25%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+.content text.choose_right{
+  background: -webkit-linear-gradient(top, #bdf249, #739f29);
+  color: white;
+}
+.content text.choose_wrong{
+  background: -webkit-linear-gradient(top, #ed6f9d, #f04880);
+  color: white;
+}
+.bottom_button button{
+  color: white;
+  font-size: 40rpx;
+  margin: 0 22rpx;
+  border-radius: 5rpx;
+  margin-top: 30rpx;
+}
+.friends{
+  background: -webkit-linear-gradient(top, #6896f2, #475db2);
+}
+.continue{
+  background: -webkit-linear-gradient(top, #ed6f9d, #f04880);
+}
+.result_container{
+  position: relative;
+  width: 100%;
+  height: 542rpx;
+  background-color: #f6608e;
+}
+.result_canvas{
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.result_bg{
+  width: 100%;
+  height: 96rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }

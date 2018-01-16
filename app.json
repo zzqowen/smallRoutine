@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/question/question",
     "pages/index/index",
+    "pages/phone/phone",
+    "pages/question/question",
     "pages/userInfo/userInfo",
     "pages/rank/rank",
     "pages/posts/post",
-    "pages/posts/post-detail/post-detail",
-    "pages/phone/phone"
+    "pages/posts/post-detail/post-detail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ed6f9d",

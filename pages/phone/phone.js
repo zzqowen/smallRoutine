@@ -1,4 +1,6 @@
 // pages/phone/phone.js
+var app = getApp();
+
 Page({
 
   /**
@@ -12,8 +14,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    app.countDown("canvas", 50, 15, 11, function(){
+
+    });
   },
+
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成

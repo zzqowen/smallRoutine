@@ -196,13 +196,13 @@ App({
       })
     },
 
-    countDown: function (id, circleSize, lineWidth, callBack){
+    countDown: function (id, circleSize, lineWidth, totalTime, callBack){
       var ctx = wx.createCanvasContext(id);
       var num = 0;
       time = setInterval(function () {
         ctx.clearRect(0, 0, 2*circleSize, 2*circleSize);
         num++
-        if (num == 501) {
+        if (num == 50 * totalTime + 1) {
           num = 1;
         }
 
@@ -216,7 +216,7 @@ App({
 
         ctx.beginPath();
         ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
-        ctx.setStrokeStyle("#ed598c");
+        ctx.setStrokeStyle("#45b2d9");
         ctx.setLineWidth(lineWidth);
         ctx.stroke();
 
@@ -225,22 +225,22 @@ App({
         ctx.setFillStyle("#ed598c");
         ctx.setTextAlign("center");
         ctx.setTextBaseline("middle");
-        ctx.fillText(11 - Math.ceil(num / 50), 0, 0);
+        if (num == 50 * totalTime) {
+          ctx.fillText(0, 0, 0);
+          clearInterval(time);
+          callBack();
+        } else {
+          ctx.fillText((totalTime + 1) - Math.ceil(num / 50), 0, 0);
+        }
         
-
         ctx.beginPath();
         ctx.rotate(-90 * Math.PI / 180);
-        ctx.arc(0, 0, circleSize, 0, num * 0.72 * Math.PI / 180, true);
-        ctx.setStrokeStyle("#45b2d9");
+        ctx.arc(0, 0, circleSize, 0, num * 2 * Math.PI / (50 * totalTime), false);
+        ctx.setStrokeStyle("#ed598c"); 
         ctx.setLineWidth(lineWidth)
         ctx.stroke();
         ctx.draw();
         ctx.restore();
-
-        if (num == 500){
-          clearInterval(time);
-          callBack(); 
-        }
       }, 20);
     },
     clearTime: function(){
@@ -248,9 +248,14 @@ App({
     },
     //打乱选项
     random: function(arr){
+      var statusArr = [];
       arr.sort(function(){
         return 0.5 - Math.random();
       });
-      return arr;
+      for (var i = 0; i< arr.length; i++){
+        var obj = {name: arr[i], select: 0};
+        statusArr.push(obj);
+      }
+      return statusArr;
     }
 })

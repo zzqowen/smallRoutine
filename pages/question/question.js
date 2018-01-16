@@ -10,12 +10,16 @@ var scoreArr = [0, 0, 0];//得分数组
 var queNum = [3, 3, 4];
 var innerAudioContext;
 var startAniTime = null;
+var ableTap = true; //是否可以点击 true为可以， false为不可以
+var spotTime = null;
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+      reset: true,//小章鱼动画是否运行
+      spot: "",
       countNum: 3,
       challengeStatus: false,
       challengeResult: false,
@@ -49,11 +53,44 @@ Page({
           windowHeight: res.windowHeight,
           windowWidth: res.windowWidth,
           canvasWidth: 2 * circleSize + lineWidth + 6,
+          circleSize1: res.windowWidth * 185 / 750,
+          canvasHeight1: res.windowWidth * 185 / 750 * 22 / 9
         })
       }
     });
 
+    //动画循环
+    // setInterval(function () {
+    //   that.setData({
+    //     reset: false
+    //   })
+    //   setTimeout(function(){
+    //     that.setData({
+    //       reset: true
+    //     })
+    //   }, 300);
+    // }, 4000);
+
+
+
     that.getQuestions();   
+  },
+
+  spotAnimation: function(){
+    spotTime = setInterval(function () {
+      var spot = "";
+      for (var i = 0; i < that.data.spot.length + 1; i++) {
+        spot += ".";
+      }
+      that.setData({
+        spot: spot
+      })
+      if (that.data.spot.length == 7) {
+        that.setData({
+          spot: ""
+        })
+      }
+    }, 500);
   },
 
   //调用获取问题接口
@@ -63,6 +100,7 @@ Page({
 
   //获取问题回调
   questionCallBack: function(data){
+    that.spotAnimation();
     console.log(data);
     that.setData({
       questionList: data.questions,
@@ -78,21 +116,47 @@ Page({
 
       if (that.data.countNum == 0){
         that.setData({
-          waitingStatus: false,
           challengeStatus: true,
-        });
+          animationOutData: that.fadeAnimation(false).export(),
+        })
+        setTimeout(function(){
+          that.setData({
+            animationInData: that.fadeAnimation(true).export(),
+            waitingStatus: false,
+            countNum: 3,
+            spot: ""
+          });
+        }, 1000);
+
+        clearInterval(spotTime);
         clearInterval(startAniTime);
-        app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
+        app.countDown("my_canvas_time", circleSize, lineWidth, 10, that.callBack);
       }
     }, 1000);
 
   },
 
   callBack: function(){
-    //that.nextQuestion();
+    var answerArr = that.data.answerData;
+    for (var k = 0; k < answerArr.length; k++) {
+      if (answerArr[k].name == that.data.questionData.ans[0]) {
+        answerArr[k].select = 1;
+      }
+    }
+    
+    that.audioPlay(false);
+    
+    that.setData({
+      answerData: answerArr
+    });
+    setTimeout(function () {
+      that.nextQuestion();
+    }, 1000);
   },
 
+  //下一题
   nextQuestion: function(){
+    ableTap = true;
     app.clearTime();
     index++;
     if (index >= 10){
@@ -104,7 +168,7 @@ Page({
         challengeStatus: false,
         challengeResult: true,
       });
-      // app.resultQuestion("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, that.data.userInfo, Math.PI / 6);
+      app.resultQuestion("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, that.data.userInfo, Math.PI / 6);
     
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({
@@ -120,7 +184,7 @@ Page({
       questionData: that.data.questionList[index],
       answerData: app.random(that.data.questionList[index].correct.concat(that.data.questionList[index].ans)),
     })
-    app.countDown("my_canvas_time", circleSize, lineWidth, that.callBack);
+    app.countDown("my_canvas_time", circleSize, lineWidth, 10, that.callBack);
   },
 
   //根据对的提计算分数
@@ -139,18 +203,38 @@ Page({
 
   //点击答案事件
   answerTap: function(event){
-      var data = event.currentTarget.dataset.item;
-      if (data == that.data.questionData.ans[0]) {
-        for (var i = 0, len = scoreArr.length; i< len; i++ ){
-          if (that.data.questionData.type == (i+1)){
+    if (ableTap){
+      ableTap = false;
+      console.log(event)
+      var item = event.currentTarget.dataset.item;
+      var idx = event.currentTarget.dataset.index;
+      var answerArr = that.data.answerData;
+      for (var k = 0; k < answerArr.length; k++) {
+        if (answerArr[k].name == that.data.questionData.ans[0]) {
+          answerArr[k].select = 1;
+        }
+      }
+      if (item == that.data.questionData.ans[0]) {
+        answerArr[idx].select = 1
+        for (var i = 0, len = scoreArr.length; i < len; i++) {
+          if (that.data.questionData.type == (i + 1)) {
             scoreArr[i] += 1;
           }
         }
         that.audioPlay(true);
       } else {
+        answerArr[idx].select = 2;
         that.audioPlay(false);
       }
-      //that.nextQuestion();
+      that.setData({
+        answerData: answerArr
+      });
+      app.clearTime();
+      setTimeout(function () {
+        that.nextQuestion();
+      }, 1000);
+    }
+      
   },
 
   resultRandom: function (resultScore, resultInfo){
@@ -174,6 +258,20 @@ Page({
       return result;
   },
 
+  fadeAnimation: function(fadeStatus){
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    if (fadeStatus){
+      animation.opacity(1).step();
+    } else {
+      animation.opacity(0).step();
+    }
+    return animation;
+  },
+
+  //点击播放音效
   audioPlay: function(success){
     innerAudioContext = wx.createInnerAudioContext()
     // innerAudioContext.autoplay = true
@@ -260,6 +358,8 @@ Page({
    */
   onHide: function () {
     app.clearTime();
+    clearInterval(spotTime);
+    clearInterval(startAniTime)
   },
 
   /**
@@ -267,6 +367,8 @@ Page({
    */
   onUnload: function () {
     app.clearTime();
+    clearInterval(spotTime);
+    clearInterval(startAniTime)
   },
 
   onShareAppMessage: function (res) {
