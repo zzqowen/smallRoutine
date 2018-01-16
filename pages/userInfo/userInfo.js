@@ -16,6 +16,10 @@ Page({
     },
 
     onLoad: function(option){
+      wx.showShareMenu({
+        withShareTicket: true,
+      });
+
       var that = this;
       var userInfo;
       if (option.userInfo != null){
@@ -96,12 +100,22 @@ Page({
         // console.log(res.target)
       }
       return {
-        title: '自定义转发标题',
+        title: '答尔文智力库',
         path: '/pages/question/question',
         success: function (res) {
+          console.log(res);
           // 转发成功
+          console.log(res.shareTickets[0])
+          // console.log
+          wx.getShareInfo({
+            shareTicket: res.shareTickets[0],
+            success: function (res) { console.log(res) },
+            fail: function (res) { console.log(res) },
+            complete: function (res) { console.log(res) }
+          })
         },
         fail: function (res) {
+          console.log(res);
           // 转发失败
         }
       }

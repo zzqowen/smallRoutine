@@ -5,7 +5,8 @@ App({
         g_currentMusicPostId:null,
         doubanBase: "https://api.douban.com",
     },
-    onLaunch:function(){
+    onLaunch:function(ops){
+      console.log(ops);
       // wx.getSystemInfo({
       //   success: function (res) {
       //     // check sdk version
@@ -19,6 +20,10 @@ App({
       //     }
       //   },
       // })
+      if (ops.scene == 1044) {
+        console.log(ops.shareTicket)
+      }
+
       wx.getSetting({
         success(res) {
           if (!res.authSetting['scope.userInfo']) {
