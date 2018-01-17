@@ -14,5 +14,4 @@
       <button formType="submit">绑定</button>
     </view>
   </form>
-  <canvas canvas-id='canvas'></canvas>
 </view>

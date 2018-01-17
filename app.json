@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/prize/prize",
     "pages/phone/phone",
     "pages/question/question",
     "pages/userInfo/userInfo",

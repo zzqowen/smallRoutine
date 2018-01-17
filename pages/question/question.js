@@ -168,7 +168,7 @@ Page({
         challengeStatus: false,
         challengeResult: true,
       });
-      app.resultQuestion("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, that.data.userInfo, Math.PI / 6);
+      app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, that.data.userInfo, Math.PI / 6);
     
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({

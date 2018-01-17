@@ -1,5 +1,5 @@
-// pages/phone/phone.js
-var app = getApp();
+// pages/prize/prize.js
+var postsData = require('../../data/posts-data.js');
 
 Page({
 
@@ -7,31 +7,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    getCode: "获取验证码"
+    prizeList: postsData.prizeList
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
   
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
   
-  },
-
-  getCodeTap: function(event){
-    console.log(event);
-  },
-
-  formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
   },
 
   /**

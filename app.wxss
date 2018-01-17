@@ -17,6 +17,7 @@ input{
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: center;
 }
 .flex_item_between{
   display: flex;

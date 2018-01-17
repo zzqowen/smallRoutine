@@ -1,6 +1,11 @@
 /* pages/index/index.wxss */
 .body{
   padding: 0 22rpx;
+  overflow: hidden;
+}
+.body_scroll{
+  width: 100%;
+  height: 100%;
 }
 .header{
   width: 706rpx;
@@ -8,9 +13,10 @@
   margin-top: 32rpx;
   border-radius: 10rpx;
   border: 1rpx solid violet;
-  display: block;
+  display: inline-block;
   text-align: center;
   position: relative;
+
 }
 .user_bg{
   position: absolute;
@@ -38,6 +44,7 @@
   line-height: 30rpx;
   letter-spacing: 6rpx;
   margin-top: 20rpx;
+  height: 30rpx;
 }
 .level{
   width: 100%;
@@ -142,4 +149,103 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.setting_popup{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(76, 32, 46, 0.24);
+}
+.setting_container{
+  width: 500rpx;
+  height: 200rpx;
+  border-radius: 10rpx;
+  background-color: white;
+}
+.setting_title{
+  display: block;
+  width: 100%;
+  font-size: 40rpx;
+  font-weight: bold;
+  text-align: center
+}
+.music{
+  margin-top: 40rpx;
+}
+.music label{
+  color: aqua;
+}
+.switch{
+  margin-left: 20rpx;
+  width: 120rpx;
+  border: 1px solid black;
+  height: 50rpx;
+  border-radius: 50rpx;
+  position: relative;
+  background: aqua;
+}
+.switch::before{
+  content: "";
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  background: white;
+  transform: translate(0, -50%);
+}
+.checked{
+  animation: check 200ms linear;
+  animation-fill-mode: forwards;
+}
+.checked::before{
+  animation: checkBefore 200ms linear;
+  animation-fill-mode: forwards;
+}
+@keyframes check{
+  from{
+    background: #ccc;
+  }
+  to{
+    background: aqua;
+  }
+}
+@keyframes checkBefore{
+  from{
+    left: -2rpx; 
+  }
+  to{
+    left: 62rpx;
+  }
+}
+.unchecked{
+  animation: uncheck 200ms linear;
+  animation-fill-mode: forwards;
+}
+.unchecked::before{
+  animation: uncheckBefore 200ms linear;
+  animation-fill-mode: forwards;
+}
+@keyframes uncheck{
+  from{
+    background: aqua;
+  }
+  to{
+    background: #ccc;
+  }
+}
+@keyframes uncheckBefore{
+  from{
+    left: 62rpx; 
+  }
+  to{
+    left: -2rpx;
+  }
 }

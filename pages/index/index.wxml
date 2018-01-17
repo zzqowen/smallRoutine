@@ -1,9 +1,10 @@
 <!--pages/index/index.wxml-->
-<view class='body'>
+<view class='body' style='height: {{windowHeight}}px'>
+<scroll-view class='body_scroll' scroll-y>
   <view class='header' catchtap='userInfoTap'>
     <image class='user_bg' src='/images/index/userBg.png'></image>
-    <image class="avatar" style="border-radius: 50%;" src="{{userInfo.avatarUrl}}"></image>
-    <text class='nick_name'>{{userInfo.nickName}}</text>
+    <image class="avatar" style="border-radius: 50%;" src="{{userInfo.avatarUrl ? userInfo.avatarUrl : '/images/avatar/1.png'}}"></image>
+    <text class='nick_name'>{{userInfo.nickName ? userInfo.nickName : "请先提供权限"}}</text>
     <view class='level'>
       <view class='level_container flex_item_between'>
         <view class='level_content flex_item_between'>
@@ -25,13 +26,13 @@
         <view class = "list" class='more'>
           <image src='/images/index/more.png' class='more_bg'></image>
         </view>
-        <view class = "list" catchtap='phoneTap'>绑定手机</view>
+        <button class = "list" catchtap='phoneTap'>绑定手机</button>
     </view>
     <view class="flex_column_container list_container">
       <view class = "list" catchtap='rankTap' class='rank'>
         <image src='/images/index/rank.png' class='rank_bg'></image>
       </view>
-      <view class = "list" class='prize'>
+      <view class = "list" class='prize' catchtap='prizeTap'>
         <image class='prize_bg' src='/images/index/prize.png'></image>
       </view>
       <view class = "list" catchtap='settingTap' class='setting'>
@@ -39,5 +40,17 @@
       </view>
     </view>
   </view>
+</scroll-view>
+  
+</view>
+
+<view class='setting_popup flex_item_center' style='width:{{windowWidth}}px; height: {{windowHeight}}px' wx:if="{{popupStatus}}" catchtap='popupTap'>
+    <view class='setting_container' catchtap='contentTap'>
+        <text class='setting_title'>设置</text>
+        <view class='music flex_item_center'>
+          <label for='switch'>音效</label>
+          <view class='switch {{switchCheck ? "checked" : "unchecked"}}' catchtap='switchTap'></view>
+        </view>
+    </view>
 </view>
 

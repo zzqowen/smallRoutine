@@ -38,9 +38,8 @@ Page({
             circleSize : res.windowWidth * 185 / 750,
             canvasHeight: res.windowWidth * 185 / 750 * 22 / 9
           })
-          // app.resultQuestion("my_canvas", that.data.accountList, circleSize, fontSize, distance, that.data.userInfo);
           console.log(that.resultRandom([2, 2, 3], that.data.resultInfo));
-          app.resultQuestion("my_canvas", that.resultRandom([1, 2, 3], that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.userInfo, Math.PI/6);
+          app.abilityMap("my_canvas", that.resultRandom([1, 2, 3], that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.userInfo, Math.PI/6);
         }
       });
     },

@@ -55,83 +55,8 @@ App({
         }
       })
     },
-    ability: function (id, arr, circleSize, fontSize, distance, userInfo) {
-      var ctx = wx.createCanvasContext(id);
-      wx.downloadFile({
-        url: userInfo.avatarUrl,
-        success: function (res) {
-          if (res.statusCode === 200) {
-            ctx.translate(circleSize + 2 * fontSize + distance, circleSize + fontSize + distance);
-            ctx.beginPath();
-            ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
-            ctx.setFillStyle("violet");
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(0, 0, circleSize * 3 / 4, 0, 2 * Math.PI);
-            ctx.setFillStyle("blue");
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(0, 0, circleSize / 2, 0, 2 * Math.PI);
-            ctx.setFillStyle("green");
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(0, 0, circleSize / 4, 0, 2 * Math.PI);
-            ctx.setFillStyle("yellow");
-            ctx.fill();
 
-            ctx.beginPath();
-            ctx.moveTo(0, -(arr[0].size * circleSize / 4));
-            ctx.lineTo((arr[1].size * circleSize / 4), 0);
-            ctx.lineTo(0, (arr[2].size * circleSize / 4));
-            ctx.lineTo(-(arr[3].size * circleSize / 4), 0);
-            ctx.setStrokeStyle("red");
-            ctx.closePath();
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.moveTo(-circleSize, 0);
-            ctx.lineTo(circleSize, 0);
-            ctx.setStrokeStyle("white");
-            ctx.moveTo(0, -circleSize);
-            ctx.lineTo(0, circleSize);
-            ctx.setStrokeStyle("white");
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.setFontSize(fontSize);
-            ctx.setFillStyle("black");
-            ctx.setTextAlign("center");
-            ctx.setTextBaseline("bottom");
-            ctx.fillText(arr[0].name, 0, -circleSize - (distance - 3));
-
-            ctx.setTextAlign("left");
-            ctx.setTextBaseline("middle");
-            ctx.fillText(arr[1].name, circleSize + (distance - 3), 0);
-
-            ctx.setTextAlign("center");
-            ctx.setTextBaseline("top");
-            ctx.fillText(arr[2].name, 0, circleSize + (distance - 3));
-
-            ctx.setTextAlign("right");
-            ctx.setTextBaseline("middle");
-            ctx.fillText(arr[3].name, -circleSize - (distance - 3), 0);
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.setGlobalAlpha(0);
-            ctx.arc(0, 0, circleSize/4, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.clip();
-            ctx.setGlobalAlpha(1);
-            ctx.drawImage(res.tempFilePath, -circleSize / 4, -circleSize / 4, circleSize / 2, circleSize/2);
-            ctx.restore();
-            ctx.draw();
-          }
-        }
-      })
-    },
-
-    resultQuestion: function (id, arr, circleSize, windowWidth, userInfo, angle){
+    abilityMap: function (id, arr, circleSize, windowWidth, userInfo, angle){
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
       var r = circleSize;

@@ -3,16 +3,15 @@ var util = require('../../utils/util.js');
 var crypt = require('../../WXBizDataCrypt/WXBizDataCrypt.js')
 
 var that;
-var ableTap = [true, true, true, true, true];
+var ableTap = [true, true, true, true, true, true, true];
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-  
+    switchCheck: true,//音效按钮是否被选中
+    popupStatus: false,//设置弹框是否显示
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -23,11 +22,27 @@ Page({
     });
 
     that = this;
+    wx.showLoading({
+      title: '登录中',
+    });
+
+    //获取屏幕宽高
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          windowHeight: res.windowHeight,
+          windowWidth: res.windowWidth,
+        })
+      }
+    });
+
+    //登录
     wx.login({
       success: function (res) {
         console.log(res);
         wx.getUserInfo({
           success: function (res) {
+            wx.hideLoading()
             console.log(res);
             that.setData({
               userInfo: res.userInfo
@@ -35,12 +50,6 @@ Page({
           }
         })
       }
-    });
-
-    var str = "https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code";
-
-    util.wxHttp(str, function(res){
-       // console.log(res);
     });
   },
 
@@ -62,6 +71,7 @@ Page({
                     }
                   });
                 } else if (res.cancel) {
+                  ableTap[0] = true;
                   console.log('用户点击取消')
                 }
               }
@@ -75,16 +85,15 @@ Page({
       });
       ableTap[0] = false;
     }
-    
   },
 
   //绑定手机点击事件
   phoneTap: function(event){
-    if (ableTap[4]){
+    if (ableTap[6]){
       wx.navigateTo({
         url: '../phone/phone',
       })
-      ableTap[4] = false;
+      ableTap[6] = false;
     } 
   },
 
@@ -106,6 +115,7 @@ Page({
                     }
                   });
                 } else if (res.cancel) {
+                  ableTap[1] = true;
                   console.log('用户点击取消')
                 }
               }
@@ -118,18 +128,49 @@ Page({
         }
       });
       ableTap[1] = false;
+    }  
+  },
+
+  //奖品点击事件
+  prizeTap: function(){
+    if (ableTap[4]){
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.userInfo']) {
+            wx.showModal({
+              title: '需要用户信息授权',
+              content: '',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                  wx.openSetting({
+                    success: (res) => {
+                      console.log(res);
+                    }
+                  });
+                } else if (res.cancel) {
+                  ableTap[4] = true;
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          } else {
+            wx.navigateTo({
+              url: '../prize/prize?userInfo=' + JSON.stringify(that.data.userInfo),
+            })
+          }
+        }
+      });
+      ableTap[4] = false;
     }
-    
   },
 
   //设置点击事件
   settingTap: function(event){
     if (ableTap[3]){
-      wx.openSetting({
-        success: (res) => {
-
-        }
-      });
+      that.setData({
+        popupStatus: true
+      })
       ableTap[3] = false;
     }
     
@@ -153,6 +194,7 @@ Page({
                     }
                   });
                 } else if (res.cancel) {
+                  ableTap[2] = true;
                   console.log('用户点击取消')
                 }
               }
@@ -167,6 +209,24 @@ Page({
       ableTap[2] = false;
     }
     
+  },
+
+  switchTap: function(e){
+    console.log(e);
+    that.setData({
+      switchCheck: !(that.data.switchCheck)
+    })
+  },
+
+  contentTap: function(){
+    return;
+  },
+
+  popupTap: function(){
+    that.setData({
+      popupStatus: false
+    });
+    ableTap[3] = true;
   },
 
   /**
@@ -188,7 +248,7 @@ Page({
         });
       }
     });
-    ableTap = [true, true, true, true, true];
+    ableTap = [true, true, true, true, true, true, true];
   },
 
   /**

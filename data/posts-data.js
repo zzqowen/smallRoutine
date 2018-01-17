@@ -234,9 +234,18 @@ var gradeInfo = [
   }
 ];
 
+var prizeList = [
+  { img: '/images/prize/first.png', describe: '茅台酒一瓶(价值1000元)' },
+  { img: '/images/prize/second.png', describe: '红酒一瓶(价值500元)' },
+  { img: '/images/prize/third.png', describe: '200元京东购物卡' },
+  { img: '/images/prize/fourth.png', describe: '100元京东购物卡' },
+  {img: '/images/prize/fifth.png', describe: '答尔文金币300个,支持提现'}
+]
+
 module.exports = {
     question: question,
     rankList: rankList,
     resultInfo: resultInfo,
-    gradeInfo: gradeInfo
+    gradeInfo: gradeInfo,
+    prizeList: prizeList
 }
