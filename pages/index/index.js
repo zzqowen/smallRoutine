@@ -1,6 +1,7 @@
 // pages/index/index.js
 var util = require('../../utils/util.js');
 var crypt = require('../../WXBizDataCrypt/WXBizDataCrypt.js')
+var app = getApp();
 
 var that;
 var ableTap = [true, true, true, true, true, true, true];
@@ -9,22 +10,50 @@ Page({
    * 页面的初始数据
    */
   data: {
+    settingOpacityStatus: true,//初始化弹框opacity为0
+    moreOpacityStatus: true,//初始化弹框opacity为0
     switchCheck: true,//音效按钮是否被选中
-    popupStatus: false,//设置弹框是否显示
+    popupStatus: true,//设置弹框是否显示
+    expectPopupStatus: true,//设置弹框是否显示
+    darwinUserInfo: null,//答尔文用户资料
+    wxUserInfo: null,//微信用户资料
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    that = this;
+
+    app.userInfoData(function(darwinData){
+      console.log(darwinData);
+      wx.hideLoading();
+      that.setData({
+        darwinUserInfo: darwinData
+      });
+    }, function(wxData){
+      that.setData({
+        wxUserInfo: wxData
+      });
+    })
+
+
     wx.showShareMenu({
       // 要求小程序返回分享目标信息
       withShareTicket: true
     });
 
-    that = this;
-    wx.showLoading({
-      title: '登录中',
+    //获取音效按钮当前状态
+    app.getStorage("switchCheck", function(res){
+      that.setData({
+        switchCheck: res.data
+      })
+    }, function(res){
+      app.setStorage("switchCheck", true);
     });
+
+    // wx.showLoading({
+    //   title: '登录中',
+    // });
 
     //获取屏幕宽高
     wx.getSystemInfo({
@@ -36,22 +65,10 @@ Page({
       }
     });
 
-    //登录
-    wx.login({
-      success: function (res) {
-        console.log(res);
-        wx.getUserInfo({
-          success: function (res) {
-            wx.hideLoading()
-            console.log(res);
-            that.setData({
-              userInfo: res.userInfo
-            });
-          }
-        })
-      }
-    });
+   
   },
+
+  
 
   //答题点击事件
   questionTap: function(event){
@@ -78,7 +95,7 @@ Page({
             })
           } else {
             wx.navigateTo({
-              url: '../question/question?userInfo=' + JSON.stringify(that.data.userInfo),
+              url: '../question/question?userInfo=' + JSON.stringify(that.data.wxUserInfo),
             })
           }
         }
@@ -122,7 +139,7 @@ Page({
             })
           } else {
             wx.navigateTo({
-              url: '../userInfo/userInfo?userInfo=' + JSON.stringify(that.data.userInfo),
+              url: '../userInfo/userInfo?userInfo=' + JSON.stringify(that.data.wxUserInfo),
             })
           }
         }
@@ -156,7 +173,7 @@ Page({
             })
           } else {
             wx.navigateTo({
-              url: '../prize/prize?userInfo=' + JSON.stringify(that.data.userInfo),
+              url: '../prize/prize?userInfo=' + JSON.stringify(that.data.wxUserInfo),
             })
           }
         }
@@ -169,8 +186,14 @@ Page({
   settingTap: function(event){
     if (ableTap[3]){
       that.setData({
-        popupStatus: true
+        popupStatus: false,
+        
       })
+      setTimeout(function(){
+        that.setData({
+          settingOpacityStatus: false
+        })
+      }, 100);
       ableTap[3] = false;
     }
     
@@ -207,24 +230,49 @@ Page({
         }
       });
       ableTap[2] = false;
-    }
-    
+    }  
   },
 
+  moreTap: function(){
+    if (ableTap[5]){
+      that.setData({
+        expectPopupStatus: false
+      });
+      setTimeout(function(){
+        that.setData({
+          moreOpacityStatus: false
+        })
+      }, 100);
+      ableTap[5] = false;
+    }
+  },
+
+  //打开和关闭音效
   switchTap: function(e){
-    console.log(e);
+    app.setStorage("switchCheck", !(that.data.switchCheck));
     that.setData({
       switchCheck: !(that.data.switchCheck)
-    })
+    });
   },
 
   contentTap: function(){
     return;
   },
 
+  //敬请期待点击透明层隐藏弹框
+  expectPopupTap: function(){
+    that.setData({
+      expectPopupStatus: true,
+      moreOpacityStatus: true
+    });
+    ableTap[5] = true;
+  },
+
+  //设置弹框点击透明层隐藏弹框
   popupTap: function(){
     that.setData({
-      popupStatus: false
+      popupStatus: true,
+      settingOpacityStatus: true
     });
     ableTap[3] = true;
   },

@@ -95,7 +95,7 @@ Page({
 
   //调用获取问题接口
   getQuestions: function(){
-    util.http("/qBank/getRandSpiritsBankList?mid=1387855", that.questionCallBack);
+    util.http("/qBank/getRandSpiritsBankList?mid=1388464", that.questionCallBack);
   },
 
   //获取问题回调

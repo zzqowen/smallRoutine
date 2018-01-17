@@ -1,5 +1,8 @@
 // pages/phone/phone.js
+var util = require('../../utils/util.js');
+
 var app = getApp();
+var that;
 
 Page({
 
@@ -7,14 +10,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    getCode: "获取验证码"
+    getCode: "获取验证码",
+    message: "",
+    phone: null,
+    code: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options);
+    that = this;
+    wx.getUserInfo({
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          userInfo: res.userInfo,
+          unionid: options.unionid
+        });
+      }
+    })
   },
 
   
@@ -27,11 +43,66 @@ Page({
   },
 
   getCodeTap: function(event){
-    console.log(event);
+    console.log(that.data.phone)
+    if (that.data.phone != null){
+      util.httpPost("/api/v1/sendWxMobileCode?mobile=" + that.data.phone, function (data) {
+        wx.showToast({
+          title: data.msg,
+          icon: 'success',
+          duration: 2000
+        })
+      })
+    }
   },
 
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    var data = e.detail.value;
+    if (data.input == ""){
+      wx.showToast({
+        title: "手机号不能为空",
+        icon: 'success',
+        duration: 2000
+      })
+    } else if (data.code == ""){
+      wx.showToast({
+        title: "验证码不能为空",
+        icon: 'success',
+        duration: 2000
+      })
+    } else {
+      util.httpPost("/api/v1/sendWxValidateCode?mobile=" + data.input + "&code=" + data.code + "&unionid=" + that.data.unionid + "&nickname=" + that.data.userInfo.nickName + "&headimgurl=" + that.data.userInfo.avatarUrl, function (data) {
+        console.log(data);
+        wx.showToast({
+          title: data.msg,
+          icon: 'success',
+          duration: 2000
+        });
+        if (data.status == "OK"){
+          wx.navigateBack({
+            delta: 2
+          })
+        }
+      })
+    }
+
+  },
+
+  inputBlur: function(e){
+      console.log(e);
+      if (e.detail.value == ""){
+        that.setData({
+          message: '手机号码不能为空'
+        })
+      } else if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(e.detail.value))) {
+        that.setData({
+          message: '手机号码输入不正确',
+        })
+      } else {
+        that.setData({
+          message: '',
+          phone: e.detail.value
+        })
+      }
   },
 
   /**

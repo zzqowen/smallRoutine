@@ -4,9 +4,10 @@
       <canvas class='my_canvas' canvas-id='my_canvas' style="width: {{windowWidth}}px; height: {{canvasHeight}}px">
       </canvas>
   </view>
-  <text class='text'>只懂得喝酒的酒鬼
-        有酒就喝，不懂社交
-        红的，白的，喝倒为止</text>
+  <text class='text_content'>
+    <image src='/images/userInfo/flag.png' class='left_img text_img'></image>
+    <image src='/images/userInfo/flag.png' class='right_img text_img'></image>
+  </text>
 
   <view class='flex_item_between button_content'>
     <button open-type="share" class="friends button" catchtap='Page.onShareAppMessage()'>分享好友</button>

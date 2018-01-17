@@ -3,15 +3,17 @@
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="section flex_container">
       <view class="section_title">手机号</view>
-      <input name="input" placeholder="请输入手机号" placeholder-class='input_placeholder' maxlength='6' focus='true'/>
+      <input name="input" placeholder="请输入手机号" type="number" maxlength='11' placeholder-class='input_placeholder' bindblur="inputBlur" focus='true'/>
       <view class="get_code" catchtap='getCodeTap'>{{getCode}}</view>
     </view>
     <view class="section flex_container">
       <view class="section_title">验证码</view>
       <input name="code" placeholder="请输入验证码" placeholder-class='input_placeholder' maxlength='6'/>
     </view>
+    
     <view class="btn_area">
       <button formType="submit">绑定</button>
     </view>
   </form>
+    <view>{{message}}</view>
 </view>

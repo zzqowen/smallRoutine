@@ -162,10 +162,25 @@
   background-color: rgba(76, 32, 46, 0.24);
 }
 .setting_container{
-  width: 500rpx;
-  height: 200rpx;
+  width: 540rpx;
+  height: 290rpx;
   border-radius: 10rpx;
-  background-color: white;
+  position: relative;
+}
+.setting_popup_bg{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.setting_popup_icon{
+  width: 88rpx;
+  height: 88rpx;
+  position: absolute;
+  top: 26rpx;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 .setting_title{
   display: block;
@@ -175,38 +190,36 @@
   text-align: center
 }
 .music{
-  margin-top: 40rpx;
+  margin-top: 166rpx;
 }
-.music label{
-  color: aqua;
+.music text{
+  color: #666;
+  font-size: 40rpx;
+  position: relative;
 }
 .switch{
-  margin-left: 20rpx;
-  width: 120rpx;
-  border: 1px solid black;
+  margin-left: 80rpx;
+  width: 96rpx;
   height: 50rpx;
-  border-radius: 50rpx;
+  border-radius: 25rpx;
   position: relative;
-  background: aqua;
+  background: #ef6293;
 }
-.switch::before{
-  content: "";
-  display: inline-block;
-  width: 60rpx;
-  height: 60rpx;
-  border: 1px solid black;
+.switch .switch_item{
+  width: 45rpx;
+  height: 45rpx;
   border-radius: 50%;
   position: absolute;
-  top: 50%;
+  top: 2.5rpx;
+  left: 2rpx;
   background: white;
-  transform: translate(0, -50%);
 }
 .checked{
-  animation: check 200ms linear;
+  animation: check 100ms linear;
   animation-fill-mode: forwards;
 }
-.checked::before{
-  animation: checkBefore 200ms linear;
+.checked .switch_item{
+  animation: checkBefore 100ms linear;
   animation-fill-mode: forwards;
 }
 @keyframes check{
@@ -214,28 +227,28 @@
     background: #ccc;
   }
   to{
-    background: aqua;
+    background: #ef6293;
   }
 }
 @keyframes checkBefore{
   from{
-    left: -2rpx; 
+    left: 2rpx; 
   }
   to{
-    left: 62rpx;
+    left: 50rpx;
   }
 }
 .unchecked{
-  animation: uncheck 200ms linear;
+  animation: uncheck 100ms linear;
   animation-fill-mode: forwards;
 }
-.unchecked::before{
-  animation: uncheckBefore 200ms linear;
+.unchecked .switch_item{
+  animation: uncheckBefore 100ms linear;
   animation-fill-mode: forwards;
 }
 @keyframes uncheck{
   from{
-    background: aqua;
+    background: #ef6293;
   }
   to{
     background: #ccc;
@@ -243,9 +256,78 @@
 }
 @keyframes uncheckBefore{
   from{
-    left: 62rpx; 
+    left: 50rpx; 
   }
   to{
-    left: -2rpx;
+    left: 2rpx;
   }
+}
+.more_poup{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(76, 32, 46, 0.24);
+}
+.more_container{
+  height: 414rpx;
+  width: 538rpx;
+}
+.more_popup_bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1
+}
+/* 敬请期待 */
+.expect{
+  margin-top: 72rpx;
+}
+.expect text{
+  display: inline-block;
+  font-size: 42rpx;
+  line-height: 42rpx;
+  font-weight: bold;
+  color: #4d4d4d;
+  border-bottom: 2rpx solid #666;
+  padding: 0 12rpx 16rpx;
+}
+.develop text{
+  display: inline-block;
+  color: #666;
+  line-height: 42rpx;
+  border-bottom: 2rpx solid #666;
+  padding: 6rpx 10rpx ;
+}
+.waiting_bottom{
+  width: 100%;
+  position: absolute;
+  bottom: 76rpx;
+  left: 0;
+  justify-content: center;
+  align-items: flex-end;
+}
+.bottom_icon1{
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: bottom;
+  margin-left: 15rpx;
+}
+.bottom_icon2{
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: bottom;
+  margin-left: 15rpx;
+}
+.bottom_icon3{
+  width: 72rpx;
+  height: 72rpx;
+  vertical-align: bottom;
+  margin-left: 15rpx;
+}
+.bottom_icon4{
+  width: 86rpx;
+  height: 86rpx;
+  vertical-align: bottom;
 }

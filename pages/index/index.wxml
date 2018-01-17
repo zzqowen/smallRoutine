@@ -23,7 +23,7 @@
         <view class = "list question" catchtap='questionTap'>
           <image src='/images/index/drinking.png' class='question_bg'></image>
         </view>
-        <view class = "list" class='more'>
+        <view class = "list" class='more' catchtap='moreTap'>
           <image src='/images/index/more.png' class='more_bg'></image>
         </view>
         <button class = "list" catchtap='phoneTap'>绑定手机</button>
@@ -43,14 +43,35 @@
 </scroll-view>
   
 </view>
-
-<view class='setting_popup flex_item_center' style='width:{{windowWidth}}px; height: {{windowHeight}}px' wx:if="{{popupStatus}}" catchtap='popupTap'>
+<!-- 设置弹框 -->
+<view class='setting_popup flex_item_center {{settingOpacityStatus ? "hide" : ""}}' style='width:{{windowWidth}}px; height: {{windowHeight}}px' hidden="{{popupStatus}}" catchtap='popupTap'>
     <view class='setting_container' catchtap='contentTap'>
-        <text class='setting_title'>设置</text>
+        <image src='/images/setting_bg.png' class='setting_popup_bg'></image>
+        <image src='/images/setting_icon.png' class='setting_popup_icon'></image>
         <view class='music flex_item_center'>
-          <label for='switch'>音效</label>
-          <view class='switch {{switchCheck ? "checked" : "unchecked"}}' catchtap='switchTap'></view>
+          <text>音效</text>
+          <view class='switch {{switchCheck ? "checked" : "unchecked"}}' catchtap='switchTap'>
+            <view class='switch_item'></view>
+          </view>
         </view>
+    </view>
+</view>
+<!-- 敬请期待弹框 -->
+<view class='more_poup flex_item_center {{moreOpacityStatus? "hide":""}}' style='width:{{windowWidth}}px; height: {{windowHeight}}px' catchtap='expectPopupTap' hidden="{{expectPopupStatus}}">
+    <view class='more_container item_center_middle' catchtap='contentTap'>
+      <image src='/images/more_bg.png' class='more_popup_bg'></image>
+      <view class='expect flex_item_center'>
+       <text>敬请期待!</text>
+      </view>
+      <view class='develop flex_item_center'>
+        <text>此功能正在开发中...</text>
+      </view>
+      <view class='waiting_bottom flex_container'>
+        <image src='/images/question/octopus.png' class='bottom_icon4'></image>
+        <image src='/images/question/octopus.png' class='bottom_icon3'></image>
+        <image src='/images/question/octopus.png' class='bottom_icon2'></image>
+        <image src='/images/question/octopus.png' class='bottom_icon1'></image>
+      </view>
     </view>
 </view>
 

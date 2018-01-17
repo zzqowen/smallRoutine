@@ -1,11 +1,17 @@
+var util = require('/utils/util.js');
 var time = null;
+var that;
+
 App({
     globalData:{
+        wxUserInfo: null,
+        darwinUserInfo: null,
         g_isPlayingMusic:false,
         g_currentMusicPostId:null,
         doubanBase: "https://api.douban.com",
     },
     onLaunch:function(ops){
+      that = this;
       console.log(ops);
       // wx.getSystemInfo({
       //   success: function (res) {
@@ -187,5 +193,52 @@ App({
         statusArr.push(obj);
       }
       return statusArr;
-    }
+    },
+    //获取本地数据
+    getStorage: function(key, success, fail){
+      wx.getStorage({
+        key: key,
+        success: function (res) {
+          success(res);
+        },
+        fail: function (res) {
+          fail(res);
+        }
+      })
+    },
+    //保存数据到本地
+    setStorage: function(key, value){
+      wx.setStorage({
+        key: key,
+        data: value,
+      })
+    },
+    userInfoData: function (darwinCB, wxCB) {
+      console.log(this);
+      //登录
+      wx.showLoading({
+        title: '登录中...',
+      })
+      wx.login({
+        success: function (res) {
+          console.log(res);
+          util.httpPost("/weichar/getAppletWeMember?JscodeCode=" + res.code, function (data) {
+            console.log(data);
+            if (data.mid == "") {
+              wx.navigateTo({
+                url: '../phone/phone?unionid=' + data.unionid,
+              })
+            } else {
+              darwinCB(data.member);
+            }
+          });
+          wx.getUserInfo({
+            success: function (res) {
+              wx.hideLoading()
+              wxCB(res.userInfo);
+            }
+          })
+        }
+      });
+    },
 })
