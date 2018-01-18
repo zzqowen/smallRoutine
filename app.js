@@ -1,9 +1,11 @@
 var util = require('/utils/util.js');
 var time = null;
 var that;
+var curTime = 0;
 
 App({
     globalData:{
+        shareMid: null,
         wxUserInfo: null,
         darwinUserInfo: null,
         g_isPlayingMusic:false,
@@ -12,7 +14,9 @@ App({
     },
     onLaunch:function(ops){
       that = this;
-      console.log(ops);
+      if (ops.query.mid){
+        shareMid = ops.query.mid;
+      }
       // wx.getSystemInfo({
       //   success: function (res) {
       //     // check sdk version
@@ -67,7 +71,7 @@ App({
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
       var r = circleSize;
       wx.downloadFile({
-        url: userInfo.avatarUrl,
+        url: userInfo.avatar,
         success: function (res) {
           console.log(res);
           if (res.statusCode === 200) {
@@ -164,9 +168,11 @@ App({
         if (num == 50 * totalTime) {
           ctx.fillText(0, 0, 0);
           clearInterval(time);
+          curTime = 10;
           callBack();
         } else {
           ctx.fillText((totalTime + 1) - Math.ceil(num / 50), 0, 0);
+          curTime = Math.ceil(num / 50) - 1;
         }
         
         ctx.beginPath();
@@ -179,8 +185,9 @@ App({
         ctx.restore();
       }, 20);
     },
-    clearTime: function(){
+    clearTime: function(callBack){
       clearInterval(time);
+      callBack(curTime)
     },
     //打乱选项
     random: function(arr){
@@ -224,13 +231,13 @@ App({
           console.log(res);
           util.httpPost("/weichar/getAppletWeMember?JscodeCode=" + res.code, function (data) {
             console.log(data);
-            if (data.mid == "") {
+            if (data.mid == "" || data.mid == null) {
               wx.hideLoading();
               wx.navigateTo({
                 url: '../phone/phone?unionid=' + data.unionid,
               })
             } else {
-              darwinCB(data.member, data.mid);
+              darwinCB(data.userInfo, data.mid);
             }
           });
           wx.getUserInfo({
@@ -241,4 +248,28 @@ App({
         }
       });
     },
+    fadeAnimation: function (fadeStatus) {
+      var animation = wx.createAnimation({
+        duration: 1000,
+        timingFunction: 'ease',
+      })
+      if (fadeStatus) {
+        animation.opacity(1).step();
+      } else {
+        animation.opacity(0).step();
+      }
+      return animation;
+    },
+    popupOpacityAnimation: function (fadeStatus){
+      var animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease',
+      })
+      if (fadeStatus) {
+        animation.opacity(1).step();
+      } else {
+        animation.opacity(0).step();
+      }
+      return animation;
+    }
 })

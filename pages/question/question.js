@@ -12,6 +12,7 @@ var innerAudioContext;
 var startAniTime = null;
 var ableTap = true; //是否可以点击 true为可以， false为不可以
 var spotTime = null;
+var totalTime = 0; //答题的总时间
 
 Page({
   /**
@@ -35,6 +36,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showShareMenu({
+      // 要求小程序返回分享目标信息
+      withShareTicket: true
+    });
     var userInfo;
     if (options.userInfo != null){
         userInfo = JSON.parse(options.userInfo);
@@ -94,7 +99,7 @@ Page({
   //调用获取问题接口
   getQuestions: function(){
     console.log(that.data.userInfo)
-    util.http("/qBank/getRandSpiritsBankList?mid=" + that.data.userInfo.id, that.questionCallBack);
+    util.http("/qBank/getRandSpiritsBankList?mid=" + that.data.userInfo.mid, that.questionCallBack);
   },
 
   //获取问题回调
@@ -123,24 +128,23 @@ Page({
         setTimeout(function(){
           that.setData({
             challengeStatus: true,
-            animationOutData: that.fadeAnimation(false).export(),
+            animationOutData: app.fadeAnimation(false).export(),
           })
           setTimeout(function () {
             that.setData({
-              animationInData: that.fadeAnimation(true).export(),
+              animationInData: app.fadeAnimation(true).export(),
               waitingStatus: false,
               countNum: 3,
               spot: ""
             });
           }, 1000);
+          app.countDown("my_canvas_time", circleSize, lineWidth, 10, that.callBack);
         }, 1000);
         
         clearInterval(spotTime);
         clearInterval(startAniTime);
-        app.countDown("my_canvas_time", circleSize, lineWidth, 10, that.callBack);
       }
     }, 1000);
-
   },
 
   callBack: function(){
@@ -171,7 +175,10 @@ Page({
   //下一题
   nextQuestion: function(){
     ableTap = true;
-    app.clearTime();
+    app.clearTime(function(time){
+      totalTime += time;
+    });
+    console.log(totalTime)
     index++;
     if (index >= 10){
       wx.showToast({
@@ -188,7 +195,18 @@ Page({
       that.setData({
         grade: resultData.grade,
         text: resultData.text,
+        score: resultData.score
       });
+
+      util.httpPost("/qBank/upgradedSpiritsMember", function(res){
+        console.log(res);
+      }, {
+        'mid': that.data.userInfo.mid,
+        'result': scoreArr.join(","),
+        'useTime': totalTime,
+        'grade': that.data.grade,
+        'gradeText': that.data.text.split("\n").join(","),
+        'score': that.data.score});
 
       return;
     }
@@ -258,7 +276,7 @@ Page({
       that.setData({
         answerData: answerArr
       });
-      app.clearTime();
+      app.clearTime(function(){});
       setTimeout(function () {
         that.nextQuestion();
       }, 1000);
@@ -287,19 +305,6 @@ Page({
       return result;
   },
 
-  fadeAnimation: function(fadeStatus){
-    var animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    if (fadeStatus){
-      animation.opacity(1).step();
-    } else {
-      animation.opacity(0).step();
-    }
-    return animation;
-  },
-
   //点击播放音效
   audioPlay: function(success){
     innerAudioContext = wx.createInnerAudioContext()
@@ -323,7 +328,7 @@ Page({
   setGrade: function (score) {
     var arr = postsData.gradeInfo;
     var result;
-    var rlt = {grade: "", text: ""};
+    var rlt = {grade: "", text: "", score};
     if (score == 5) {
       result = arr[0];
     } else if (score < 20) {
@@ -346,7 +351,8 @@ Page({
 
     var len = result.text.length;
     rlt.grade = result.grade;
-    rlt.text = result.text[parseInt(Math.random() * len)]
+    rlt.text = result.text[parseInt(Math.random() * len)],
+    rlt.score = result.score;
     return rlt;
   },
 
@@ -354,6 +360,7 @@ Page({
   continueQuestion: function(){
     index = 0;
     scoreArr = [0, 0, 0];//得分数组
+    totalTime = 0;
 
     that.setData({
       waitingStatus: true,
@@ -386,7 +393,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    app.clearTime();
+    app.clearTime(function(){});
     clearInterval(spotTime);
     clearInterval(startAniTime)
   },
@@ -395,7 +402,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    app.clearTime();
+    app.clearTime(function(){});
     clearInterval(spotTime);
     clearInterval(startAniTime)
   },

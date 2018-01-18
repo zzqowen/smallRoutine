@@ -46,7 +46,7 @@
 
       <scroll-view class="world_rank" wx:if="{{activeIndex == 1}}" scroll-y="true">
           <view class='view_container rank_view_container'>
-              <block wx:for="{{rankList}}" wx:for-item="item" wx:for-index="idx">
+              <block wx:for="{{worldList}}" wx:for-item="item" wx:for-index="idx">
                   <view class="friends_item" id='{{item.rank}}'>
 
                     <image class='rank_icon' src='/images/rank/one.png' wx:if="{{idx == 0}}"></image>
@@ -62,12 +62,12 @@
                         </view>
                         <view class='font_content'>
                           <view class='flex_item_center font_center_line rank_text'>
-                            <text class='rank_displayName'>{{item.name}}</text>
-                            <text class='rank_time'>用时：{{item.score}}</text>
+                            <text class='rank_displayName'>{{item.displayName}}</text>
+                            <text class='rank_time'>用时：{{item.useTime}}S</text>
                           </view>
                           <view class="flex_item_center rank_text">
                             <text class='rank_nickname'>{{item.grade}}</text>
-                            <text class='rank_message'>{{item.message}}</text>
+                            <text class='rank_message'>{{item.gradeText}}</text>
                           </view>
                         </view>
                     </view>

@@ -1,6 +1,7 @@
-var server = "http://test.aihuawen.com";
+// var server = "http://test.aihuawen.com";
 var wxServer = "https://api.weixin.qq.com";
-// var server = "http://192.168.0.149:8080"
+var server = "http://192.168.0.149:8080"
+// var server = "https://applet.aihuawen.com";
 
 function convertToStarsArray(stars) {
   var num = stars.toString().substring(0, 1);
@@ -72,15 +73,17 @@ function http(url, callBack, resData) {
 }
 
 function httpPost(url, callBack, resData) {
-  if (resData == null){
+  console.log(resData)
+  if (resData == null || resData == undefined){
     resData = {}
   };
+  console.log(resData)
   wx.request({
     url: server + url,
     method: 'POST',
     data: resData,
     header: {
-      "Content-Type": "json"
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     success: function (res) {
       callBack(res.data);

@@ -3,17 +3,17 @@
 <scroll-view class='body_scroll' scroll-y>
   <view class='header' catchtap='userInfoTap'>
     <image class='user_bg' src='/images/index/userBg.png'></image>
-    <image class="avatar" style="border-radius: 50%;" src="{{wxUserInfo.avatarUrl ? wxUserInfo.avatarUrl : '/images/avatar/1.png'}}"></image>
-    <text class='nick_name'>{{wxUserInfo.nickName ? wxUserInfo.nickName : "请先提供权限"}}</text>
+    <image class="avatar" style="border-radius: 50%;" src="{{darwinUserInfo.avatar ? darwinUserInfo.avatar : '/images/avatar/1.png'}}"></image>
+    <text class='nick_name'>{{darwinUserInfo.displayName ? darwinUserInfo.displayName : "----"}}</text>
     <view class='level'>
       <view class='level_container flex_item_between'>
         <view class='level_content flex_item_between'>
           <image src='/images/index/flag.png' class='level_img'></image>
-          <text class='level_font' style='padding-right: 20rpx;'>酒鬼</text>
+          <text class='level_font' style='padding-right: 20rpx;'>{{darwinUserInfo.grade ? darwinUserInfo.grade : "--"}}</text>
         </view>
          <view class='level_content flex_item_between'>
           <image src='/images/index/crown.png' class='level_img'></image>
-          <text class='level_font' style='padding-right: 10rpx;'>NO.99+</text>
+          <text class='level_font' style='padding-right: 10rpx;'>{{darwinUserInfo.rank ? (darwinUserInfo.rank > 99 ? "NO.99+" : darwinUserInfo.rank) : "--"}}</text>
         </view>
       </view>
     </view>
@@ -56,7 +56,7 @@
     </view>
 </view>
 <!-- 敬请期待弹框 -->
-<view class='more_poup flex_item_center {{moreOpacityStatus? "hide":""}}' style='width:{{windowWidth}}px; height: {{windowHeight}}px' catchtap='expectPopupTap' hidden="{{expectPopupStatus}}">
+<view class='more_poup flex_item_center {{moreOpacityStatus? "hide":""}}'  animation="{{animationData}}" style='width:{{windowWidth}}px; height: {{windowHeight}}px' catchtap='expectPopupTap' hidden="{{expectPopupStatus}}">
     <view class='more_container item_center_middle' catchtap='contentTap'>
       <image src='/images/more_bg.png' class='more_popup_bg'></image>
       <view class='expect flex_item_center'>

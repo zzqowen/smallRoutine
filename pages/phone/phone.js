@@ -4,6 +4,7 @@ var util = require('../../utils/util.js');
 var app = getApp();
 var that;
 var arr = null;
+var time = null;
 
 Page({
 
@@ -12,6 +13,7 @@ Page({
    */
   data: {
     getCode: "获取验证码",
+    coutDownStatus: false,//倒计时状态 false为没有倒计时
     message: "",
     phone: null,
     code: null,
@@ -43,51 +45,82 @@ Page({
   },
 
   getCodeTap: function(event){
-    if (that.data.phone != null){
-      util.httpPost("/api/v1/sendWxMobileCode?mobile=" + that.data.phone, function (data) {
-        wx.showToast({
-          title: data.msg,
-          icon: 'success',
-          duration: 2000
+    if (!that.data.coutDownStatus){
+      if (that.data.phone != null) {
+        that.setData({
+          coutDownStatus: true
         })
-      })
-    }
+        util.httpPost("/api/v1/sendWxMobileCode?mobile=" + that.data.phone, function (data) {
+          if (data.status == "OK") {
+            that.coutDown(60)
+          } else {
+            that.setData({
+              coutDownStatus: false
+            })
+          }
+
+          console.log(data);
+          that.setData({
+            message: data.msg
+          });
+        })
+      }
+    } 
+  },
+
+  coutDown: function(num){
+      var data;
+      time = setInterval(function(){
+          num --;
+          console.log(num)
+          that.setData({
+            getCode: num + "s",
+            coutDownStatus: true
+          })
+          if (num == 0){
+            clearInterval(time);
+            that.setData({
+              getCode: "获取验证码",
+              coutDownStatus: false
+            })
+          }
+      }, 1000);
   },
 
   formSubmit: function (e) {
     var data = e.detail.value;
     if (data.input == ""){
-      wx.showToast({
-        title: "手机号不能为空",
-        icon: 'success',
-        duration: 2000
+      that.setData({
+        message: "手机号不能为空"
       })
     } else if (data.code == ""){
-      wx.showToast({
-        title: "验证码不能为空",
-        icon: 'success',
-        duration: 2000
+      that.setData({
+        message: "验证码不能为空"
       })
     } else {
       console.log(that.data.unionid);
       util.httpPost("/api/v1/sendWxValidateCode?mobile=" + data.input + "&code=" + data.code + "&unionid=" + that.data.unionid + "&nickname=" + that.data.userInfo.nickName + "&headimgurl=" + that.data.userInfo.avatarUrl, function (data) {
         console.log(data);
-        wx.showToast({
-          title: data.msg,
-          icon: 'success',
-          duration: 2000
-        });
+        that.setData({
+          message: data.msg
+        })
         if (data.status == "OK"){
-          wx.navigateBack({
-            delta: 2,
-            success: function(res){
-              arr[arr.length - 2].data.whetherBinding = true
-            }
-          })
+          wx.showToast({
+            title: '已经答完了',
+            duration: 2000
+          });
+          setTimeout(function(){
+            wx.navigateBack({
+              delta: 2,
+              success: function (res) {
+                arr[arr.length - 2].data.whetherBinding = true
+              }
+            })
+          }, 1000);
+         
         }
       })
     }
-
   },
 
   inputBlur: function(e){
@@ -119,14 +152,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    clearInterval(time);
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    clearInterval(time);
   },
 
   /**

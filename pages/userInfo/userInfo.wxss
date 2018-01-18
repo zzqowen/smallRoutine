@@ -26,7 +26,7 @@ body{
   width: 100%;
   text-align: center;
   position: relative;
-  padding: 35rpx 40rpx 160rpx;
+  padding: 35rpx 40rpx 140rpx;
   box-sizing: border-box;
 }
 .text_img{

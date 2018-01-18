@@ -2,6 +2,7 @@ var postsData = require('../../data/posts-data.js');
 var app = getApp();
 var scoreArr = [0, 0, 0];//得分数组
 var queNum = [3, 3, 4];
+var that
 
 Page({
     data: {
@@ -20,11 +21,12 @@ Page({
         withShareTicket: true,
       });
 
-      var that = this;
+      that = this;
       var userInfo;
       if (option.userInfo != null){
         userInfo = JSON.parse(option.userInfo);
       }
+      console.log(userInfo)
       wx.getSystemInfo({
         success: function (res) {
           var data = that.data.accountList;
@@ -39,7 +41,7 @@ Page({
             canvasHeight: res.windowWidth * 185 / 750 * 22 / 9
           })
           console.log(that.resultRandom([2, 2, 3], that.data.resultInfo));
-          app.abilityMap("my_canvas", that.resultRandom([1, 2, 3], that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.userInfo, Math.PI/6);
+          app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.userInfo, Math.PI/6);
         }
       });
     },
@@ -67,7 +69,7 @@ Page({
 
     continueTap: function(event){
       wx.navigateTo({
-        url: '../question/question',
+        url: '../question/question?userInfo=' + JSON.stringify(that.data.userInfo),
       })
     },
 
@@ -90,8 +92,23 @@ Page({
           })
         }
       })
-    },
+  },
 
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    if (that.data.directBack) {
+      that.getCurrentUserInfo();
+      that.setData({
+        directBack: false,
+      })
+    };
+  },
+
+    /**
+  * 用户点击右上角分享
+  */
     onShareAppMessage: function (res) {
       console.log(res);
       if (res.from === 'button') {
@@ -100,8 +117,9 @@ Page({
       }
       return {
         title: '答尔文智力库',
-        path: '/pages/question/question',
+        path: '/pages/index/index?mid=' + that.data.userInfo.mid,
         success: function (res) {
+          // 转发成功
           console.log(res);
           // 转发成功
           console.log(res.shareTickets[0])
@@ -114,7 +132,6 @@ Page({
           })
         },
         fail: function (res) {
-          console.log(res);
           // 转发失败
         }
       }

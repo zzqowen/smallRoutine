@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/prize/prize",
     "pages/phone/phone",
+    "pages/prize/prize",
     "pages/question/question",
     "pages/userInfo/userInfo",
     "pages/rank/rank",

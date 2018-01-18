@@ -26,13 +26,14 @@
   flex: 1;
   font-size: 40rpx;
   color: white;
-  height: 100rpx;
+  height: 98rpx;
   display: inline-block;
-  line-height: 100rpx;
+  line-height: 98rpx;
 }
 .cur{
   color: white;
-  border-bottom: 4rpx solid #4d4d4d;
+  border-bottom: 3px solid #4d4d4d;
+  border-width: 6rpx;
 }
 .content{
   flex: 1;
@@ -85,6 +86,7 @@
 .avatar_img{
   width: 122rpx;
   height: 122rpx;
+  border-radius: 50%;
 }
 .font_content{
   flex: 1;
@@ -94,6 +96,7 @@
 }
 .rank_text{
   height: 50%;
+  justify-content: flex-start;
 }
 .font_center_line{
   justify-content: space-between;

@@ -65,6 +65,8 @@
   display: block;
 }
 .level_font{
+  flex: 1;
+  text-align: center;
   font-size: 30rpx;
   color: white;
   height: 56rpx;
@@ -200,17 +202,17 @@
 .switch{
   margin-left: 80rpx;
   width: 96rpx;
-  height: 50rpx;
+  height: 48rpx;
   border-radius: 25rpx;
   position: relative;
   background: #ef6293;
 }
 .switch .switch_item{
-  width: 45rpx;
-  height: 45rpx;
+  width: 44rpx;
+  height: 44rpx;
   border-radius: 50%;
   position: absolute;
-  top: 2.5rpx;
+  top: 2rpx;
   left: 2rpx;
   background: white;
 }

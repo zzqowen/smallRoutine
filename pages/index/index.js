@@ -56,9 +56,7 @@ Page({
   //答题点击事件
   questionTap: function(event){
     if (ableTap[0]){
-      var info = that.data.wxUserInfo;
-      info.id = that.data.mid;
-      that.getAuthority(0, '../question/question?userInfo=' + JSON.stringify(info));
+      that.getAuthority(0, '../question/question?userInfo=' + JSON.stringify(that.data.darwinUserInfo));
 
       ableTap[0] = false;
     }
@@ -67,7 +65,7 @@ Page({
   //个人信息点击事件
   userInfoTap: function(event){
     if (ableTap[1]){
-      that.getAuthority(1, '../userInfo/userInfo?userInfo=' + JSON.stringify(that.data.wxUserInfo));
+      that.getAuthority(1, '../userInfo/userInfo?userInfo=' + JSON.stringify(that.data.darwinUserInfo));
 
       ableTap[1] = false;
     }  
@@ -76,7 +74,7 @@ Page({
   //奖品点击事件
   prizeTap: function(){
     if (ableTap[4]){
-      that.getAuthority(4, '../prize/prize?userInfo=' + JSON.stringify(that.data.wxUserInfo))
+      that.getAuthority(4, '../prize/prize?userInfo=' + JSON.stringify(that.data.darwinUserInfo))
 
       ableTap[4] = false;
     }
@@ -93,7 +91,7 @@ Page({
         that.setData({
           settingOpacityStatus: false
         })
-      }, 100);
+      }, 150);
       ableTap[3] = false;
     }
     
@@ -102,7 +100,7 @@ Page({
   //排行点击事件
   rankTap: function(){
     if (ableTap[2]){
-      that.getAuthority(2, '../rank/rank')
+      that.getAuthority(2, '../rank/rank?userInfo=' + JSON.stringify(that.data.darwinUserInfo));
       ableTap[2] = false;
     }  
   },
@@ -149,10 +147,11 @@ Page({
   moreTap: function(){
     if (ableTap[5]){
       that.setData({
-        expectPopupStatus: false
+        expectPopupStatus: false,
       });
       setTimeout(function(){
         that.setData({
+          // animationData: app.fadeAnimation(true).export(),
           moreOpacityStatus: false
         })
       }, 100);
@@ -174,10 +173,15 @@ Page({
 
   //敬请期待点击透明层隐藏弹框
   expectPopupTap: function(){
-    that.setData({
-      expectPopupStatus: true,
-      moreOpacityStatus: true
-    });
+    // that.setData({
+      animationData: app.fadeAnimation(false).export(),
+    // });
+    // setTimeout(function () {
+      that.setData({
+        expectPopupStatus: true, 
+        moreOpacityStatus: true
+      })
+    // }, 1000);
     ableTap[5] = true;
   },
 
@@ -216,7 +220,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(that.data.directBack)
     if (that.data.whetherBinding || that.data.directBack){
       that.getCurrentUserInfo();
       that.setData({
@@ -266,7 +269,7 @@ Page({
     }
     return {
       title: '答尔文智力库',
-      path: '/pages/index/index?id=123',
+      path: '/pages/index/index?mid=' + that.data.darwinUserInfo.mid,
       success: function (res) {
         // 转发成功
         console.log(res);
