@@ -3,6 +3,7 @@ var util = require('../../utils/util.js');
 
 var app = getApp();
 var that;
+var arr = null;
 
 Page({
 
@@ -20,8 +21,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
     that = this;
+    arr = getCurrentPages();//获取全部页面进行传值
+    arr[arr.length - 2].data.directBack = true;
     wx.getUserInfo({
       success: function (res) {
         console.log(res);
@@ -33,8 +35,6 @@ Page({
     })
   },
 
-  
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -43,7 +43,6 @@ Page({
   },
 
   getCodeTap: function(event){
-    console.log(that.data.phone)
     if (that.data.phone != null){
       util.httpPost("/api/v1/sendWxMobileCode?mobile=" + that.data.phone, function (data) {
         wx.showToast({
@@ -70,6 +69,7 @@ Page({
         duration: 2000
       })
     } else {
+      console.log(that.data.unionid);
       util.httpPost("/api/v1/sendWxValidateCode?mobile=" + data.input + "&code=" + data.code + "&unionid=" + that.data.unionid + "&nickname=" + that.data.userInfo.nickName + "&headimgurl=" + that.data.userInfo.avatarUrl, function (data) {
         console.log(data);
         wx.showToast({
@@ -79,7 +79,10 @@ Page({
         });
         if (data.status == "OK"){
           wx.navigateBack({
-            delta: 2
+            delta: 2,
+            success: function(res){
+              arr[arr.length - 2].data.whetherBinding = true
+            }
           })
         }
       })

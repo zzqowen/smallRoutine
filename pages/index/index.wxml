@@ -3,8 +3,8 @@
 <scroll-view class='body_scroll' scroll-y>
   <view class='header' catchtap='userInfoTap'>
     <image class='user_bg' src='/images/index/userBg.png'></image>
-    <image class="avatar" style="border-radius: 50%;" src="{{userInfo.avatarUrl ? userInfo.avatarUrl : '/images/avatar/1.png'}}"></image>
-    <text class='nick_name'>{{userInfo.nickName ? userInfo.nickName : "请先提供权限"}}</text>
+    <image class="avatar" style="border-radius: 50%;" src="{{wxUserInfo.avatarUrl ? wxUserInfo.avatarUrl : '/images/avatar/1.png'}}"></image>
+    <text class='nick_name'>{{wxUserInfo.nickName ? wxUserInfo.nickName : "请先提供权限"}}</text>
     <view class='level'>
       <view class='level_container flex_item_between'>
         <view class='level_content flex_item_between'>
@@ -26,7 +26,6 @@
         <view class = "list" class='more' catchtap='moreTap'>
           <image src='/images/index/more.png' class='more_bg'></image>
         </view>
-        <button class = "list" catchtap='phoneTap'>绑定手机</button>
     </view>
     <view class="flex_column_container list_container">
       <view class = "list" catchtap='rankTap' class='rank'>

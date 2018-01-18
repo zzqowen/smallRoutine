@@ -25,10 +25,44 @@ body{
   display: block;
   width: 100%;
   text-align: center;
-  margin-top: 20rpx;
+  position: relative;
+  padding: 35rpx 40rpx 160rpx;
+  box-sizing: border-box;
 }
 .text_img{
-  width: 100rpx;
+  position: absolute;
+  top: 0;
+  width: 35rpx;
+  height: 40rpx;
+}
+.left_img{
+  left: 144rpx;
+}
+.right_img{
+  right: 144rpx;
+}
+.font_content{
+  height: 126rpx;
+  box-shadow: 0 0 20rpx #ccc;
+  justify-content: flex-start
+}
+.flag_container{
+  padding-top: 15rpx;
+}
+.flag_img{
+  width: 35rpx;
+  height: 40rpx;
+}
+.flag_nickname{
+  font-size: 38rpx;
+  color: #666;
+  font-weight: bold;
+  margin-left: 16rpx;
+}
+.flag_message{
+  color: #808080;
+  font-size: 24rpx;
+  display: block;
 }
 .button_content{
   padding: 0 64rpx;

@@ -102,7 +102,7 @@ App({
             var dis;
             ctx.beginPath();
             for (var j = 0; j< arr.length; j ++){
-              ctx.lineTo((r / 3 + (r * 2 / 3) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 3 + (r * 2 / 3) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
+              ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
               ctx.setFontSize(r/9);
               ctx.setFillStyle("white");
               ctx.setTextAlign("center");
@@ -217,7 +217,7 @@ App({
       console.log(this);
       //登录
       wx.showLoading({
-        title: '登录中...',
+        title: '加载中...',
       })
       wx.login({
         success: function (res) {
@@ -225,16 +225,16 @@ App({
           util.httpPost("/weichar/getAppletWeMember?JscodeCode=" + res.code, function (data) {
             console.log(data);
             if (data.mid == "") {
+              wx.hideLoading();
               wx.navigateTo({
                 url: '../phone/phone?unionid=' + data.unionid,
               })
             } else {
-              darwinCB(data.member);
+              darwinCB(data.member, data.mid);
             }
           });
           wx.getUserInfo({
             success: function (res) {
-              wx.hideLoading()
               wxCB(res.userInfo);
             }
           })

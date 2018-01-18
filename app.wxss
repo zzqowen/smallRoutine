@@ -29,6 +29,12 @@ input{
   display: flex;
   flex-flow: column nowrap;
 }
+flex_column_center_container{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
 .item_center_middle{
   position: absolute;
   left: 50%;

@@ -71,22 +71,6 @@
   font-size: 34rpx;
   line-height: 100rpx;
 }
-.grade{
-  text-align: center;
-}
-.grade text{
-  display: inline-block;
-  font-size: 100rpx;
-  color: blueviolet;
-}
-.text{
-  text-align: center;
-}
-.text text{
-  display: inline-block;
-  font-size: 50rpx;
-  color: #ccc;
-}
 .waiting_animation{
   background-color: #ed6f9d;
   align-items: flex-start;
@@ -221,4 +205,47 @@
   position: absolute;
   left: 0;
   bottom: 0;
+}
+.text_content{
+  display: block;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  padding: 35rpx 40rpx 95rpx;
+  box-sizing: border-box;
+}
+.text_img{
+  position: absolute;
+  top: 0;
+  width: 35rpx;
+  height: 40rpx;
+}
+.left_img{
+  left: 144rpx;
+}
+.right_img{
+  right: 144rpx;
+}
+.font_content{
+  box-shadow: 0 0 20rpx #ccc;
+  justify-content: flex-start
+}
+.flag_container{
+  padding-top: 15rpx;
+  padding-bottom: 35rpx;
+}
+.flag_img{
+  width: 35rpx;
+  height: 40rpx;
+}
+.flag_nickname{
+  font-size: 30rpx;
+  color: #4d4d4d;
+  margin-left: 16rpx;
+}
+.flag_message{
+  color: #666;
+  font-size: 24rpx;
+  display: block;
+  margin-top: 22rpx;
 }

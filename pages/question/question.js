@@ -71,8 +71,6 @@ Page({
     //   }, 300);
     // }, 4000);
 
-
-
     that.getQuestions();   
   },
 
@@ -95,7 +93,8 @@ Page({
 
   //调用获取问题接口
   getQuestions: function(){
-    util.http("/qBank/getRandSpiritsBankList?mid=1388464", that.questionCallBack);
+    console.log(that.data.userInfo)
+    util.http("/qBank/getRandSpiritsBankList?mid=" + that.data.userInfo.id, that.questionCallBack);
   },
 
   //获取问题回调
@@ -116,18 +115,26 @@ Page({
 
       if (that.data.countNum == 0){
         that.setData({
-          challengeStatus: true,
-          animationOutData: that.fadeAnimation(false).export(),
-        })
+          countNum: "GO"
+        });
+      }
+
+      if (that.data.countNum == "GO"){
         setTimeout(function(){
           that.setData({
-            animationInData: that.fadeAnimation(true).export(),
-            waitingStatus: false,
-            countNum: 3,
-            spot: ""
-          });
+            challengeStatus: true,
+            animationOutData: that.fadeAnimation(false).export(),
+          })
+          setTimeout(function () {
+            that.setData({
+              animationInData: that.fadeAnimation(true).export(),
+              waitingStatus: false,
+              countNum: 3,
+              spot: ""
+            });
+          }, 1000);
         }, 1000);
-
+        
         clearInterval(spotTime);
         clearInterval(startAniTime);
         app.countDown("my_canvas_time", circleSize, lineWidth, 10, that.callBack);
@@ -144,7 +151,14 @@ Page({
       }
     }
     
-    that.audioPlay(false);
+    //获取音效按钮当前状态
+    app.getStorage("switchCheck", function (res) {
+      if (res.data){
+        that.audioPlay(false);
+      }
+    }, function (res) {
+      that.audioPlay(false);
+    });
     
     that.setData({
       answerData: answerArr
@@ -221,10 +235,25 @@ Page({
             scoreArr[i] += 1;
           }
         }
-        that.audioPlay(true);
+
+        //获取音效按钮当前状态
+        app.getStorage("switchCheck", function (res) {
+          if (res.data) {
+            that.audioPlay(true);
+          }
+        }, function (res) {
+          that.audioPlay(true);
+        });
       } else {
         answerArr[idx].select = 2;
-        that.audioPlay(false);
+        //获取音效按钮当前状态
+        app.getStorage("switchCheck", function (res) {
+          if (res.data) {
+            that.audioPlay(false);
+          }
+        }, function (res) {
+          that.audioPlay(false);
+        });
       }
       that.setData({
         answerData: answerArr
