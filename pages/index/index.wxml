@@ -3,7 +3,7 @@
 <scroll-view class='body_scroll' scroll-y>
   <view class='header' catchtap='userInfoTap'>
     <image class='user_bg' src='/images/index/userBg.png'></image>
-    <image class="avatar" style="border-radius: 50%;" src="{{darwinUserInfo.avatar ? darwinUserInfo.avatar : '/images/avatar/1.png'}}"></image>
+    <image class="avatar {{darwinUserInfo.avatar? '': 'default_avatar'}}" style="border-radius: 50%;" src="{{darwinUserInfo.avatar ? darwinUserInfo.avatar : ''}}"></image>
     <text class='nick_name'>{{darwinUserInfo.displayName ? darwinUserInfo.displayName : "----"}}</text>
     <view class='level'>
       <view class='level_container flex_item_between'>

@@ -65,77 +65,136 @@ App({
         }
       })
     },
-
-    abilityMap: function (id, arr, circleSize, windowWidth, userInfo, angle){
+    abilityMap: function (id, arr, circleSize, windowWidth, curAvatar, angle){
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
       var r = circleSize;
-      wx.downloadFile({
-        url: userInfo.avatar,
-        success: function (res) {
-          console.log(res);
-          if (res.statusCode === 200) {
-            ctx.translate(windowWidth/2, r*11/9);
-            var mult = 0;
-            for (var n = 1; n<= 3; n++){
-              //绘制六边形
-              ctx.beginPath();
-              if (n == 2){
-                mult = 0;
-              } else {
-                mult = n
-              }
-              for(var m = 0; m<6; m++){
-                ctx.lineTo((r * (6 - mult) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6 - mult) / 6) * Math.sin(m * Math.PI/3 + angle));
-              }
-              ctx.closePath();
-              ctx.setStrokeStyle("white");
-              ctx.stroke();
-            }
-
-            //绘制六条线
-            ctx.beginPath();
-            for (var k = 0; k < 6; k++) {
-              ctx.moveTo(r / 2 * Math.cos(k * Math.PI / 3 + angle), r / 2 * Math.sin(k * Math.PI / 3 + angle));
-              ctx.lineTo(r * Math.cos(k * Math.PI / 3 + angle), r * Math.sin(k * Math.PI / 3 + angle));
-            }
-            ctx.setStrokeStyle("white");
-            ctx.stroke();
-
-            //分数点和文字
-            var dis;
-            ctx.beginPath();
-            for (var j = 0; j< arr.length; j ++){
-              ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
-              ctx.setFontSize(r/9);
-              ctx.setFillStyle("white");
-              ctx.setTextAlign("center");
-              ctx.setTextBaseline("middle");
-              if (j == 1 || j == 4){
-                dis =r / 9;
-              } else {
-                dis = r / 6;
-              }
-              ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
-            }
-            ctx.closePath();
-            ctx.setGlobalAlpha(0.8)
-            ctx.setFillStyle("#31b9e0");
-            ctx.fill();
-            
-            ctx.beginPath()
-            ctx.setGlobalAlpha(0)
-            ctx.arc(0, 0, r/3, 0, 2 * Math.PI)
-            ctx.stroke();
-            ctx.clip()
-            ctx.setGlobalAlpha(1)
-            ctx.drawImage(res.tempFilePath, -r/3, -r/3,r*2/3, r*2/3)
-            ctx.draw()
-          }
+      ctx.translate(windowWidth/2, r*11/9);
+      var mult = 0;
+      for (var n = 1; n<= 3; n++){
+        //绘制六边形
+        ctx.beginPath();
+        if (n == 2){
+          mult = 0;
+        } else {
+          mult = n
         }
-      })
-    },
+        for(var m = 0; m<6; m++){
+          ctx.lineTo((r * (6 - mult) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6 - mult) / 6) * Math.sin(m * Math.PI/3 + angle));
+        }
+        ctx.closePath();
+        ctx.setStrokeStyle("white");
+        ctx.stroke();
+      }
 
+      //绘制六条线
+      ctx.beginPath();
+      for (var k = 0; k < 6; k++) {
+        ctx.moveTo(r / 2 * Math.cos(k * Math.PI / 3 + angle), r / 2 * Math.sin(k * Math.PI / 3 + angle));
+        ctx.lineTo(r * Math.cos(k * Math.PI / 3 + angle), r * Math.sin(k * Math.PI / 3 + angle));
+      }
+      ctx.setStrokeStyle("white");
+      ctx.stroke();
+
+      //分数点和文字
+      var dis;
+      ctx.beginPath();
+      for (var j = 0; j< arr.length; j ++){
+        ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
+        ctx.setFontSize(r/9);
+        ctx.setFillStyle("white");
+        ctx.setTextAlign("center");
+        ctx.setTextBaseline("middle");
+        if (j == 1 || j == 4){
+          dis =r / 9;
+        } else {
+          dis = r / 6;
+        }
+        ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
+      }
+      ctx.closePath();
+      ctx.setGlobalAlpha(0.8)
+      ctx.setFillStyle("#31b9e0");
+      ctx.fill();
+      
+      ctx.beginPath()
+      ctx.setGlobalAlpha(0)
+      ctx.arc(0, 0, r/3, 0, 2 * Math.PI)
+      ctx.stroke();
+      ctx.clip()
+      ctx.setGlobalAlpha(1)
+      ctx.drawImage(curAvatar, -r/3, -r/3,r*2/3, r*2/3)
+      ctx.draw()
+    },
+    //保存到相册canvas
+    saveAbilityPhoto: function (id, arr, circleSize, windowWidth, curAvatar, angle) {
+      var ctx = wx.createCanvasContext(id);
+      ctx.clearRect(0, 0, 3 * circleSize, 3 * circleSize)
+      var r = circleSize;
+      ctx.translate(windowWidth / 2, r * 11 / 9);
+      var mult = 0;
+      for (var n = 1; n <= 3; n++) {
+        //绘制六边形
+        ctx.beginPath();
+        if (n == 2) {
+          mult = 0;
+        } else {
+          mult = n
+        }
+        for (var m = 0; m < 6; m++) {
+          ctx.lineTo((r * (6 - mult) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6 - mult) / 6) * Math.sin(m * Math.PI / 3 + angle));
+        }
+        ctx.closePath();
+        ctx.setStrokeStyle("white");
+        ctx.stroke();
+      }
+
+      //绘制六条线
+      ctx.beginPath();
+      for (var k = 0; k < 6; k++) {
+        ctx.moveTo(r / 2 * Math.cos(k * Math.PI / 3 + angle), r / 2 * Math.sin(k * Math.PI / 3 + angle));
+        ctx.lineTo(r * Math.cos(k * Math.PI / 3 + angle), r * Math.sin(k * Math.PI / 3 + angle));
+      }
+      ctx.setStrokeStyle("white");
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.setFontSize(50);
+      ctx.setFillStyle("white");
+      ctx.setTextAlign("center");
+      ctx.setTextBaseline("middle");
+      ctx.fillText("答尔文", 0, r + 30)
+
+      //分数点和文字
+      var dis;
+      ctx.beginPath();
+      for (var j = 0; j < arr.length; j++) {
+        ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
+        ctx.setFontSize(r / 9);
+        ctx.setFillStyle("white");
+        ctx.setTextAlign("center");
+        ctx.setTextBaseline("middle");
+        if (j == 1 || j == 4) {
+          dis = r / 9;
+        } else {
+          dis = r / 6;
+        }
+        ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
+      }
+      ctx.closePath();
+      ctx.setGlobalAlpha(0.8)
+      ctx.setFillStyle("#31b9e0");
+      ctx.fill();
+
+      ctx.beginPath()
+      ctx.setGlobalAlpha(0)
+      ctx.arc(0, 0, r / 3, 0, 2 * Math.PI)
+      ctx.stroke();
+      ctx.clip()
+      ctx.setGlobalAlpha(1)
+      ctx.drawImage(curAvatar, -r / 3, -r / 3, r * 2 / 3, r * 2 / 3)
+      ctx.draw()
+    },
     countDown: function (id, circleSize, lineWidth, totalTime, callBack){
       var ctx = wx.createCanvasContext(id);
       var num = 0;

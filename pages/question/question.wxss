@@ -70,6 +70,9 @@
   color: #666;
   font-size: 34rpx;
   line-height: 100rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .waiting_animation{
   background-color: #ed6f9d;

@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/userInfo/userInfo",
     "pages/phone/phone",
     "pages/prize/prize",
     "pages/question/question",
-    "pages/userInfo/userInfo",
     "pages/rank/rank",
     "pages/posts/post",
     "pages/posts/post-detail/post-detail"

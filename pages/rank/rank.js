@@ -1,6 +1,7 @@
 // pages/rank/rank.js
 var postsData = require('../../data/posts-data.js');
 var util = require('../../utils/util.js');
+var app = getApp();
 
 var that;
 Page({
@@ -38,12 +39,15 @@ Page({
         }
       });
 
-      util.httpPost("/qBank/getSpiritsQuestionTopMid", function(res){
-        console.log(res);
-        that.setData({
-          worldList: res.questionTop
+      setTimeout(function(){
+        util.httpPost("/qBank/getSpiritsQuestionTopMid", function (res) {
+          console.log(res);
+          that.setData({
+            worldList: res.questionTop
+          })
         })
-      })
+      }, 1000);
+
   },
 
   tabTap: function(event){
@@ -65,7 +69,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    app.getStorage("userInfo", function (res) {
+      that.setData({
+        userInfo: res.data
+      })
+    }, function (res) {
+
+    });
   },
 
   /**

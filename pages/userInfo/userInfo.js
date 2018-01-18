@@ -17,11 +17,10 @@ Page({
     },
 
     onLoad: function(option){
+      that = this;
       wx.showShareMenu({
         withShareTicket: true,
       });
-
-      that = this;
       var userInfo;
       if (option.userInfo != null){
         userInfo = JSON.parse(option.userInfo);
@@ -40,8 +39,16 @@ Page({
             circleSize : res.windowWidth * 185 / 750,
             canvasHeight: res.windowWidth * 185 / 750 * 22 / 9
           })
-          console.log(that.resultRandom([2, 2, 3], that.data.resultInfo));
-          app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.userInfo, Math.PI/6);
+          console.log(that.data.curAvatar);
+          //获取缓存好的头像
+          app.getStorage("avatar", function (res) {
+            that.setData({
+              curAvatar: res.data
+            });
+            app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.curAvatar, Math.PI / 6);
+          }, function (res) {
+
+          });
         }
       });
     },
@@ -81,7 +88,7 @@ Page({
       console.log(event);
       wx.canvasToTempFilePath({
         quality: 1,
-        canvasId: 'my_canvas',
+        canvasId: 'save_canvas',
         success: function (res) {
           console.log(res.tempFilePath)
           wx.saveImageToPhotosAlbum({
@@ -98,12 +105,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (that.data.directBack) {
-      that.getCurrentUserInfo();
+    app.getStorage("userInfo", function (res) {
       that.setData({
-        directBack: false,
-      })
-    };
+        userInfo: res.data
+      });
+      //保存图片canvas
+      app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.curAvatar, Math.PI / 6);
+      console.log(that.data.userInfo)
+    }, function (res) {
+      
+    });
   },
 
     /**

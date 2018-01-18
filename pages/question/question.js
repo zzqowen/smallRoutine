@@ -199,7 +199,10 @@ Page({
       });
 
       util.httpPost("/qBank/upgradedSpiritsMember", function(res){
+        var data = res.userInfo;
+        data.rank = parseInt(data.rank);
         console.log(res);
+        app.setStorage("userInfo", data);//把userInfo保存到本地
       }, {
         'mid': that.data.userInfo.mid,
         'result': scoreArr.join(","),
@@ -386,7 +389,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    app.getStorage("userInfo", function (res) {
+      that.setData({
+        userInfo: res.data
+      })
+    }, function (res) {
+
+    });
   },
 
   /**
@@ -407,16 +416,30 @@ Page({
     clearInterval(startAniTime)
   },
 
+  /**
+ * 用户点击右上角分享
+ */
   onShareAppMessage: function (res) {
+    console.log(res);
     if (res.from === 'button') {
       // 来自页面内转发按钮
       // console.log(res.target)
     }
     return {
-      title: '自定义转发标题',
-      path: '/pages/index/index?',
+      title: '答尔文智力库',
+      path: '/pages/index/index?mid=' + that.data.userInfo.mid,
       success: function (res) {
         // 转发成功
+        console.log(res);
+        // 转发成功
+        console.log(res.shareTickets[0])
+        // console.log
+        wx.getShareInfo({
+          shareTicket: res.shareTickets[0],
+          success: function (res) { console.log(res) },
+          fail: function (res) { console.log(res) },
+          complete: function (res) { console.log(res) }
+        })
       },
       fail: function (res) {
         // 转发失败

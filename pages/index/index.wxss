@@ -35,6 +35,9 @@
   margin-top: 32rpx;
   vertical-align: top;
 }
+.default_avatar{
+  background: #ccc;
+}
 .nick_name{
   display: block;
   width: 100%;

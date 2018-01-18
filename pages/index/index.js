@@ -205,10 +205,21 @@ Page({
   getCurrentUserInfo: function(){
     app.userInfoData(function (darwinData, mid) {
       wx.hideLoading();
+      var data = darwinData;
+      data.rank = parseInt(data.rank);
       that.setData({
-        darwinUserInfo: darwinData,
+        darwinUserInfo: data,
         mid: mid
       });
+      wx.downloadFile({
+        url: data.avatar,
+        success: function (res) {
+          if (res.statusCode === 200){
+            app.setStorage("avatar", res.tempFilePath);
+          }
+        }
+      });
+      app.setStorage("userInfo", data);//把userInfo保存到本地
     }, function (wxData) {
       that.setData({
         wxUserInfo: wxData
