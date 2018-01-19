@@ -211,6 +211,15 @@ Page({
         darwinUserInfo: data,
         mid: mid
       });
+      wx.downloadFile({
+        url: that.data.darwinUserInfo.avatar, //仅为示例，并非真实的资源
+        success: function (res) {
+          console.log(res);
+          if (res.statusCode === 200) {
+            app.setStorage("avatar", res.tempFilePath);
+          }
+        }
+      })
       app.setStorage("userInfo", data);//把userInfo保存到本地
     }, function (wxData) {
       that.setData({

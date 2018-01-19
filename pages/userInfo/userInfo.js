@@ -1,5 +1,4 @@
 var postsData = require('../../data/posts-data.js');
-const ImgLoader = require('../../img-loader/img-loader.js');
 var app = getApp();
 var scoreArr = [0, 0, 0];//得分数组
 var queNum = [3, 3, 4];
@@ -13,8 +12,6 @@ Page({
 
   onLoad: function(option){
     that = this;
-    that.imgLoader = new ImgLoader(this);
-
 
     var w = app.globalData.windowWidth;//屏幕宽度
     var h = app.globalData.windowHeight;//屏幕高度
@@ -27,14 +24,12 @@ Page({
       canvasHeight: w * 185 / 750 * 22 / 9
     })
     //获取缓存好的头像
-
-    that.imgLoader.load(that.data.userInfo.avatar, (err, data) => {
-      console.log('图片加载完成', err, data.src, data.width, data.height);
-      app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, data.src, Math.PI / 6);
-
+    app.getStorage("avatar", function(res){
+      console.log(res);
+      app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, res.data, Math.PI / 6);
 
       //保存图片canvas
-      app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, data.src, Math.PI / 6);
+    app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, res.data, Math.PI / 6, that.data.userInfo);
     })
   },
 

@@ -48,9 +48,6 @@ Page({
     index = 0;
     that = this;
 
-    that.imgLoader = new ImgLoader(this);
-
-
     wx.getSystemInfo({
       success: function (res) {
         var w = res.windowWidth;
@@ -195,11 +192,9 @@ Page({
         challengeResult: true,
       });
 
-      that.imgLoader.load(that.data.userInfo.avatar, (err, data) => {
-        app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, data.src, Math.PI / 6);
-        console.log('图片加载完成', err, data.src, data.width, data.height)
-      })
-
+      app.getStorage("avatar", function(res){
+        app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, res.data, Math.PI / 6);
+      });
     
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({

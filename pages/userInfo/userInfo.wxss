@@ -104,8 +104,8 @@ body{
 }
 .save_canvas{
   position:absolute;
-  /* top: 0;
-  left: 0; */
-  top: -100000000000000px;
-  left: -100000000000000px; 
+   /* top: 0;
+  left: 0;  */
+   top: -100000000000000px;
+  left: -100000000000000px;  
 }

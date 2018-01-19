@@ -136,18 +136,18 @@ App({
       ctx.draw()
     },
     //保存到相册canvas
-    saveAbilityPhoto: function (id, arr, circleSize, windowWidth, windowHeight,curAvatar, angle, codeUrl) {
+    saveAbilityPhoto: function (id, arr, circleSize, windowWidth, windowHeight,curAvatar, angle, userInfo) {
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3 * circleSize, 3 * circleSize);
       var r = circleSize;
-      var rang = windowHeight/9;//向上平移的距离
-      var codeWidth = windowWidth*2/5;//小程序码的宽高
+      var rang = windowHeight/6;//向上平移的距离
+      var codeWidth = windowWidth*2/6;//小程序码的宽高
       ctx.translate(windowWidth / 2, windowHeight/2 );
 
       //绘制背景
       ctx.beginPath();
       ctx.setFillStyle("#f6608e");
-      ctx.fillRect(-windowWidth / 2, -windowHeight /3, windowWidth, windowHeight* 2/3);
+      ctx.fillRect(-windowWidth / 2, -windowHeight /2, windowWidth, windowHeight);
       ctx.fill()
 
       ctx.beginPath();
@@ -155,19 +155,29 @@ App({
       ctx.setFillStyle("white");
       ctx.setTextAlign("center");
       ctx.setTextBaseline("middle");
-      ctx.fillText("章鱼答答堂", windowWidth/2 - 90, windowHeight/3 - 30);
+      ctx.fillText("章鱼答答堂", windowWidth/2 - 90, windowHeight/2 - 30);
       ctx.fill();
 
       ctx.beginPath();
-      ctx.drawImage("../../images/userInfo/user_header_bg.png", -windowWidth/2, windowHeight/3 - r/2, windowWidth, r  / 2);
+      ctx.setFontSize(20);
+      ctx.setFillStyle("white");
+      ctx.setTextAlign("center");
+      ctx.setTextBaseline("middle");
+      ctx.fillText(userInfo.grade, 0, windowHeight / 6 - 50);
+      ctx.fillText(userInfo.gradeText.split(",")[0] + "，", 0, windowHeight / 6);
+      ctx.fillText(userInfo.gradeText.split(",")[1], 0, windowHeight / 6 + 30);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.drawImage("../../images/userInfo/user_header_bg.png", -windowWidth/2, windowHeight/2 - r/2, windowWidth, r  / 2);
 
       ctx.save();
       ctx.beginPath();
-      ctx.arc(-windowWidth/2 + codeWidth/2, windowHeight/3 - codeWidth/2, codeWidth/2, 0, 2 * Math.PI)
+      ctx.arc(-windowWidth/2 + codeWidth/2, windowHeight/2 - codeWidth/2, codeWidth/2, 0, 2 * Math.PI)
       ctx.setStrokeStyle("white");
       ctx.stroke();
       ctx.clip()
-      ctx.drawImage("../../images/code.jpg", -windowWidth / 2, windowHeight / 3 - codeWidth, codeWidth, codeWidth);
+      ctx.drawImage("../../images/code.jpg", -windowWidth / 2, windowHeight / 2 - codeWidth, codeWidth, codeWidth);
       ctx.restore()
 
       var mult = 0;

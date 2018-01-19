@@ -1,5 +1,3 @@
-<import src="../../img-loader/img-loader.wxml"/>
-<template is="img-loader" data="{{ imgLoadList }}"></template>
 <view class="body">
   <view class='header_container'>
       <image class='header_bg' src='/images/userInfo/user_header_bg.png'></image>
