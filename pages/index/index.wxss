@@ -58,14 +58,15 @@
 .level_content{
   background-color: rgba(76, 32, 46, 0.24);
   border-radius: 10rpx;
-  width: 180rpx;
   padding-left: 16rpx;
+  min-width: 180rpx;
   box-sizing: border-box;
 }
 .level_img{
   width: 45rpx;
   height: 45rpx;
   display: block;
+  margin-right: 10rpx;
 }
 .level_font{
   flex: 1;

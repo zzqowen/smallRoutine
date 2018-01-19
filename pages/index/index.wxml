@@ -13,7 +13,7 @@
         </view>
          <view class='level_content flex_item_between'>
           <image src='/images/index/crown.png' class='level_img'></image>
-          <text class='level_font' style='padding-right: 10rpx;'>{{darwinUserInfo.rank ? (darwinUserInfo.rank > 99 ? "NO.99+" : darwinUserInfo.rank) : "--"}}</text>
+          <text class='level_font' style='padding-right: 10rpx;'>{{darwinUserInfo.rank ? (darwinUserInfo.rank > 99 ? "NO.99+" : "NO." + darwinUserInfo.rank) : "--"}}</text>
         </view>
       </view>
     </view>

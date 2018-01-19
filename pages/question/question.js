@@ -199,7 +199,8 @@ Page({
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({
         grade: resultData.grade,
-        text: resultData.text,
+        text: resultData.text,//gradeText传的值
+        gradeText: resultData.text.split("，").join("，\n"),//gradeText显示的值
         score: resultData.score
       });
 
@@ -213,7 +214,7 @@ Page({
         'result': scoreArr.join(","),
         'useTime': totalTime,
         'grade': that.data.grade,
-        'gradeText': that.data.text.split("\n").join(","),
+        'gradeText': that.data.text,
         'score': that.data.score});
 
       return;
@@ -407,18 +408,24 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    console.log("hide question")
     app.clearTime(function(){});
     clearInterval(spotTime);
-    clearInterval(startAniTime)
+    clearInterval(startAniTime);
+    startAniTime = null;
+    spotTime = null;
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    console.log("unload quesiton")
     app.clearTime(function(){});
     clearInterval(spotTime);
-    clearInterval(startAniTime)
+    clearInterval(startAniTime);
+    startAniTime = null;
+    spotTime = null;
   },
 
   /**

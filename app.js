@@ -169,9 +169,13 @@ App({
       ctx.setFillStyle("white");
       ctx.setTextAlign("center");
       ctx.setTextBaseline("middle");
-      ctx.fillText(userInfo.grade, 0, windowHeight / 6 - 50);
-      ctx.fillText(userInfo.gradeText.split(",")[0] + "，", 0, windowHeight / 6);
-      ctx.fillText(userInfo.gradeText.split(",")[1], 0, windowHeight / 6 + 30);
+      if (userInfo.grade){
+        ctx.fillText(userInfo.grade, 0, windowHeight / 6 - 50);
+      }
+      if (userInfo.gradeText){
+        ctx.fillText(userInfo.gradeText.split(",")[0] + "，", 0, windowHeight / 6);
+        ctx.fillText(userInfo.gradeText.split(",")[1], 0, windowHeight / 6 + 30);
+      }
       ctx.fill();
 
       ctx.beginPath();
@@ -245,6 +249,7 @@ App({
     countDown: function (id, circleSize, lineWidth, totalTime, callBack){
       var ctx = wx.createCanvasContext(id);
       var num = 0;
+      clearInterval(time);
       time = setInterval(function () {
         ctx.clearRect(0, 0, 2*circleSize, 2*circleSize);
         num++

@@ -36,7 +36,7 @@
           <image src='/images/userInfo/flag.png' class='flag_img'></image>
           <text class='flag_nickname'>{{grade}}</text>
         </view>
-        <text class='flag_message'>{{text}}</text>
+        <text class='flag_message'>{{gradeText}}</text>
       </view>
     </view>
   </view>
