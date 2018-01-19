@@ -27,7 +27,7 @@
   color: #666;
 }
 .bottom_font{
-  margin-top: 65rpx;
+  margin-top: 50rpx;
 }
 .bottom_font text{
   text-align: center;

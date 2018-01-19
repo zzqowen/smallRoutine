@@ -1,5 +1,6 @@
 // pages/question/question.js
 var postsData = require('../../data/posts-data.js');
+const ImgLoader = require('../../img-loader/img-loader.js');
 var util = require('../../utils/util.js');
 var app = getApp();
 var index = 0;
@@ -46,6 +47,9 @@ Page({
     }
     index = 0;
     that = this;
+
+    that.imgLoader = new ImgLoader(this);
+
 
     wx.getSystemInfo({
       success: function (res) {
@@ -149,6 +153,7 @@ Page({
 
   callBack: function(){
     var answerArr = that.data.answerData;
+    console.log(answerArr)
     for (var k = 0; k < answerArr.length; k++) {
       if (answerArr[k].name == that.data.questionData.ans[0]) {
         answerArr[k].select = 1;
@@ -189,7 +194,12 @@ Page({
         challengeStatus: false,
         challengeResult: true,
       });
-      app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, that.data.userInfo, Math.PI / 6);
+
+      that.imgLoader.load(that.data.userInfo.avatar, (err, data) => {
+        app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, data.src, Math.PI / 6);
+        console.log('图片加载完成', err, data.src, data.width, data.height)
+      })
+
     
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({

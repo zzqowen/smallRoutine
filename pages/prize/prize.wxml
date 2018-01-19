@@ -12,8 +12,7 @@
     </view>
   </block>
   <view class='bottom_font'>
-    <text>每周日凌晨一点在奖品和微信公众号以及‘答尔文’首页公示</text>
-    <text>一周内快递送出！过期视为放弃！敬请留意</text>
+    <text style='padding: 0 20rpx;box-sizing: border-box;'>每周一凌晨清空排行榜并得出获奖名单，获奖名单周二在答尔文微信公众号和答尔文首页连续公示三天，并且收集快递信息，一周内快递送出！过期视为放弃！敬请留意</text>
   </view>
 
 </view>

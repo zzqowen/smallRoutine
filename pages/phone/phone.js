@@ -99,14 +99,18 @@ Page({
       })
     } else {
       console.log(that.data.unionid);
-      util.httpPost("/api/v1/sendWxValidateCode?mobile=" + data.input + "&code=" + data.code + "&unionid=" + that.data.unionid + "&nickname=" + that.data.userInfo.nickName + "&headimgurl=" + that.data.userInfo.avatarUrl, function (data) {
+      var url = "/api/v1/sendWxValidateCode?mobile=" + data.input + "&code=" + data.code + "&unionid=" + that.data.unionid + "&nickname=" + that.data.userInfo.nickName + "&headimgurl=" + that.data.userInfo.avatarUrl;
+      if (app.globalData.uid){
+        url += "&uid=" + app.globalData.uid
+      }
+      util.httpPost(url, function (data) {
         console.log(data);
         that.setData({
           message: data.msg
         })
         if (data.status == "OK"){
           wx.showToast({
-            title: '已经答完了',
+            title: '绑定成功',
             duration: 2000
           });
           setTimeout(function(){
@@ -117,7 +121,6 @@ Page({
               }
             })
           }, 1000);
-         
         }
       })
     }

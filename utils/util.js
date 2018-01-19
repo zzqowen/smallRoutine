@@ -1,7 +1,7 @@
-var server = "http://test.aihuawen.com";
+// var server = "http://test.aihuawen.com";
 var wxServer = "https://api.weixin.qq.com";
 // var server = "http://192.168.0.149:8080"
-// var server = "https://applet.aihuawen.com";
+var server = "https://applet.aihuawen.com";
 
 function convertToStarsArray(stars) {
   var num = stars.toString().substring(0, 1);
@@ -17,12 +17,17 @@ function convertToStarsArray(stars) {
   return array;
 }
 
-function wxHttp(url, callBack) {
+function wxHttp(url, callBack,resData) {
+  console.log(resData)
+  if (resData == null || resData == undefined) {
+    resData = {}
+  };
   wx.request({
     url: wxServer + url,
     method: 'GET',
+    data: resData,
     header: {
-      "Content-Type": "json"
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     success: function (res) {
       callBack(res.data);
@@ -34,12 +39,17 @@ function wxHttp(url, callBack) {
   })
 }
 
-function wxHttpPost(url, callBack) {
+function wxHttpPost(url, callBack,resData) {
+  console.log(resData)
+  if (resData == null || resData == undefined) {
+    resData = {}
+  };
   wx.request({
-    url: server + url,
+    url: wxServer + url,
     method: 'POST',
+    data: resData,
     header: {
-      "Content-Type": "json"
+      "Content-Type": "application/jsox-www-form-urlencoded"
     },
     success: function (res) {
       callBack(res.data);
@@ -60,7 +70,7 @@ function http(url, callBack, resData) {
     method: 'GET',
     data: resData,
     header: {
-      "Content-Type": "json"
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     success: function (res) {
       callBack(res.data);

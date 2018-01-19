@@ -14,8 +14,8 @@
     <view class='content'>
       <scroll-view class="friends_rank" wx:if="{{activeIndex == 0}}" scroll-y="true">
           <view class='view_container'>
-              <block wx:for="{{rankList}}" wx:for-item="item" wx:for-index="idx">
-                  <view class="friends_item" id='{{item.rank}}'>
+              <block wx:for="{{friendsList}}" wx:for-item="item" wx:for-index="idx">
+                  <view class="friends_item {{item.mid == userInfo.mid ? 'self_item': ''}}" id='{{item.rank}}'>
 
                     <image class='rank_icon' src='/images/rank/one.png' wx:if="{{idx == 0}}"></image>
                     <image class='rank_icon' src='/images/rank/two.png' wx:elif="{{idx == 1}}"></image>
@@ -29,13 +29,13 @@
                           <image class="avatar_img" src='{{item.avatar}}' ></image>
                         </view>
                         <view class='font_content'>
-                          <view class='flex_item_center font_center_line rank_text'>
-                            <text class='rank_displayName'>{{item.name}}</text>
-                            <text class='rank_time'>用时：{{item.score}}</text>
+                          <view class="flex_item_center font_center_line rank_text {{item.mid == userInfo.mid ? 'self_line': ''}}">
+                            <text class="rank_displayName {{item.mid == userInfo.mid ? 'self_displayName': ''}}">{{item.displayName}}</text>
+                            <text class="rank_time {{item.mid == userInfo.mid ? 'self_time': ''}}">用时：{{item.useTime}}秒</text>
                           </view>
                           <view class="flex_item_center rank_text">
-                            <text class='rank_nickname'>{{item.grade}}</text>
-                            <text class='rank_message'>{{item.message}}</text>
+                            <text class="rank_nickname {{item.mid == userInfo.mid ? 'self_grade': ''}}">{{item.grade}}</text>
+                            <text class="rank_message {{item.mid == userInfo.mid ? 'self_message': ''}}">{{item.gradeText}}</text>
                           </view>
                         </view>
                     </view>
@@ -47,7 +47,7 @@
       <scroll-view class="world_rank" wx:if="{{activeIndex == 1}}" scroll-y="true">
           <view class='view_container rank_view_container'>
               <block wx:for="{{worldList}}" wx:for-item="item" wx:for-index="idx">
-                  <view class="friends_item" id='{{item.rank}}'>
+                  <view class="friends_item  {{item.mid == userInfo.mid ? 'self_item': ''}}" id='{{item.rank}}'>
 
                     <image class='rank_icon' src='/images/rank/one.png' wx:if="{{idx == 0}}"></image>
                     <image class='rank_icon' src='/images/rank/two.png' wx:elif="{{idx == 1}}"></image>
@@ -61,13 +61,13 @@
                           <image class="avatar_img" src='{{item.avatar}}' ></image>
                         </view>
                         <view class='font_content'>
-                          <view class='flex_item_center font_center_line rank_text'>
-                            <text class='rank_displayName'>{{item.displayName}}</text>
-                            <text class='rank_time'>用时：{{item.useTime}}S</text>
+                          <view class='flex_item_center font_center_line rank_text {{item.mid == userInfo.mid ? "self_line": ""}}'>
+                            <text class='rank_displayName {{item.mid == userInfo.mid ? "self_displayName": ""}}'>{{item.displayName}}</text>
+                            <text class='rank_time {{item.mid == userInfo.mid ? "self_time": ""}}'>用时：{{item.useTime}}秒</text>
                           </view>
                           <view class="flex_item_center rank_text">
-                            <text class='rank_nickname'>{{item.grade}}</text>
-                            <text class='rank_message'>{{item.gradeText}}</text>
+                            <text class='rank_nickname {{item.mid == userInfo.mid ? "self_grade": ""}}'>{{item.grade}}</text>
+                            <text class='rank_message {{item.mid == userInfo.mid ? "self_message": ""}}'>{{item.gradeText}}</text>
                           </view>
                         </view>
                     </view>
@@ -75,7 +75,7 @@
               </block>
           </view>
       </scroll-view>
-      <view wx:if="{{activeIndex == 1}}" class='world_my_rank'>我当前的世界排名{{userInfo.rank}}</view>
+      <view wx:if="{{activeIndex == 1}}" class='world_my_rank'>{{userInfo.rank ? "我当前的世界排名第"  +userInfo.rank : "暂没排行"}}</view>
     </view>
 
   </view>

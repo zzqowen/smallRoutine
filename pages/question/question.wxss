@@ -52,6 +52,8 @@
 .content{
   position: relative;
   margin-top: 20rpx;
+  padding: 0 22rpx;
+  box-sizing: border-box;
 }
 .choose_icon{
   position: absolute;
@@ -62,7 +64,7 @@
   transform: translate(0, -50%);
 }
 .content text{
-  display: inline-block;
+  display: block;
   width: 706rpx;
   height: 100rpx;
   border-radius: 5rpx;
@@ -214,7 +216,7 @@
   width: 100%;
   text-align: center;
   position: relative;
-  padding: 35rpx 40rpx 95rpx;
+  padding: 35rpx 40rpx 70rpx;
   box-sizing: border-box;
 }
 .text_img{

@@ -55,6 +55,9 @@
   box-shadow: 0 0 20rpx #ccc;
   position: relative;
 }
+.self_item{
+  background: #8bf5fa;
+}
 .rank_icon{
   position: absolute;
   left: 0;
@@ -134,4 +137,13 @@
 }
 .rank_view_container{
   padding-bottom: 140rpx;
+}
+.self_displayName, .self_time, .self_grade{
+  color: #009ba3;
+}
+.self_message{
+  color: #529fa3;
+}
+.self_line{
+  border-color: #529fa3;
 }

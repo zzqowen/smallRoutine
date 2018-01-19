@@ -1,5 +1,7 @@
 <!--pages/question/question.wxml-->
 <!-- 答题页面 -->
+<import src="../../img-loader/img-loader.wxml"/>
+<template is="img-loader" data="{{ imgLoadList }}"></template>
 <view wx:if="{{challengeStatus}}" animation="{{animationInData}}" class='question_body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
   <view class='header'>
     <image src='/images/question/header_bg.png' class='header_bg'></image>
@@ -14,7 +16,7 @@
       <view class='content'>
         <text class='{{item.select != 0 ? (item.select == 1 ? "choose_right" : "choose_wrong") : ""}}' catchtap='answerTap' data-item="{{item.name}}" data-index="{{idx}}">{{item.name}}</text>
         <image wx:if="{{item.select == 1}}" src='/images/question/right.png' class='choose_icon'></image>
-        <image wx:if="{{item.select == 2}}" src='/images/question/wrong.png' class='choose_icon' ></image>
+        <image wx:if="{{item.select == 2}}" src='/images/question/wrong.png' class='choose_icon'></image>
       </view>
     </block>
   </view>

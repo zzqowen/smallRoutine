@@ -211,19 +211,12 @@ Page({
         darwinUserInfo: data,
         mid: mid
       });
-      wx.downloadFile({
-        url: data.avatar,
-        success: function (res) {
-          if (res.statusCode === 200){
-            app.setStorage("avatar", res.tempFilePath);
-          }
-        }
-      });
       app.setStorage("userInfo", data);//把userInfo保存到本地
     }, function (wxData) {
       that.setData({
         wxUserInfo: wxData
       });
+      console.log(that.data.wxUserInfo)
     });
   },
 
@@ -231,6 +224,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    app.getStorage("userInfo", function (res) {
+      that.setData({
+        darwinUserInfo: res.data
+      });
+      console.log("index success")
+    }, function (res) {
+        console.log("index fail")
+    });
+
     if (that.data.whetherBinding || that.data.directBack){
       that.getCurrentUserInfo();
       that.setData({

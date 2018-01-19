@@ -11,7 +11,6 @@ Page({
   data: {
     tabs: ["好友排行", "世界排行"],
     activeIndex: 0,
-    rankList: postsData.rankList
   },
 
   /**
@@ -19,37 +18,41 @@ Page({
    */
   onLoad: function (options) {
       that = this;
-      wx.showShareMenu({
-        // 要求小程序返回分享目标信息
-        withShareTicket: true
-      });
-      var userInfo;
-      if (options.userInfo != null) {
-        userInfo = JSON.parse(options.userInfo);
-      }
-      wx.getSystemInfo({
-        success: function (res) {
-          var w = res.windowWidth;
-          var h = res.windowHeight;
-          that.setData({
-            windowHeight: res.windowHeight,
-            windowWidth: res.windowWidth,
-            userInfo: userInfo
-          })
-        }
+      var w = app.globalData.windowWidth;//屏幕宽度
+      var h = app.globalData.windowHeight;//屏幕高度
+
+      that.setData({
+        windowHeight: h,
+        windowWidth: w,
+        userInfo: JSON.parse(options.userInfo)
       });
 
+      wx.showLoading({
+        title: '加载中...',
+      })
+
       setTimeout(function(){
+        //世界排行榜
         util.httpPost("/qBank/getSpiritsQuestionTopMid", function (res) {
           console.log(res);
           that.setData({
             worldList: res.questionTop
           })
-        })
-      }, 1000);
+          wx.hideLoading();
+        });
+        //好友排行榜
+        util.httpPost("/qBank/getSpiritsFriendsTopMid?mid=" + that.data.userInfo.mid, function (res) {
+          console.log(res);
+          that.setData({
+            friendsList: res.questionTop
+          })
+          wx.hideLoading();
+        });
+      }, 100);
 
   },
 
+  //选项卡点击事件
   tabTap: function(event){
     console.log(event);
     var id = event.currentTarget.id;
@@ -105,42 +108,10 @@ Page({
   onReachBottom: function () {
   
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function (res) {
-    console.log(res);
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      // console.log(res.target)
-    }
-    return {
-      title: '答尔文智力库',
-      path: '/pages/index/index?mid='+ that.data.userInfo.mid,
-      success: function (res) {
-        // 转发成功
-        console.log(res);
-        // 转发成功
-        console.log(res.shareTickets[0])
-        // console.log
-        wx.getShareInfo({
-          shareTicket: res.shareTickets[0],
-          success: function (res) { console.log(res) },
-          fail: function (res) { console.log(res) },
-          complete: function (res) { console.log(res) }
-        })
-      },
-      fail: function (res) {
-        // 转发失败
-      }
-    }
-  },
   /**
   * 用户点击右上角分享
   */
   onShareAppMessage: function (res) {
-    console.log(res);
     if (res.from === 'button') {
       // 来自页面内转发按钮
       // console.log(res.target)
@@ -151,15 +122,6 @@ Page({
       success: function (res) {
         // 转发成功
         console.log(res);
-        // 转发成功
-        console.log(res.shareTickets[0])
-        // console.log
-        wx.getShareInfo({
-          shareTicket: res.shareTickets[0],
-          success: function (res) { console.log(res) },
-          fail: function (res) { console.log(res) },
-          complete: function (res) { console.log(res) }
-        })
       },
       fail: function (res) {
         // 转发失败

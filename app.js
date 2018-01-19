@@ -5,17 +5,16 @@ var curTime = 0;
 
 App({
     globalData:{
-        shareMid: null,
+        uid: null,
         wxUserInfo: null,
         darwinUserInfo: null,
-        g_isPlayingMusic:false,
-        g_currentMusicPostId:null,
-        doubanBase: "https://api.douban.com",
+        windowHeight: null,
+        windowWidth: null
     },
     onLaunch:function(ops){
       that = this;
       if (ops.query.mid){
-        shareMid = ops.query.mid;
+        that.globalData.uid = ops.query.mid;
       }
       // wx.getSystemInfo({
       //   success: function (res) {
@@ -30,6 +29,13 @@ App({
       //     }
       //   },
       // })
+      wx.getSystemInfo({
+        success: function (res) {
+          that.globalData.windowWidth = res.windowWidth;
+          that.globalData.windowHeight = res.windowHeight;
+        }
+      });
+
       if (ops.scene == 1044) {
         console.log(ops.shareTicket)
       }
@@ -99,17 +105,20 @@ App({
       //分数点和文字
       var dis;
       ctx.beginPath();
-      for (var j = 0; j< arr.length; j ++){
-        ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
-        ctx.setFontSize(r/9);
+      for (var j = 0; j< 6; j ++){
+        if (arr[j].score != null){
+          ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
+        }
+        ctx.setFontSize(r / 9);
         ctx.setFillStyle("white");
         ctx.setTextAlign("center");
         ctx.setTextBaseline("middle");
-        if (j == 1 || j == 4){
-          dis =r / 9;
+        if (j == 1 || j == 4) {
+          dis = r / 9;
         } else {
           dis = r / 6;
         }
+      
         ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
       }
       ctx.closePath();
@@ -127,11 +136,40 @@ App({
       ctx.draw()
     },
     //保存到相册canvas
-    saveAbilityPhoto: function (id, arr, circleSize, windowWidth, curAvatar, angle) {
+    saveAbilityPhoto: function (id, arr, circleSize, windowWidth, windowHeight,curAvatar, angle, codeUrl) {
       var ctx = wx.createCanvasContext(id);
-      ctx.clearRect(0, 0, 3 * circleSize, 3 * circleSize)
+      ctx.clearRect(0, 0, 3 * circleSize, 3 * circleSize);
       var r = circleSize;
-      ctx.translate(windowWidth / 2, r * 11 / 9);
+      var rang = windowHeight/9;//向上平移的距离
+      var codeWidth = windowWidth*2/5;//小程序码的宽高
+      ctx.translate(windowWidth / 2, windowHeight/2 );
+
+      //绘制背景
+      ctx.beginPath();
+      ctx.setFillStyle("#f6608e");
+      ctx.fillRect(-windowWidth / 2, -windowHeight /3, windowWidth, windowHeight* 2/3);
+      ctx.fill()
+
+      ctx.beginPath();
+      ctx.setFontSize(30);
+      ctx.setFillStyle("white");
+      ctx.setTextAlign("center");
+      ctx.setTextBaseline("middle");
+      ctx.fillText("章鱼答答堂", windowWidth/2 - 90, windowHeight/3 - 30);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.drawImage("../../images/userInfo/user_header_bg.png", -windowWidth/2, windowHeight/3 - r/2, windowWidth, r  / 2);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(-windowWidth/2 + codeWidth/2, windowHeight/3 - codeWidth/2, codeWidth/2, 0, 2 * Math.PI)
+      ctx.setStrokeStyle("white");
+      ctx.stroke();
+      ctx.clip()
+      ctx.drawImage("../../images/code.jpg", -windowWidth / 2, windowHeight / 3 - codeWidth, codeWidth, codeWidth);
+      ctx.restore()
+
       var mult = 0;
       for (var n = 1; n <= 3; n++) {
         //绘制六边形
@@ -142,7 +180,7 @@ App({
           mult = n
         }
         for (var m = 0; m < 6; m++) {
-          ctx.lineTo((r * (6 - mult) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6 - mult) / 6) * Math.sin(m * Math.PI / 3 + angle));
+          ctx.lineTo((r * (6 - mult) / 6) * Math.cos(m * Math.PI / 3 + angle), (r * (6 - mult) / 6) * Math.sin(m * Math.PI / 3 + angle) - rang);
         }
         ctx.closePath();
         ctx.setStrokeStyle("white");
@@ -152,34 +190,27 @@ App({
       //绘制六条线
       ctx.beginPath();
       for (var k = 0; k < 6; k++) {
-        ctx.moveTo(r / 2 * Math.cos(k * Math.PI / 3 + angle), r / 2 * Math.sin(k * Math.PI / 3 + angle));
-        ctx.lineTo(r * Math.cos(k * Math.PI / 3 + angle), r * Math.sin(k * Math.PI / 3 + angle));
+        ctx.moveTo(r / 2 * Math.cos(k * Math.PI / 3 + angle), r / 2 * Math.sin(k * Math.PI / 3 + angle) - rang);
+        ctx.lineTo(r * Math.cos(k * Math.PI / 3 + angle), r * Math.sin(k * Math.PI / 3 + angle)- rang);
       }
       ctx.setStrokeStyle("white");
       ctx.stroke();
-
-      ctx.beginPath();
-      ctx.setFontSize(50);
-      ctx.setFillStyle("white");
-      ctx.setTextAlign("center");
-      ctx.setTextBaseline("middle");
-      ctx.fillText("答尔文", 0, r + 30)
 
       //分数点和文字
       var dis;
       ctx.beginPath();
       for (var j = 0; j < arr.length; j++) {
-        ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
-        ctx.setFontSize(r / 9);
+        ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle) -rang);
+        ctx.setFontSize(r / 8);
         ctx.setFillStyle("white");
         ctx.setTextAlign("center");
         ctx.setTextBaseline("middle");
         if (j == 1 || j == 4) {
-          dis = r / 9;
+          dis = r / 8;
         } else {
-          dis = r / 6;
+          dis = r / 4;
         }
-        ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
+        ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle) -rang)
       }
       ctx.closePath();
       ctx.setGlobalAlpha(0.8)
@@ -188,11 +219,11 @@ App({
 
       ctx.beginPath()
       ctx.setGlobalAlpha(0)
-      ctx.arc(0, 0, r / 3, 0, 2 * Math.PI)
+      ctx.arc(0, 0 - rang, r / 3, 0, 2 * Math.PI)
       ctx.stroke();
       ctx.clip()
       ctx.setGlobalAlpha(1)
-      ctx.drawImage(curAvatar, -r / 3, -r / 3, r * 2 / 3, r * 2 / 3)
+      ctx.drawImage(curAvatar, -r / 3, -r / 3 -rang, r * 2 / 3, r * 2 / 3)
       ctx.draw()
     },
     countDown: function (id, circleSize, lineWidth, totalTime, callBack){
@@ -288,7 +319,13 @@ App({
       wx.login({
         success: function (res) {
           console.log(res);
-          util.httpPost("/weichar/getAppletWeMember?JscodeCode=" + res.code, function (data) {
+          console.log(that.globalData.uid);
+          var url = "/weichar/getAppletWeMember?JscodeCode=" + res.code;
+          if (that.globalData.uid){
+            url += "&uid=" + that.globalData.uid;
+          }
+          console.log(url)
+          util.httpPost(url, function (data) {
             console.log(data);
             if (data.mid == "" || data.mid == null) {
               wx.hideLoading();
@@ -301,6 +338,7 @@ App({
           });
           wx.getUserInfo({
             success: function (res) {
+              console.log(res);
               wxCB(res.userInfo);
             }
           })
