@@ -88,7 +88,7 @@ Page({
       // console.log(res.target)
     }
     return {
-      title: '答尔文智力库',
+      title: '章鱼答答堂',
       path: '/pages/index/index?mid=' + that.data.userInfo.mid,
       success: function (res) {
         // 转发成功
