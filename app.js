@@ -71,6 +71,12 @@ App({
         }
       })
     },
+    onShow: function(ops){
+      console.log("show :   " + JSON.stringify(ops));
+      if (ops.query.mid) {
+        that.globalData.uid = ops.query.mid;
+      }
+    },
     abilityMap: function (id, arr, circleSize, windowWidth, curAvatar, angle){
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
