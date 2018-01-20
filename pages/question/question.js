@@ -200,7 +200,6 @@ Page({
       that.setData({
         grade: resultData.grade,
         text: resultData.text,//gradeText传的值
-        gradeText: resultData.text.split("，").join("，\n"),//gradeText显示的值
         score: resultData.score
       });
 

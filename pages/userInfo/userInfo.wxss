@@ -63,6 +63,7 @@ body{
   color: #808080;
   font-size: 24rpx;
   display: block;
+  text-align: center;
 }
 .button_content{
   padding: 0 64rpx;
@@ -104,8 +105,8 @@ body{
 }
 .save_canvas{
   position:absolute;
-   /* top: 0;
-  left: 0;  */
-   top: -100000000000000px;
-  left: -100000000000000px;  
+    /* top: 0;
+  left: 0;   */
+    top: -100000000000000px;
+  left: -100000000000000px;   
 }

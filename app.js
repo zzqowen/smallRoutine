@@ -75,8 +75,15 @@ App({
       console.log("show :   " + JSON.stringify(ops));
       if (ops.query.mid) {
         that.globalData.uid = ops.query.mid;
+        that.userInfoData(function(res){
+          console.log(res);
+        }, function(){
+
+        });
       }
     },
+
+
     abilityMap: function (id, arr, circleSize, windowWidth, curAvatar, angle){
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
@@ -141,13 +148,17 @@ App({
       ctx.drawImage(curAvatar, -r/3, -r/3,r*2/3, r*2/3)
       ctx.draw()
     },
+
+
+
     //保存到相册canvas
-    saveAbilityPhoto: function (id, arr, circleSize, windowWidth, windowHeight,curAvatar, angle, userInfo) {
+    saveAbilityPhoto: function (id, arr, circleSize, windowWidth, windowHeight,curAvatar, angle, grade, gradeText1, gradeText2) {
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3 * circleSize, 3 * circleSize);
       var r = circleSize;
       var rang = windowHeight/6;//向上平移的距离
       var codeWidth = windowWidth*2/6;//小程序码的宽高
+
       ctx.translate(windowWidth / 2, windowHeight/2 );
 
       //绘制背景
@@ -169,13 +180,10 @@ App({
       ctx.setFillStyle("white");
       ctx.setTextAlign("center");
       ctx.setTextBaseline("middle");
-      if (userInfo.grade){
-        ctx.fillText(userInfo.grade, 0, windowHeight / 6 - 50);
-      }
-      if (userInfo.gradeText){
-        ctx.fillText(userInfo.gradeText.split(",")[0] + "，", 0, windowHeight / 6);
-        ctx.fillText(userInfo.gradeText.split(",")[1], 0, windowHeight / 6 + 30);
-      }
+
+      ctx.fillText(grade, 0, windowHeight / 6 - 50);
+      ctx.fillText(gradeText1, 0, windowHeight / 6);
+      ctx.fillText(gradeText2, 0, windowHeight / 6 + 30);
       ctx.fill();
 
       ctx.beginPath();
@@ -246,6 +254,9 @@ App({
       ctx.drawImage(curAvatar, -r / 3, -r / 3 -rang, r * 2 / 3, r * 2 / 3)
       ctx.draw()
     },
+
+
+
     countDown: function (id, circleSize, lineWidth, totalTime, callBack){
       var ctx = wx.createCanvasContext(id);
       var num = 0;

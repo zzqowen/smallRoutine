@@ -16,8 +16,12 @@ Page({
     var w = app.globalData.windowWidth;//屏幕宽度
     var h = app.globalData.windowHeight;//屏幕高度
 
+    var info = JSON.parse(option.userInfo);
+    info.gradeText = info.gradeText.split("\n").join("");
+
     that.setData({
-      userInfo: JSON.parse(option.userInfo),
+      userInfo: info,
+      saveUserInfo: JSON.parse(option.userInfo),
       windowHeight: h,
       windowWidth: w,
       circleSize: w * 185 / 750,
@@ -29,7 +33,19 @@ Page({
       app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, res.data, Math.PI / 6);
 
       //保存图片canvas
-    app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, res.data, Math.PI / 6, that.data.userInfo);
+      var gradeText1 = "", gradeText2 = "";
+      var grade = that.data.saveUserInfo.grade ? that.data.saveUserInfo.grade : "";
+      if (that.data.saveUserInfo.gradeText) {
+        if (that.data.saveUserInfo.gradeText.indexOf("\n") != -1) {
+          gradeText1 = that.data.saveUserInfo.gradeText.split("\n")[0];
+          gradeText2 = that.data.saveUserInfo.gradeText.split("\n")[1];
+        }
+      }
+
+      setTimeout(function(){
+        app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.saveUserInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, res.data, Math.PI / 6, grade, gradeText1, gradeText2);
+      }, 500)
+ 
     })
   },
 
@@ -101,8 +117,11 @@ Page({
    */
   onShow: function () {
     app.getStorage("userInfo", function (res) {
+      var info = res.data;
+      info.gradeText = info.gradeText.split("\n").join("");
       that.setData({
-        userInfo: res.data
+        userInfo: info,
+        saveUserInfo: res.data,
       });
     }, function (res) {
       
