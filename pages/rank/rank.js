@@ -21,10 +21,14 @@ Page({
       var w = app.globalData.windowWidth;//屏幕宽度
       var h = app.globalData.windowHeight;//屏幕高度
 
+      var info = JSON.parse(options.userInfo);
+      if (info.gradeText.indexOf("\n") != -1) {
+        info.gradeText = info.gradeText.split("\n").join("");
+      }
       that.setData({
         windowHeight: h,
         windowWidth: w,
-        userInfo: JSON.parse(options.userInfo)
+        userInfo: info
       });
 
       wx.showLoading({
@@ -73,8 +77,13 @@ Page({
    */
   onShow: function () {
     app.getStorage("userInfo", function (res) {
+      var info = JSON.parse(res.data);
+      if (info.gradeText.indexOf("\n") != -1) {
+        info.gradeText = info.gradeText.split("\n").join("");
+      }
+
       that.setData({
-        userInfo: res.data
+        userInfo: info
       })
     }, function (res) {
 

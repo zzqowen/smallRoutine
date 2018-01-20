@@ -1,5 +1,5 @@
 <!--pages/rank/rank.wxml-->
-
+<wxs src="../../filter/filter.wxs" module="filter" />
 <view class='body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
   <view class='flex_column_container' style='height: 100%;'>
     <view class='tips'>
@@ -35,7 +35,7 @@
                           </view>
                           <view class="flex_item_center rank_text">
                             <text class="rank_nickname {{item.mid == userInfo.mid ? 'self_grade': ''}}">{{item.grade}}</text>
-                            <text class="rank_message {{item.mid == userInfo.mid ? 'self_message': ''}}">{{item.gradeText}}</text>
+                            <text class="rank_message {{item.mid == userInfo.mid ? 'self_message': ''}}">{{filter.removeNewLine(item.gradeText)}}</text>
                           </view>
                         </view>
                     </view>
@@ -67,7 +67,7 @@
                           </view>
                           <view class="flex_item_center rank_text">
                             <text class='rank_nickname {{item.mid == userInfo.mid ? "self_grade": ""}}'>{{item.grade}}</text>
-                            <text class='rank_message {{item.mid == userInfo.mid ? "self_message": ""}}'>{{item.gradeText}}</text>
+                            <text class='rank_message {{item.mid == userInfo.mid ? "self_message": ""}}'>{{filter.removeNewLine(item.gradeText)}}</text>
                           </view>
                         </view>
                     </view>

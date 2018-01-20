@@ -121,6 +121,7 @@
   font-size: 20rpx;
   color: #666;
   margin-left: 22rpx;
+  flex: 1;
 }
 .world_my_rank{
   position: absolute;
