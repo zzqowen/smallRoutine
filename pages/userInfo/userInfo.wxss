@@ -1,5 +1,6 @@
-body{
+.body{
   width: 100%;
+  background: #eff1f5;
 }
 .header_container{
   position: relative;
@@ -81,12 +82,16 @@ body{
   display: inline-block;
   margin: 0;
   padding: 0;
+  background-color: #eff1f5;
+  outline: none;
 }
 .button.photo{
   color: #92a0ff;
+  border-color: #92a0ff;
 }
 .button.friends{
   color: #92a0ff;
+  border-color: #92a0ff;
 }
 .continue{
   text-align: center;

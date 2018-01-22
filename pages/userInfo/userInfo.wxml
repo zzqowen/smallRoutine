@@ -1,6 +1,6 @@
 <!-- 过滤器 -->
 <wxs src="../../filter/filter.wxs" module="filter" />
-<view class="body">
+<view class="body" style='height:{{windowHeight}}px'>
   <view class='header_container'>
       <image class='header_bg' src='/images/userInfo/user_header_bg.png'></image>
       <canvas class='my_canvas' canvas-id='my_canvas' style="width: {{windowWidth}}px; height: {{canvasHeight}}px">
@@ -24,8 +24,8 @@
   </view>
 
   <view class='flex_item_between button_content'>
-    <button open-type="share" class="friends button" catchtap='Page.onShareAppMessage()'>分享好友</button>
-    <button class="photo button" catchtap='saveTap'>保存相册</button>
+    <button open-type="share" class="friends button" catchtap='Page.onShareAppMessage()' plain="true">分享好友</button>
+    <button class="photo button" catchtap='saveTap' plain="true">保存相册</button>
   </view>
   <view class='continue' catchtap='continueTap'>
     <text class='continue_button'>继续挑战</text>

@@ -40,10 +40,10 @@
     </view>
   </view>
   <view class='bottom_button'>
-    <button open-type="share" class="friends" catchtap='Page.onShareAppMessage()'>炫耀成绩</button>
+    <button open-type="share" class="friends" catchtap='Page.onShareAppMessage()' plain="true">炫耀成绩</button>
   </view>
   <view class='bottom_button'>
-    <button class='continue' catchtap='continueQuestion'>继续挑战</button>
+    <button class='continue' catchtap='continueQuestion' plain="true">继续挑战</button>
   </view>
 </view>
 <!-- 等待页面 -->

@@ -3,6 +3,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  background-color: #eff1f5;
 }
 .header{
   display: block;
@@ -38,13 +39,14 @@
 .question{
   text-align: center;
   height: 156rpx;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .question text{
   font-size: 34rpx;
   color: #4d4d4d;
   margin: 0 22rpx;
   font-weight: 300;
+  text-align: left;
 }
 .answer{
   text-align: center;
@@ -185,16 +187,18 @@
   border-radius: 10rpx;
   margin-top: 30rpx;
   font-weight: 300;
-
+  outline: none;
 }
-.friends{
+.bottom_button .friends{
   border: 1px solid #abbaff;
   border-width: 2rpx;
   color: #92a0ff;
+  background-color: #eff1f5;
 }
-.continue{
+.bottom_button .continue{
   background: #92a0ff;
   color: white;
+  border-color: transparent;
 }
 .result_container{
   position: relative;
