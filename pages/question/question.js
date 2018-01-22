@@ -3,9 +3,9 @@ var postsData = require('../../data/posts-data.js');
 const ImgLoader = require('../../img-loader/img-loader.js');
 var util = require('../../utils/util.js');
 var app = getApp();
+var windowWidth = app.globalData.windowWidth;
+var windowHeight = app.globalData.windowHeight;
 var index = 0;
-var circleSize;
-var lineWidth;
 var that;
 var scoreArr = [0, 0, 0];//得分数组
 var queNum = [3, 3, 4];
@@ -20,6 +20,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+      windowHeight: windowHeight,
+      windowWidth: windowWidth,
+      circleSize: windowWidth * 80 / 750,
+      lineWidth: windowWidth * 16 / 750,
+      canvasWidth: 2 * windowWidth * 80 / 750 + windowWidth * 16 / 750 + 6,
+      canvasHeight1: windowWidth * 185 / 750 * 22 / 8,
       reset: true,//小章鱼动画是否运行
       spot: "",
       countNum: 3,
@@ -28,6 +34,7 @@ Page({
       waitingStatus: true,
       resultInfo: postsData.resultInfo,
       idx: index,
+
       // questionList: postsData.question,//所有的问题和答案
       // questionData: postsData.question[index],//某一个的问题和答案
       // answerData: app.random(postsData.question[index].correct.concat(postsData.question[index].ans)),//答案
@@ -37,32 +44,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    index = 0;
+    that = this;
     wx.showShareMenu({
       // 要求小程序返回分享目标信息
       withShareTicket: true
     });
-    var userInfo;
-    if (options.userInfo != null){
-        userInfo = JSON.parse(options.userInfo);
-    }
-    index = 0;
-    that = this;
-
-    wx.getSystemInfo({
-      success: function (res) {
-        var w = res.windowWidth;
-        var h = res.windowHeight;
-        circleSize = res.windowWidth * 80 / 750;
-        lineWidth = res.windowWidth * 16 / 750;
-        that.setData({
-          userInfo: userInfo,
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth,
-          canvasWidth: 2 * circleSize + lineWidth + 6,
-          circleSize1: res.windowWidth * 185 / 750,
-          canvasHeight1: res.windowWidth * 185 / 750 * 22 / 8
-        })
-      }
+    that.setData({
+      userInfo: app.globalData.userInfo,  
     });
 
     //动画循环
@@ -99,12 +88,18 @@ Page({
 
   //调用获取问题接口
   getQuestions: function(){
+    wx.showLoading({
+      title: '加载中',
+    })
     console.log(that.data.userInfo)
     util.http("/qBank/getRandSpiritsBankList?mid=" + that.data.userInfo.mid, that.questionCallBack);
   },
 
   //获取问题回调
   questionCallBack: function(data){
+    wx.hideLoading();
+    app.setGlobalData("backstage", true);
+
     that.spotAnimation();
     console.log(data);
     that.setData({
@@ -126,6 +121,7 @@ Page({
       }
 
       if (that.data.countNum == "GO"){
+        app.setGlobalData("backstage", true);
         setTimeout(function(){
           that.setData({
             challengeStatus: true,
@@ -139,7 +135,7 @@ Page({
               spot: ""
             });
           }, 1000);
-          app.countDown("my_canvas_time", circleSize, lineWidth, 10, that.callBack);
+          app.countDown("my_canvas_time", that.data.circleSize, that.data.lineWidth, 10, that.callBack);
         }, 1000);
         
         clearInterval(spotTime);
@@ -192,9 +188,11 @@ Page({
         challengeResult: true,
       });
 
-      app.getStorage("avatar", function(res){
-        app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, res.data, Math.PI / 6);
-      });
+      var avatar = app.globalData.avatar;
+
+      console.log(avatar);
+
+      app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, avatar, Math.PI / 6);
     
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({
@@ -207,7 +205,9 @@ Page({
         var data = res.userInfo;
         data.rank = parseInt(data.rank);
         console.log(res);
-        app.setStorage("userInfo", data);//把userInfo保存到本地
+        app.setGlobalData("darwinUserInfo", data);
+        app.setGlobalData("userInfo", data);
+        //app.setStorage("userInfo", data);//把userInfo保存到本地
       }, {
         'mid': that.data.userInfo.mid,
         'result': scoreArr.join(","),
@@ -224,7 +224,7 @@ Page({
       questionData: that.data.questionList[index],
       answerData: app.random(that.data.questionList[index].correct.concat(that.data.questionList[index].ans)),
     })
-    app.countDown("my_canvas_time", circleSize, lineWidth, 10, that.callBack);
+    app.countDown("my_canvas_time", that.data.circleSize, that.data.lineWidth, 10, that.callBack);
   },
 
   //根据对的提计算分数
@@ -256,11 +256,13 @@ Page({
       }
       if (item == that.data.questionData.ans[0]) {
         answerArr[idx].select = 1
-        for (var i = 0, len = scoreArr.length; i < len; i++) {
-          if (that.data.questionData.type == (i + 1)) {
-            scoreArr[i] += 1;
-          }
-        }
+        var _type = that.data.questionData.type - 1;
+        scoreArr[_type] ++;
+        // for (var i = 0, len = scoreArr.length; i < len; i++) {
+        //   if (that.data.questionData.type == (i + 1)) {
+        //     scoreArr[i] += 1;
+        //   }
+        // }
 
         //获取音效按钮当前状态
         app.getStorage("switchCheck", function (res) {
@@ -334,7 +336,9 @@ Page({
   },
 
   setGrade: function (score) {
+    console.log(score);
     var arr = postsData.gradeInfo;
+    console.log(arr);
     var result;
     var rlt = {grade: "", text: "", score};
     if (score == 5) {
@@ -356,6 +360,7 @@ Page({
     } else {
       console.log('错误');
     }
+    console.log(result);
 
     var len = result.text.length;
     rlt.grade = result.grade;
@@ -394,19 +399,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    app.getStorage("userInfo", function (res) {
-      that.setData({
-        userInfo: res.data
-      })
-    }, function (res) {
-
-    });
+    that.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    console.log("隐藏");
+    index = 0;
+    scoreArr = [0, 0, 0];//得分数组
+    totalTime = 0;
     console.log("hide question")
     app.clearTime(function(){});
     clearInterval(spotTime);
@@ -419,6 +424,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    console.log("卸载")
+    index = 0;
+    scoreArr = [0, 0, 0];//得分数组
+    totalTime = 0;
     console.log("unload quesiton")
     app.clearTime(function(){});
     clearInterval(spotTime);

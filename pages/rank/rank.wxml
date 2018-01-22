@@ -7,7 +7,7 @@
     </view>
     <view class='header flex_container'>
       <block wx:for="{{tabs}}" wx:for-item="item" wx:for-index="idx">
-        <text id="{{idx}}" class="rank {{activeIndex == idx ? 'cur' : ''}}" catchtap='tabTap'>{{item}}</text>
+        <text id="{{idx}}" class="rank {{activeIndex == idx ? 'cur' : ''}}" catchtap='tabTap' data-item="{{item}}">{{item}}</text>
       </block>
       <view class='center_line item_center_middle'></view>
     </view>
@@ -15,7 +15,7 @@
       <scroll-view class="friends_rank" wx:if="{{activeIndex == 0}}" scroll-y="true">
           <view class='view_container'>
               <block wx:for="{{friendsList}}" wx:for-item="item" wx:for-index="idx">
-                  <view class="friends_item {{item.mid == userInfo.mid ? 'self_item': ''}}" id='{{item.rank}}'>
+                  <view data-item="{{item}}" class="friends_item {{item.mid == userInfo.mid ? 'self_item': ''}}" id='1' catchtap='rankItemTap'>
 
                     <image class='rank_icon' src='/images/rank/one.png' wx:if="{{idx == 0}}"></image>
                     <image class='rank_icon' src='/images/rank/two.png' wx:elif="{{idx == 1}}"></image>
@@ -47,15 +47,12 @@
       <scroll-view class="world_rank" wx:if="{{activeIndex == 1}}" scroll-y="true">
           <view class='view_container rank_view_container'>
               <block wx:for="{{worldList}}" wx:for-item="item" wx:for-index="idx">
-                  <view class="friends_item  {{item.mid == userInfo.mid ? 'self_item': ''}}" id='{{item.rank}}'>
-
+                  <view class="friends_item  {{item.mid == userInfo.mid ? 'self_item': ''}}" id='{{item.rank}}' data-item="{{item}}" catchtap='rankItemTap'>
                     <image class='rank_icon' src='/images/rank/one.png' wx:if="{{idx == 0}}"></image>
                     <image class='rank_icon' src='/images/rank/two.png' wx:elif="{{idx == 1}}"></image>
                     <image class='rank_icon' src='/images/rank/three.png' wx:elif="{{idx == 2}}"></image>
                     <image class='rank_icon' src='/images/rank/default.png' wx:else></image>
-
                     <text class='rank_font'>{{idx + 1}}</text>
-
                     <view class='flex_container' style='height: 100%;'>
                         <view class='avatar_content flex_item_center'>
                           <image class="avatar_img" src='{{item.avatar}}' ></image>

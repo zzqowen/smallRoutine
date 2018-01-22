@@ -6,10 +6,16 @@ var curTime = 0;
 App({
     globalData:{
         uid: null,
+        mid: null,
         wxUserInfo: null,
         darwinUserInfo: null,
+        userInfo: null,
         windowHeight: null,
-        windowWidth: null
+        windowWidth: null,
+        backstage: false,
+    },
+    setGlobalData: function(key, value){
+      that.globalData[key] = value;
     },
     onLaunch:function(ops){
       that = this;
@@ -81,6 +87,14 @@ App({
 
         });
       }
+
+      if (that.globalData.backstage){
+        console.log("首页")
+        that.globalData.backstage = false;
+        wx.redirectTo({
+          url: '../../pages/index/index'
+        })
+      }
     },
 
 
@@ -134,8 +148,8 @@ App({
         ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
       }
       ctx.closePath();
-      ctx.setGlobalAlpha(0.8)
-      ctx.setFillStyle("#4c8eff");
+      ctx.setGlobalAlpha(0.3)
+      ctx.setFillStyle("#e5e5e5");
       ctx.fill();
       
       ctx.beginPath()
@@ -162,7 +176,7 @@ App({
 
       //绘制背景
       ctx.beginPath();
-      ctx.setFillStyle("#f6608e");
+      ctx.setFillStyle("#92a0ff");
       ctx.fillRect(-windowWidth / 2, -windowHeight /2, windowWidth, windowHeight);
       ctx.fill()
 
@@ -228,20 +242,20 @@ App({
       ctx.beginPath();
       for (var j = 0; j < arr.length; j++) {
         ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle) -rang);
-        ctx.setFontSize(r / 8);
+        ctx.setFontSize(r * 28 / 185);
         ctx.setFillStyle("white");
         ctx.setTextAlign("center");
         ctx.setTextBaseline("middle");
         if (j == 1 || j == 4) {
-          dis = r / 8;
+          dis = r / 6;
         } else {
-          dis = r / 4;
+          dis = r / 3;
         }
         ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle) -rang)
       }
       ctx.closePath();
-      ctx.setGlobalAlpha(0.8)
-      ctx.setFillStyle("#31b9e0");
+      ctx.setGlobalAlpha(0.3)
+      ctx.setFillStyle("#e5e5e5");
       ctx.fill();
 
       ctx.beginPath()
@@ -364,6 +378,7 @@ App({
                 url: '../phone/phone?unionid=' + data.unionid,
               })
             } else {
+              that.globalData.mid = data.mid;
               darwinCB(data.userInfo, data.mid);
             }
           });

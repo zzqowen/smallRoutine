@@ -199,6 +199,7 @@
   background: #92a0ff;
   color: white;
   border-color: transparent;
+  margin-bottom: 20rpx;
 }
 .result_container{
   position: relative;
@@ -225,7 +226,7 @@
   width: 100%;
   text-align: center;
   position: relative;
-  padding: 35rpx 40rpx 70rpx;
+  padding: 38rpx 40rpx 70rpx;
   box-sizing: border-box;
 }
 .text_img{
@@ -242,24 +243,32 @@
 }
 .font_content{
   box-shadow: 0 0 20rpx #ccc;
-  justify-content: flex-start
+  justify-content: flex-start;
+  border-radius: 10rpx;
 }
 .flag_container{
-  padding-top: 15rpx;
-  padding-bottom: 35rpx;
+  width: 100%;
+}
+.flag_img_line{
+  border-bottom: 1rpx solid #e6e6e6;
+  border-width: 2rpx;
+  height: 92rpx;
+  line-height: 92rpx;
 }
 .flag_img{
   width: 35rpx;
   height: 40rpx;
 }
 .flag_nickname{
-  font-size: 30rpx;
-  color: #4d4d4d;
+  font-size: 38rpx;
+  color: #666;
+  font-weight: bold;
   margin-left: 16rpx;
 }
 .flag_message{
   color: #666;
-  font-size: 24rpx;
+  font-size: 30rpx;
   display: block;
-  margin-top: 22rpx;
+  padding: 25rpx 0 30rpx;
+  line-height: 48rpx;
 }

@@ -2,6 +2,8 @@
 var postsData = require('../../data/posts-data.js');
 var util = require('../../utils/util.js');
 var app = getApp();
+var windowWidth = app.globalData.windowWidth;
+var windowHeight = app.globalData.windowHeight;
 
 var that;
 Page({
@@ -11,6 +13,9 @@ Page({
   data: {
     tabs: ["好友排行", "世界排行"],
     activeIndex: 0,
+    userInfo: app.globalData.userInfo,
+    windowWidth: windowWidth,
+    windowHeight: windowHeight,
   },
 
   /**
@@ -18,17 +23,9 @@ Page({
    */
   onLoad: function (options) {
       that = this;
-      var w = app.globalData.windowWidth;//屏幕宽度
-      var h = app.globalData.windowHeight;//屏幕高度
 
-      var info = JSON.parse(options.userInfo);
-      if (info.gradeText.indexOf("\n") != -1) {
-        info.gradeText = info.gradeText.split("\n").join("");
-      }
       that.setData({
-        windowHeight: h,
-        windowWidth: w,
-        userInfo: info
+        userInfo: app.globalData.userInfo
       });
 
       wx.showLoading({
@@ -58,11 +55,31 @@ Page({
 
   //选项卡点击事件
   tabTap: function(event){
-    console.log(event);
     var id = event.currentTarget.id;
     that.setData({
       activeIndex: id,
     })
+  },
+
+  rankItemTap: function(event){
+    var item = event.currentTarget.dataset.item;
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.downloadFile({
+      url: item.avatar, //仅为示例，并非真实的资源
+      success: function (res) {
+        console.log(res);
+        wx.hideLoading();
+        if (res.statusCode === 200) {
+          app.setGlobalData("otherAvatar", res.tempFilePath);
+        }
+        wx.navigateTo({
+          url: '../userInfo/userInfo?userInfo=' + JSON.stringify(item),
+        })
+      }
+    })
+
   },
 
   /**
@@ -76,18 +93,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    app.getStorage("userInfo", function (res) {
-      var info = JSON.parse(res.data);
-      if (info.gradeText.indexOf("\n") != -1) {
-        info.gradeText = info.gradeText.split("\n").join("");
-      }
+    // app.getStorage("userInfo", function (res) {
 
-      that.setData({
-        userInfo: info
-      })
-    }, function (res) {
+    //   that.setData({
+    //     userInfo: res.data
+    //   })
+    // }, function (res) {
 
-    });
+    // });
+    that.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
 
   /**

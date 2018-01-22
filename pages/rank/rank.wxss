@@ -145,6 +145,7 @@
   width: 100%;
   background: white;
   font-size: 30rpx;
+  border-top: 1px solid #e6e6e6;
 }
 .rank_view_container{
   padding-bottom: 140rpx;

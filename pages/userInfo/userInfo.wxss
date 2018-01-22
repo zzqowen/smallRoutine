@@ -27,7 +27,7 @@
   width: 100%;
   text-align: center;
   position: relative;
-  padding: 35rpx 40rpx 140rpx;
+  padding: 38rpx 40rpx 88rpx;
   box-sizing: border-box;
 }
 .text_img{
@@ -43,12 +43,18 @@
   right: 144rpx;
 }
 .font_content{
-  height: 126rpx;
   box-shadow: 0 0 20rpx #ccc;
-  justify-content: flex-start
+  justify-content: flex-start;
+  border-radius: 10rpx;
 }
 .flag_container{
-  padding-top: 15rpx;
+  width: 100%;
+}
+.flag_img_line{
+  border-bottom: 1rpx solid #e6e6e6;
+  border-width: 2rpx;
+  height: 92rpx;
+  line-height: 92rpx;
 }
 .flag_img{
   width: 35rpx;
@@ -61,10 +67,12 @@
   margin-left: 16rpx;
 }
 .flag_message{
-  color: #808080;
-  font-size: 24rpx;
+  color: #666;
+  font-size: 30rpx;
   display: block;
   text-align: center;
+  padding: 25rpx 0 30rpx;
+  line-height: 48rpx;
 }
 .button_content{
   padding: 0 64rpx;
@@ -114,8 +122,8 @@
 }
 .save_canvas{
   position:absolute;
-    /* top: 0;
-  left: 0;   */
-    top: -100000000000000px;
-  left: -100000000000000px;   
+  /* top: 0;
+  left: 0;    */
+  top: -100000000000000px;
+  left: -100000000000000px;  
 }

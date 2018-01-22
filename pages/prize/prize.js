@@ -1,7 +1,9 @@
 // pages/prize/prize.js
 var postsData = require('../../data/posts-data.js');
 var app = getApp();
-var that = this;
+var windowWidth = app.globalData.windowWidth;
+var windowHeight = app.globalData.windowHeight;
+var that;
 
 Page({
 
@@ -9,7 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    prizeList: postsData.prizeList
+    prizeList: postsData.prizeList,
+    windowWidth: windowWidth,
+    windowHeight: windowHeight,
+    userInfo: app.globalData.userInfo,
   },
 
   /**
@@ -17,26 +22,13 @@ Page({
    */
   onLoad: function (options) {
     that = this;
-    //获取屏幕宽高
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth,
-        })
-      }
-    });
 
     wx.showShareMenu({
       // 要求小程序返回分享目标信息
       withShareTicket: true
     });
-    var userInfo;
-    if (options.userInfo != null) {
-      userInfo = JSON.parse(options.userInfo);
-    }
     that.setData({
-      userInfo: userInfo
+      userInfo: app.globalData.userInfo,
     })
   },
 
@@ -51,13 +43,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    app.getStorage("userInfo", function (res) {
-      that.setData({
-        userInfo: res.data
-      })
-    }, function (res) {
+    // app.getStorage("userInfo", function (res) {
+    //   that.setData({
+    //     userInfo: res.data
+    //   })
+    // }, function (res) {
 
-    });
+    // });
+
+    that.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
 
   /**

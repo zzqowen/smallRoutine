@@ -56,7 +56,7 @@ Page({
   //答题点击事件
   questionTap: function(event){
     if (ableTap[0]){
-      that.getAuthority(0, '../question/question?userInfo=' + JSON.stringify(that.data.darwinUserInfo));
+      that.getAuthority(0, '../question/question');
 
       ableTap[0] = false;
     }
@@ -65,7 +65,7 @@ Page({
   //个人信息点击事件
   userInfoTap: function(event){
     if (ableTap[1]){
-      that.getAuthority(1, '../userInfo/userInfo?userInfo=' + JSON.stringify(that.data.darwinUserInfo));
+      that.getAuthority(1, '../userInfo/userInfo');
 
       ableTap[1] = false;
     }  
@@ -74,7 +74,7 @@ Page({
   //奖品点击事件
   prizeTap: function(){
     if (ableTap[4]){
-      that.getAuthority(4, '../prize/prize?userInfo=' + JSON.stringify(that.data.darwinUserInfo))
+      that.getAuthority(4, '../prize/prize')
 
       ableTap[4] = false;
     }
@@ -100,7 +100,7 @@ Page({
   //排行点击事件
   rankTap: function(){
     if (ableTap[2]){
-      that.getAuthority(2, '../rank/rank?userInfo=' + JSON.stringify(that.data.darwinUserInfo));
+      that.getAuthority(2, '../rank/rank');
       ableTap[2] = false;
     }  
   },
@@ -216,16 +216,18 @@ Page({
         success: function (res) {
           console.log(res);
           if (res.statusCode === 200) {
-            app.setStorage("avatar", res.tempFilePath);
+            app.setGlobalData("avatar", res.tempFilePath);
           }
         }
       })
-      app.setStorage("userInfo", data);//把userInfo保存到本地
+      app.setGlobalData("darwinUserInfo", data)
+      app.setGlobalData("userInfo", data)
+      //app.setStorage("userInfo", data);//把userInfo保存到本地
     }, function (wxData) {
       that.setData({
         wxUserInfo: wxData
       });
-      console.log(that.data.wxUserInfo)
+      app.setGlobalData("wxUserInfo", wxData)
     });
   },
 
@@ -233,14 +235,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    app.getStorage("userInfo", function (res) {
-      that.setData({
-        darwinUserInfo: res.data
-      });
-      console.log("index success")
-    }, function (res) {
-        console.log("index fail")
-    });
+    // app.getStorage("userInfo", function (res) {
+    //   that.setData({
+    //     darwinUserInfo: res.data
+    //   });
+    //   console.log("index success")
+    // }, function (res) {
+    //     console.log("index fail")
+    // });
+    that.setData({
+      darwinUserInfo: app.globalData.userInfo
+    })
 
     if (that.data.whetherBinding || that.data.directBack){
       that.getCurrentUserInfo();

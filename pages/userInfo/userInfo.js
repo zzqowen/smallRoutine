@@ -1,5 +1,7 @@
 var postsData = require('../../data/posts-data.js');
 var app = getApp();
+var windowWidth = app.globalData.windowWidth;
+var windowHeight = app.globalData.windowHeight;
 var scoreArr = [0, 0, 0];//得分数组
 var queNum = [3, 3, 4];
 var that
@@ -8,25 +10,33 @@ Page({
   data: {
     userInfo: null,
     resultInfo: postsData.resultInfo,
+    windowWidth: windowWidth,
+    windowHeight: windowHeight,
+    userInfo: app.globalData.userInfo,
+    circleSize: windowWidth * 185 / 750,
+    canvasHeight: windowWidth * 185 / 750 * 22 / 8
   },
 
   onLoad: function(option){
-    that = this;
-
-    var w = app.globalData.windowWidth;//屏幕宽度
-    var h = app.globalData.windowHeight;//屏幕高度
-  
+    console.log(app.globalData);
+    that = this;  
     that.setData({
-      userInfo: JSON.parse(option.userInfo),
-      windowHeight: h,
-      windowWidth: w,
-      circleSize: w * 185 / 750,
-      canvasHeight: w * 185 / 750 * 22 / 8
-    })
-    //获取缓存好的头像
-    app.getStorage("avatar", function(res){
-      console.log(res);
-      app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, res.data, Math.PI / 6);
+      userInfo: app.globalData.userInfo,
+    });
+    var avatar = app.globalData.avatar;
+
+    if (that.data.userInfo.mid == app.globalData.mid){
+      wx.setNavigationBarTitle({
+        title: "个人"
+      })
+    } else {
+      wx.setNavigationBarTitle({
+        title: that.data.userInfo.displayName
+      });
+      avatar = app.globalData.otherAvatar;
+    }
+
+    app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, avatar, Math.PI / 6);
 
       //保存图片canvas
       var gradeText1 = "", gradeText2 = "";
@@ -39,10 +49,8 @@ Page({
       }
 
       setTimeout(function(){
-        app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, res.data, Math.PI / 6, grade, gradeText1, gradeText2);
+        app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, avatar, Math.PI / 6, grade, gradeText1, gradeText2);
       }, 500)
- 
-    })
   },
 
   //随机选项
@@ -112,13 +120,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    app.getStorage("userInfo", function (res) {
-      that.setData({
-        userInfo: res.data,
-      });
-    }, function (res) {
-      
-    });
+    that.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
 
     /**

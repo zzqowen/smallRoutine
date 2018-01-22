@@ -1,4 +1,7 @@
-
+// var server = "http://test.aihuawen.com";
+var wxServer = "https://api.weixin.qq.com";
+// var server = "http://192.168.0.149:8080"
+var server = "https://applet.aihuawen.com";
 
 function convertToStarsArray(stars) {
   var num = stars.toString().substring(0, 1);
