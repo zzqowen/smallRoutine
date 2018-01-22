@@ -5,7 +5,7 @@
       <view class="section_title">手机号</view>
       <input name="input" placeholder="请输入手机号" type="number" maxlength='11' placeholder-class='input_placeholder' bindblur="inputBlur" focus='true'/>
       <view class='get_code_container'>
-        <view class="{{coutDownStatus ? 'get_code_start' : 'get_code'}}" catchtap='getCodeTap'>{{getCode}}</view>
+        <view class="{{coutDownStatus ? 'get_code_start' : 'get_code'}}" bindtap='getCodeTap'>{{getCode}}</view>
       </view>
     </view>
     <view class="section flex_container">

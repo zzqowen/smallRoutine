@@ -59,7 +59,7 @@
   position: relative;
 }
 .self_item{
-  background: #8bf5fa;
+  background: #92a0ff;
 }
 .rank_icon{
   position: absolute;

@@ -174,7 +174,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  background-color: rgba(76, 32, 46, 0.24);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 10;
 }
 .setting_container{
@@ -282,7 +282,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  background-color: rgba(76, 32, 46, 0.24);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 10;
 }
 .more_container{

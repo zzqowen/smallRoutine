@@ -36,7 +36,6 @@ input{
 .input_placeholder{
   color: #ccc;
   font-size: 30rpx;
-  letter-spacing: 2rpx;
   font-weight: 100;
 }
 .get_code_container{

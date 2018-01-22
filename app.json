@@ -5,9 +5,7 @@
     "pages/userInfo/userInfo",
     "pages/prize/prize",
     "pages/question/question",
-    "pages/rank/rank",
-    "pages/posts/post",
-    "pages/posts/post-detail/post-detail"
+    "pages/rank/rank"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

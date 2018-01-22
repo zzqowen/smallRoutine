@@ -193,7 +193,7 @@ Page({
       console.log(avatar);
 
       app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, avatar, Math.PI / 6);
-    
+      console.log("scoreArr数据" + JSON.stringify(scoreArr));
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({
         grade: resultData.grade,
@@ -207,7 +207,6 @@ Page({
         console.log(res);
         app.setGlobalData("darwinUserInfo", data);
         app.setGlobalData("userInfo", data);
-        //app.setStorage("userInfo", data);//把userInfo保存到本地
       }, {
         'mid': that.data.userInfo.mid,
         'result': scoreArr.join(","),
@@ -230,6 +229,9 @@ Page({
   //根据对的提计算分数
   calcScore: function(arr){
     var scoreResult = 0;
+    if (arr == null){
+      return scoreResult;
+    }
     console.log(arr);
     for (var i = 0; i < arr.length; i++) {
       if (i == arr.length - 1) {
@@ -338,10 +340,9 @@ Page({
   setGrade: function (score) {
     console.log(score);
     var arr = postsData.gradeInfo;
-    console.log(arr);
     var result;
-    var rlt = {grade: "", text: "", score};
-    if (score == 5) {
+    var rlt = {grade: "", text: "", score: 0};
+    if (score <= 5) {
       result = arr[0];
     } else if (score < 20) {
       result = arr[1];
@@ -361,7 +362,9 @@ Page({
       console.log('错误');
     }
     console.log(result);
-
+    if (result == null){
+      return rlt;
+    }
     var len = result.text.length;
     rlt.grade = result.grade;
     rlt.text = result.text[parseInt(Math.random() * len)],

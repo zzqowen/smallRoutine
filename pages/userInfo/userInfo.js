@@ -89,7 +89,7 @@ Page({
   //继续挑战
   continueTap: function(event){
     wx.navigateTo({
-      url: '../question/question?userInfo=' + JSON.stringify(that.data.userInfo),
+      url: '../question/question',
     })
   },
 
