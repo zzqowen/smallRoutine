@@ -1,5 +1,5 @@
 <!--pages/prize/prize.wxml-->
-<view class='body'>
+<view class='body' style='height: {{windowHeight}}px'>
   <block wx:for="{{prizeList}}" wx:for-item="item" wx:for-index="idx">
     <view class='flex_item_center prize_container'>
         <image class='img' src='{{item.img}}'></image>

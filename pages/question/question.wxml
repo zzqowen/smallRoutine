@@ -1,7 +1,6 @@
 <!--pages/question/question.wxml-->
 <!-- 答题页面 -->
-<import src="../../img-loader/img-loader.wxml"/>
-<template is="img-loader" data="{{ imgLoadList }}"></template>
+<wxs src="../../filter/filter.wxs" module="filter" />
 <view wx:if="{{challengeStatus}}" animation="{{animationInData}}" class='question_body' style='width: {{windowWidth}}px; height: {{windowHeight}}px;'>
   <view class='header'>
     <image src='/images/question/header_bg.png' class='header_bg'></image>
@@ -36,7 +35,7 @@
           <image src='/images/userInfo/flag.png' class='flag_img'></image>
           <text class='flag_nickname'>{{grade}}</text>
         </view>
-        <text class='flag_message'>{{text}}</text>
+        <text class='flag_message'>{{filter.removeNewLine(text)}}</text>
       </view>
     </view>
   </view>

@@ -2,6 +2,7 @@
 .body{
   padding: 20rpx 20rpx 0;
   box-sizing: border-box;
+  background: #eff1f5;
 }
 .form{
   display: block;
@@ -11,6 +12,9 @@
   border-radius: 10rpx;
   padding: 112rpx 55rpx 0;
   box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+  background-color: white;
 }
 .section{
   border-bottom: 2rpx solid #e5e5e5;
@@ -68,12 +72,12 @@ input{
   margin-top: 77rpx;
 }
 .btn_area button{
-  background:-webkit-linear-gradient(top, #ed6f9d, #f04880);
+  background-color: #92a0ff;
   color: white;
   font-size: 40rpx;
   font-weight: 400;
   border-radius: 10rpx;
-  letter-spacing: 15rpx;
+  letter-spacing: 6rpx;
 }
 .tips{
   text-align: center;

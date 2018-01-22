@@ -21,7 +21,7 @@ Page({
       windowHeight: h,
       windowWidth: w,
       circleSize: w * 185 / 750,
-      canvasHeight: w * 185 / 750 * 22 / 9
+      canvasHeight: w * 185 / 750 * 22 / 8
     })
     //获取缓存好的头像
     app.getStorage("avatar", function(res){

@@ -17,6 +17,16 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    //获取屏幕宽高
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          windowHeight: res.windowHeight,
+          windowWidth: res.windowWidth,
+        })
+      }
+    });
+
     wx.showShareMenu({
       // 要求小程序返回分享目标信息
       withShareTicket: true

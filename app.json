@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/userInfo/userInfo",
     "pages/phone/phone",
+    "pages/userInfo/userInfo",
     "pages/prize/prize",
     "pages/question/question",
     "pages/rank/rank",
@@ -10,8 +10,9 @@
     "pages/posts/post-detail/post-detail"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#ed6f9d",
-    "navigationBarTitleText": "章鱼答答堂"
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "章鱼答答堂",
+    "navigationBarTextStyle": "black"
   },
   "networkTimeout": {
     "request": 5000,

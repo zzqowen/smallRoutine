@@ -88,7 +88,7 @@ App({
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
       var r = circleSize;
-      ctx.translate(windowWidth/2, r*11/9);
+      ctx.translate(windowWidth / 2, windowWidth * 185 / 750 * 22 / 16);
       var mult = 0;
       for (var n = 1; n<= 3; n++){
         //绘制六边形
@@ -122,21 +122,20 @@ App({
         if (arr[j].score != null){
           ctx.lineTo((r / 2 + (r / 2) * arr[j].score) * Math.cos(j * Math.PI / 3 + angle), (r / 2 + (r / 2) * arr[j].score) * Math.sin(j * Math.PI / 3 + angle));
         }
-        ctx.setFontSize(r / 9);
         ctx.setFillStyle("white");
+        if (j == 1 || j == 4) {
+          dis = r / 6;
+        } else {
+          dis = r / 3;
+        }
+        ctx.setFontSize(r * 28 / 185);
         ctx.setTextAlign("center");
         ctx.setTextBaseline("middle");
-        if (j == 1 || j == 4) {
-          dis = r / 9;
-        } else {
-          dis = r / 6;
-        }
-      
         ctx.fillText(arr[j].name, (r + dis) * Math.cos(j * Math.PI / 3 + angle), (r + dis) * Math.sin(j * Math.PI / 3 + angle))
       }
       ctx.closePath();
       ctx.setGlobalAlpha(0.8)
-      ctx.setFillStyle("#31b9e0");
+      ctx.setFillStyle("#4c8eff");
       ctx.fill();
       
       ctx.beginPath()
@@ -278,13 +277,13 @@ App({
 
         ctx.beginPath();
         ctx.arc(0, 0, circleSize, 0, 2 * Math.PI);
-        ctx.setStrokeStyle("#45b2d9");
+        ctx.setStrokeStyle("#ff7676");
         ctx.setLineWidth(lineWidth);
         ctx.stroke();
 
         ctx.beginPath();
         ctx.setFontSize(lineWidth * 4.75);
-        ctx.setFillStyle("#ed598c");
+        ctx.setFillStyle("#ff7676"); 
         ctx.setTextAlign("center");
         ctx.setTextBaseline("middle");
         if (num == 50 * totalTime) {
@@ -300,7 +299,7 @@ App({
         ctx.beginPath();
         ctx.rotate(-90 * Math.PI / 180);
         ctx.arc(0, 0, circleSize, 0, num * 2 * Math.PI / (50 * totalTime), false);
-        ctx.setStrokeStyle("#ed598c"); 
+        ctx.setStrokeStyle("#a5b5fe"); 
         ctx.setLineWidth(lineWidth)
         ctx.stroke();
         ctx.draw();

@@ -1,6 +1,9 @@
 /* pages/rank/rank.wxss */
+.body{
+  background: #eff1f5;
+}
 .tips{
-  background-color: #ed6f9d;
+  background-color: white;
   padding-top: 35rpx;
   padding-bottom: 22rpx;
 }
@@ -9,31 +12,31 @@
   width: 100%;
   text-align: center;
   font-size: 24rpx;
-  color: white;
+  color: #4d4d4d;
 }
 .header{
   width: 100%;
-  height: 104rpx;
-  background-color: #ed6f9d;
+  height: 100rpx;
+  background-color: #e0e0e0;
   text-align: center;
   position: relative;
 }
 .center_line{
   border-left: 1rpx solid white;
   height: 52rpx;
+  border-color: transparent;
 }
 .rank{
   flex: 1;
   font-size: 40rpx;
   color: white;
-  height: 98rpx;
+  height: 100rpx;
   display: inline-block;
-  line-height: 98rpx;
+  line-height: 100rpx;
+  letter-spacing: 2rpx;
 }
 .cur{
-  color: white;
-  border-bottom: 3px solid #4d4d4d;
-  border-width: 6rpx;
+  background-color: #92a0ff;
 }
 .content{
   flex: 1;
@@ -46,11 +49,11 @@
   left: 0;
 }
 .view_container{
-  padding: 45rpx 32rpx 0;
+  padding: 20rpx 20rpx 0;
 }
 .friends_item{
-  height: 182rpx;
-  margin-bottom: 40rpx;
+  height: 224rpx;
+  margin-bottom: 20rpx;
   background-color: white;
   box-shadow: 0 0 20rpx #ccc;
   position: relative;
@@ -85,6 +88,9 @@
 .avatar_content{
   height: 100%;
   padding-left: 80rpx;
+  align-items: flex-start;
+  padding-top: 30rpx;
+  box-sizing: border-box;
 }
 .avatar_img{
   width: 122rpx;
@@ -98,12 +104,16 @@
   box-sizing: border-box;
 }
 .rank_text{
-  height: 50%;
   justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 20rpx;
 }
 .font_center_line{
   justify-content: space-between;
   border-bottom: 1rpx solid #e6e6e6;
+  padding-bottom: 20rpx;
+  padding-right: 66rpx;
+  align-items: center;
 }
 .rank_displayName{
   font-size: 34rpx;
@@ -118,8 +128,8 @@
   color:#4d4d4d;
 }
 .rank_message{
-  font-size: 20rpx;
-  color: #666;
+  font-size: 24rpx;
+  color: #4d4d4d;
   margin-left: 22rpx;
   flex: 1;
 }
@@ -139,11 +149,8 @@
 .rank_view_container{
   padding-bottom: 140rpx;
 }
-.self_displayName, .self_time, .self_grade{
+.self_displayName, .self_time, .self_grade, .self_message{
   color: #009ba3;
-}
-.self_message{
-  color: #529fa3;
 }
 .self_line{
   border-color: #529fa3;

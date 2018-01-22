@@ -24,6 +24,17 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    //获取屏幕宽高
+    wx.getSystemInfo({
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          windowHeight: res.windowHeight,
+          windowWidth: res.windowWidth,
+        })
+      }
+    });
+
     arr = getCurrentPages();//获取全部页面进行传值
     arr[arr.length - 2].data.directBack = true;
     wx.getUserInfo({
@@ -34,7 +45,7 @@ Page({
           unionid: options.unionid
         });
       }
-    })
+    });
   },
 
   /**

@@ -2,17 +2,19 @@
 .body{
   padding: 0 22rpx;
   overflow: hidden;
+  background: #eff1f5;
 }
 .body_scroll{
   width: 100%;
   height: 100%;
+  position: relative;
+  z-index: 3;
 }
 .header{
   width: 706rpx;
-  height: 340rpx;
+  height: 400rpx;
   margin-top: 32rpx;
   border-radius: 10rpx;
-  border: 1rpx solid violet;
   display: inline-block;
   text-align: center;
   position: relative;
@@ -30,10 +32,11 @@
 .avatar{
   border-radius: 50%;
   display: inline-block;
-  width: 150rpx;
-  height: 150rpx;
-  margin-top: 32rpx;
+  width: 135rpx;
+  height: 135rpx;
+  margin-top: 20rpx;
   vertical-align: top;
+  border: 8rpx solid #acb7ff;
 }
 .default_avatar{
   background: #ccc;
@@ -45,37 +48,40 @@
   color: white;
   font-size: 30rpx;
   line-height: 30rpx;
-  letter-spacing: 6rpx;
-  margin-top: 20rpx;
+  letter-spacing: 5rpx;
+  margin-top: 15rpx;
   height: 30rpx;
 }
 .level{
   width: 100%;
-  margin-top: 25rpx;
-  padding: 0 50rpx;
+  margin-top: 20rpx;
+  padding: 0 22rpx;
   box-sizing: border-box;
 }
 .level_content{
   background-color: rgba(76, 32, 46, 0.24);
   border-radius: 10rpx;
-  padding-left: 16rpx;
-  min-width: 180rpx;
+  padding-left: 22rpx;
   box-sizing: border-box;
+  padding-right: 15rpx;
+}
+.level_content_top{
+  margin-top: 15rpx;
 }
 .level_img{
-  width: 45rpx;
-  height: 45rpx;
+  width: 40rpx;
+  height: 40rpx;
   display: block;
   margin-right: 10rpx;
 }
 .level_font{
   flex: 1;
-  text-align: center;
-  font-size: 30rpx;
+  text-align: left;
+  font-size: 24rpx;
   color: white;
-  height: 56rpx;
+  height: 48rpx;
   vertical-align: top;
-  line-height: 56rpx;
+  line-height: 48rpx;
 }
 .content{
   margin-top: 20rpx;
@@ -89,24 +95,25 @@
   width: 100%;
 }
 .question{
-  width: 345rpx;
-  height: 446rpx;
+  width: 100%;
+  height: 400rpx;
   position: relative;
   border-radius: 10rpx;
 }
 .question_bg{
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   z-index: -1;
-  width: 100%;
+  width: 345rpx;
   height: 100%;
 }
 .rank{
   width: 100%;
-  height: 260rpx;
+  height: 300rpx;
   position: relative;
   border-radius: 10rpx;
+  margin-top: 20rpx;
 }
 .rank_bg{
   position: absolute;
@@ -117,7 +124,7 @@
 }
 .more{
   width: 100%;
-  height: 302rpx;
+  height: 240rpx;
   position: relative;
   border-radius: 10rpx;
   margin-top: 16rpx;
@@ -126,25 +133,27 @@
 .more_bg{
   width: 345rpx;
   height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .prize{
   position: relative;
   border-radius: 10rpx;
   width: 100%;
-  height: 330rpx;
-  margin-top: 20rpx;
+  height: 260rpx;
 }
 .prize_bg{
   width: 345rpx;
   height: 100%;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
 
 }
 .setting{
   width: 100%;
-  height: 134rpx;
+  height: 180rpx;
   border-radius: 10rpx;
   margin-top: 20rpx;
   position: relative;
@@ -154,7 +163,7 @@
   height: 100%;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
 }
 ::-webkit-scrollbar {
   width: 0;
@@ -166,6 +175,7 @@
   left: 0;
   top: 0;
   background-color: rgba(76, 32, 46, 0.24);
+  z-index: 10;
 }
 .setting_container{
   width: 540rpx;
@@ -233,7 +243,7 @@
     background: #ccc;
   }
   to{
-    background: #ef6293;
+    background: #92a0ff;
   }
 }
 @keyframes checkBefore{
@@ -254,7 +264,7 @@
 }
 @keyframes uncheck{
   from{
-    background: #ef6293;
+    background: #92a0ff;
   }
   to{
     background: #ccc;
@@ -273,6 +283,7 @@
   left: 0;
   top: 0;
   background-color: rgba(76, 32, 46, 0.24);
+  z-index: 10;
 }
 .more_container{
   height: 414rpx;

@@ -3,39 +3,39 @@
 <scroll-view class='body_scroll' scroll-y>
   <view class='header' catchtap='userInfoTap'>
     <image class='user_bg' src='/images/index/userBg.png'></image>
-    <image class="avatar {{darwinUserInfo.avatar && wxUserInfo? '': 'default_avatar'}}" style="border-radius: 50%;" src="{{darwinUserInfo.avatar && wxUserInfo ? darwinUserInfo.avatar : ''}}"></image>
-    <text class='nick_name'>{{darwinUserInfo.displayName && wxUserInfo ? darwinUserInfo.displayName : "----"}}</text>
     <view class='level'>
-      <view class='level_container flex_item_between'>
+      <view class='level_container flex_column_start_container'>
         <view class='level_content flex_item_between'>
           <image src='/images/index/flag.png' class='level_img'></image>
-          <text class='level_font' style='padding-right: 20rpx;'>{{darwinUserInfo.grade ? darwinUserInfo.grade : "--"}}</text>
+          <text class='level_font'>{{darwinUserInfo.grade ? darwinUserInfo.grade : "--"}}</text>
         </view>
-         <view class='level_content flex_item_between'>
+        <view class='level_content flex_item_between level_content_top'>
           <image src='/images/index/crown.png' class='level_img'></image>
-          <text class='level_font' style='padding-right: 10rpx;'>{{darwinUserInfo.rank ? (darwinUserInfo.rank > 99 ? "NO.99+" : "NO." + darwinUserInfo.rank) : "--"}}</text>
+          <text class='level_font'>{{darwinUserInfo.rank ? (darwinUserInfo.rank > 99 ? "NO.99+" : "NO." + darwinUserInfo.rank) : "--"}}</text>
         </view>
       </view>
     </view>
+    <image class="avatar {{darwinUserInfo.avatar && wxUserInfo? '': 'default_avatar'}}" style="border-radius: 50%;" src="{{darwinUserInfo.avatar && wxUserInfo ? darwinUserInfo.avatar : ''}}"></image>
+    <text class='nick_name'>{{darwinUserInfo.displayName && wxUserInfo ? darwinUserInfo.displayName : "----"}}</text>
   </view>
   <view class='flex_container content'>
     <view class="flex_column_container list_container">
-        <view class = "list question" catchtap='questionTap'>
-          <image src='/images/index/drinking.png' class='question_bg'></image>
-        </view>
-        <view class = "list" class='more' catchtap='moreTap'>
-          <image src='/images/index/more.png' class='more_bg'></image>
-        </view>
-    </view>
-    <view class="flex_column_container list_container">
-      <view class = "list" catchtap='rankTap' class='rank'>
-        <image src='/images/index/rank.png' class='rank_bg'></image>
-      </view>
       <view class = "list" class='prize' catchtap='prizeTap'>
         <image class='prize_bg' src='/images/index/prize.png'></image>
       </view>
+      <view class = "list" class='more' catchtap='moreTap'>
+        <image src='/images/index/more.png' class='more_bg'></image>
+      </view>
       <view class = "list" catchtap='settingTap' class='setting'>
         <image class='setting_bg' src='/images/index/setting.png'></image>
+      </view>
+    </view>
+    <view class="flex_column_container list_container">
+      <view class = "list question" catchtap='questionTap'>
+        <image src='/images/index/drinking.png' class='question_bg'></image>
+      </view>
+      <view class = "list" catchtap='rankTap' class='rank'>
+        <image src='/images/index/rank.png' class='rank_bg'></image>
       </view>
     </view>
   </view>

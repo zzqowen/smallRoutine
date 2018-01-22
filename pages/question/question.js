@@ -60,7 +60,7 @@ Page({
           windowWidth: res.windowWidth,
           canvasWidth: 2 * circleSize + lineWidth + 6,
           circleSize1: res.windowWidth * 185 / 750,
-          canvasHeight1: res.windowWidth * 185 / 750 * 22 / 9
+          canvasHeight1: res.windowWidth * 185 / 750 * 22 / 8
         })
       }
     });

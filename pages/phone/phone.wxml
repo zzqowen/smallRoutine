@@ -1,5 +1,5 @@
 <!--pages/phone/phone.wxml-->
-<view class='body'>
+<view class='body' style='height: {{windowHeight}}px'>
   <form bindsubmit="formSubmit" bindreset="formReset" class='form'>
     <view class="section flex_container">
       <view class="section_title">手机号</view>

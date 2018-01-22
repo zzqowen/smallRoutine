@@ -31,7 +31,7 @@
                         <view class='font_content'>
                           <view class="flex_item_center font_center_line rank_text {{item.mid == userInfo.mid ? 'self_line': ''}}">
                             <text class="rank_displayName {{item.mid == userInfo.mid ? 'self_displayName': ''}}">{{item.displayName}}</text>
-                            <text class="rank_time {{item.mid == userInfo.mid ? 'self_time': ''}}">用时：{{item.useTime}}秒</text>
+                            <text class="rank_time {{item.mid == userInfo.mid ? 'self_time': ''}}">用时：{{item.useTime}}s</text>
                           </view>
                           <view class="flex_item_center rank_text">
                             <text class="rank_nickname {{item.mid == userInfo.mid ? 'self_grade': ''}}">{{item.grade}}</text>
@@ -63,7 +63,7 @@
                         <view class='font_content'>
                           <view class='flex_item_center font_center_line rank_text {{item.mid == userInfo.mid ? "self_line": ""}}'>
                             <text class='rank_displayName {{item.mid == userInfo.mid ? "self_displayName": ""}}'>{{item.displayName}}</text>
-                            <text class='rank_time {{item.mid == userInfo.mid ? "self_time": ""}}'>用时：{{item.useTime}}秒</text>
+                            <text class='rank_time {{item.mid == userInfo.mid ? "self_time": ""}}'>用时：{{item.useTime}}s</text>
                           </view>
                           <view class="flex_item_center rank_text">
                             <text class='rank_nickname {{item.mid == userInfo.mid ? "self_grade": ""}}'>{{item.grade}}</text>
@@ -75,7 +75,7 @@
               </block>
           </view>
       </scroll-view>
-      <view wx:if="{{activeIndex == 1}}" class='world_my_rank'>{{userInfo.rank ? "我当前的世界排名第"  +userInfo.rank : "暂没排行"}}</view>
+      <view wx:if="{{activeIndex == 1}}" class='world_my_rank'>{{userInfo.rank ? "我当前的世界排名"  +userInfo.rank : "暂没排行"}}</view>
     </view>
 
   </view>
