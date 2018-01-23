@@ -68,7 +68,6 @@ Page({
         console.log(res);
       }
     })
-
    
   },
   //随机选项
@@ -155,7 +154,7 @@ Page({
   */
   onShareAppMessage: function (res) {
     return {
-      title: '章鱼答答堂',
+      title: app.shareFun(that.data.userInfo.grade),
       path: '/pages/index/index?mid=' + that.data.userInfo.mid,
       success: function (res) {
         wx.hideLoading();

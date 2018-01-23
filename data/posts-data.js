@@ -183,21 +183,24 @@ var gradeInfo = [
       "只要心里有酒，\n茶水也是甘霖！",
       "见过你喝酒的人，\n恐怕不存在！",
       "不会喝酒，\n前途没有！"
-    ]
+    ],
+    "share": "酒中废材，真不能喝"
   },
   {
     "score": 2,
     "grade": "酒腻子",
     "text": [
       "我没醉，我不怕，\n我还可以喝！"
-    ]
+    ],
+    "share": "酒腻子，有酒必醉",
   },
   {
     "score": 3,
     "grade": "嗜酒狂徒",
     "text": [
       "半斤不当酒，\n一斤扶墙走！"
-    ]
+    ],
+    "share": "嗜酒狂徒，无酒不欢",
   },
   {
     "score": 4,
@@ -205,7 +208,8 @@ var gradeInfo = [
     "text": [
       "你甘为革命献肠胃，\n革命的小酒天天醉！",
       "革命小酒天天醉，\n两腿一站，喝了不算！"
-    ]
+    ],
+    "share": "酒中醉鬼，一人饮醉",
   },
   {
     "score": 5,
@@ -213,7 +217,8 @@ var gradeInfo = [
     "text": [
       "酒量都是炼出来的，\n多喝几次也就海量了！",
       "酒量不高怕丢愁，\n自我约束不喝酒！"
-    ]
+    ],
+    "share": "喝酒凡人，一杯就倒",
   },
   {
     "score": 6,
@@ -222,7 +227,8 @@ var gradeInfo = [
       "天蓝蓝，海蓝蓝，\n一杯一杯往下传！",
       "活着不喝酒，\n枉在世上走！",
       "辣酒刷牙，\n啤酒当茶！"
-    ]
+    ],
+    "share": "酒中霸者，红白齐走",
   },
   {
     "score": 7,
@@ -230,7 +236,8 @@ var gradeInfo = [
     "text": [
       "人在江湖走，\n哪能不喝酒！",
       "东风吹，战鼓擂，\n今天喝酒谁怕谁！"
-    ]
+    ],
+    "share": "酒中神仙，不服来战",
   },
   {
     "score": 8,
@@ -238,7 +245,8 @@ var gradeInfo = [
     "text": [
       "天上无云地下旱，\n刚才那杯不能算！",
       "一两二两漱漱口，\n三两四两不算酒！"
-    ]
+    ],
+    "share": "酒中圣贤，千杯不醉",
   }
 ]
 
@@ -255,5 +263,5 @@ module.exports = {
     rankList: rankList,
     resultInfo: resultInfo,
     gradeInfo: gradeInfo,
-    prizeList: prizeList
+    prizeList: prizeList,
 }

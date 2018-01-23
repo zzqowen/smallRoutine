@@ -1,4 +1,5 @@
 var util = require('/utils/util.js');
+var postsData = require('/data/posts-data.js');
 var time = null;
 var that;
 var curTime = 0;
@@ -377,9 +378,9 @@ App({
               }
               console.log(url)
               util.httpPost(url, function (data) {
+                wx.hideLoading();
                 console.log(data);
                 if (data.mid == "" || data.mid == null) {
-                  wx.hideLoading();
                   wx.navigateTo({
                     url: '../phone/phone?unionid=' + data.unionid,
                   })
@@ -416,5 +417,16 @@ App({
         animation.opacity(0).step();
       }
       return animation;
-    }
+    },
+    //分享内容
+    shareFun: function (content) {
+      var shareContent;
+      var share = postsData.gradeInfo;
+      for (var i = 0; i < share.length; i++) {
+        if (share[i].grade == content) {
+          shareContent = share[i].share;
+          return shareContent
+        }
+      }
+    },
 })

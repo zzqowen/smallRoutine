@@ -59,9 +59,9 @@
 }
 .choose_icon{
   position: absolute;
-  width: 75rpx;
-  height: 75rpx;
-  right: 126rpx;
+  width: 60rpx;
+  height: 60rpx;
+  right: 50rpx;
   top: 50%;
   transform: translate(0, -50%);
 }

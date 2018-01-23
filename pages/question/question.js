@@ -457,7 +457,7 @@ Page({
       // console.log(res.target)
     }
     return {
-      title: '章鱼答答堂',
+      title: app.shareFun(that.data.userInfo.grade),
       path: '/pages/index/index?mid=' + that.data.userInfo.mid,
       success: function (res) {
         // 转发成功
