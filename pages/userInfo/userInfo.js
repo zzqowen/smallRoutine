@@ -4,8 +4,9 @@ var windowWidth = app.globalData.windowWidth;
 var windowHeight = app.globalData.windowHeight;
 var scoreArr = [0, 0, 0];//得分数组
 var queNum = [3, 3, 4];
-var that
-
+var that;
+var curMid;
+const ImgLoader = require('../../img-loader/img-loader.js')
 Page({
   data: {
     userInfo: null,
@@ -14,45 +15,62 @@ Page({
     windowHeight: windowHeight,
     userInfo: app.globalData.userInfo,
     circleSize: windowWidth * 185 / 750,
-    canvasHeight: windowWidth * 185 / 750 * 22 / 8
+    canvasHeight: windowWidth * 185 / 750 * 22 / 8,
   },
 
-  onLoad: function(option){
-    console.log(app.globalData);
-    that = this;  
+  onLoad: function(options){
+    that = this
+    console.log(options);
+    curMid = options.mid;
+    that.imgLoader = new ImgLoader(this);
     that.setData({
       userInfo: app.globalData.userInfo,
+      wxUserInfo: app.globalData.wxUserInfo
     });
-    var avatar = app.globalData.avatar;
 
-    if (that.data.userInfo.mid == app.globalData.mid){
+    if (options.mid == app.globalData.mid){
       wx.setNavigationBarTitle({
         title: "个人"
       })
     } else {
       wx.setNavigationBarTitle({
-        title: that.data.userInfo.displayName
+        title: options.displayName
       });
-      avatar = app.globalData.otherAvatar;
+      console.log(app.globalData.otherUserInfo);
+      that.setData({
+        userInfo: app.globalData.otherUserInfo
+      })
     }
 
-    app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, avatar, Math.PI / 6);
+    wx.getImageInfo({
+      src: that.data.userInfo.avatar,
+      success: function (res) {
+        console.log(res);
+        that.imgLoader.load(res.path, (err, data) => {
+          app.abilityMap("my_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, data.src, Math.PI / 6);
 
-      //保存图片canvas
-      var gradeText1 = "", gradeText2 = "";
-      var grade = that.data.userInfo.grade ? that.data.userInfo.grade : "";
-      if (that.data.userInfo.gradeText) {
-        if (that.data.userInfo.gradeText.indexOf("\n") != -1) {
-          gradeText1 = that.data.userInfo.gradeText.split("\n")[0];
-          gradeText2 = that.data.userInfo.gradeText.split("\n")[1];
-        }
+          //保存图片canvas
+          var gradeText1 = "", gradeText2 = "";
+          var grade = that.data.userInfo.grade ? that.data.userInfo.grade : "";
+          if (that.data.userInfo.gradeText) {
+            if (that.data.userInfo.gradeText.indexOf("\n") != -1) {
+              gradeText1 = that.data.userInfo.gradeText.split("\n")[0];
+              gradeText2 = that.data.userInfo.gradeText.split("\n")[1];
+            }
+          }
+
+          setTimeout(function () {
+            app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, data.src, Math.PI / 6, grade, gradeText1, gradeText2);
+          }, 500)
+        }); 
+      },
+      fail: function(res){
+        console.log(res);
       }
+    })
 
-      setTimeout(function(){
-        app.saveAbilityPhoto("save_canvas", that.resultRandom(that.data.userInfo.result, that.data.resultInfo), that.data.circleSize, that.data.windowWidth, that.data.windowHeight, avatar, Math.PI / 6, grade, gradeText1, gradeText2);
-      }, 500)
+   
   },
-
   //随机选项
   resultRandom: function (resultScore, resultInfo) {
     var mapAry = [];
@@ -110,6 +128,7 @@ Page({
           filePath: res.tempFilePath,
           success(res) {
             console.log(res);
+            wx.hideLoading();
           }
         })
       }
@@ -120,9 +139,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    that.setData({
-      userInfo: app.globalData.userInfo
-    })
+    if (app.globalData.mid == curMid){
+      that.setData({
+        userInfo: app.globalData.userInfo
+      })
+    } else {
+      that.setData({
+        userInfo: app.globalData.otherUserInfo
+      })
+    }
   },
 
     /**
@@ -133,7 +158,7 @@ Page({
       title: '章鱼答答堂',
       path: '/pages/index/index?mid=' + that.data.userInfo.mid,
       success: function (res) {
-
+        wx.hideLoading();
       },
       fail: function (res) {
         // 转发失败

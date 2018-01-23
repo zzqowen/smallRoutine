@@ -34,11 +34,16 @@ Page({
 
       setTimeout(function(){
         //世界排行榜
-        util.httpPost("/qBank/getSpiritsQuestionTopMid", function (res) {
+        util.httpPost("/qBank/getSpiritsQuestionTopMid?mid=" + that.data.userInfo.mid, function (res) {
           console.log(res);
           that.setData({
             worldList: res.questionTop
-          })
+          });
+          var userInfo = that.data.userInfo;
+          userInfo.rank = parseInt(res.userInfo.rank);
+          that.setData({
+            userInfo: userInfo,
+          });
           wx.hideLoading();
         });
         //好友排行榜
@@ -46,7 +51,12 @@ Page({
           console.log(res);
           that.setData({
             friendsList: res.questionTop
-          })
+          });
+          var userInfo = that.data.userInfo;
+          userInfo.rank = parseInt(res.userInfo.rank);
+          that.setData({
+            userInfo: userInfo,
+          });
           wx.hideLoading();
         });
       }, 100);
@@ -63,23 +73,10 @@ Page({
 
   rankItemTap: function(event){
     var item = event.currentTarget.dataset.item;
-    wx.showLoading({
-      title: '加载中',
-    })
-    wx.downloadFile({
-      url: item.avatar, //仅为示例，并非真实的资源
-      success: function (res) {
-        console.log(res);
-        wx.hideLoading();
-        if (res.statusCode === 200) {
-          app.setGlobalData("otherAvatar", res.tempFilePath);
-        }
-        wx.navigateTo({
-          url: '../userInfo/userInfo?userInfo=' + JSON.stringify(item),
-        })
-      }
-    })
-
+    app.setGlobalData("otherUserInfo", item);
+    wx.navigateTo({
+      url: '../userInfo/userInfo?mid=' + item.mid + "&displayName=" + item.displayName,
+    });
   },
 
   /**

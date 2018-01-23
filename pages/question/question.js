@@ -46,6 +46,7 @@ Page({
   onLoad: function (options) {
     index = 0;
     that = this;
+    that.imgLoader = new ImgLoader(this);
     wx.showShareMenu({
       // 要求小程序返回分享目标信息
       withShareTicket: true
@@ -179,6 +180,7 @@ Page({
     console.log(totalTime)
     index++;
     if (index >= 10){
+      app.setGlobalData("backstage", false);
       wx.showToast({
         title: '已经答完了',
         duration: 2000
@@ -191,9 +193,15 @@ Page({
       var avatar = app.globalData.avatar;
 
       console.log(avatar);
+      wx.getImageInfo({
+        src: avatar,
+        success: function (res) {
+          that.imgLoader.load(res.path, (err, data) => {
+            app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, data.src, Math.PI / 6);
+          })
+        }
+      });
 
-      app.abilityMap("result_question", that.resultRandom(scoreArr, that.data.resultInfo), that.data.canvasWidth, that.data.windowWidth, avatar, Math.PI / 6);
-      console.log("scoreArr数据" + JSON.stringify(scoreArr));
       var resultData = that.setGrade(parseInt((that.calcScore(scoreArr) / that.calcScore(queNum)) * 100));
       that.setData({
         grade: resultData.grade,
@@ -341,18 +349,18 @@ Page({
     console.log(score);
     var arr = postsData.gradeInfo;
     var result;
-    var rlt = {grade: "", text: "", score: 0};
-    if (score <= 5) {
+    var rlt = {grade: "", text: "", score};
+    if (score < 20) {
       result = arr[0];
-    } else if (score < 20) {
+    } else if (score < 30) {
       result = arr[1];
     } else if (score < 40) {
       result = arr[2];
-    } else if (score < 60) {
+    } else if (score < 50) {
       result = arr[3];
-    } else if (score < 80) {
+    } else if (score < 60) {
       result = arr[4];
-    } else if (score < 95) {
+    } else if (score < 80) {
       result = arr[5];
     } else if (score < 100) {
       result = arr[6];

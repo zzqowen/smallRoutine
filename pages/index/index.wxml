@@ -54,10 +54,11 @@
           </view>
         </view>
     </view>
+    <image src='/images/close.png' class='close_button' catchtap='settingCloseTap'></image>
 </view>
 <!-- 敬请期待弹框 -->
 <view class='more_poup flex_item_center {{moreOpacityStatus? "hide":""}}'  animation="{{animationData}}" style='width:{{windowWidth}}px; height: {{windowHeight}}px' catchtap='expectPopupTap' hidden="{{expectPopupStatus}}">
-    <view class='more_container item_center_middle' catchtap='contentTap'>
+    <view class='more_container' catchtap='contentTap'>
       <image src='/images/more_bg.png' class='more_popup_bg'></image>
       <view class='expect flex_item_center'>
        <text>敬请期待!</text>
@@ -72,5 +73,6 @@
         <image src='/images/question/octopus.png' class='bottom_icon1'></image>
       </view>
     </view>
+    <image src='/images/close.png' class='close_button' catchtap='moreCloseTap'></image>
 </view>
 

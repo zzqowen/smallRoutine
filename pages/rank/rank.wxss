@@ -151,8 +151,8 @@
   padding-bottom: 140rpx;
 }
 .self_displayName, .self_time, .self_grade, .self_message{
-  color: #009ba3;
+  color: white;
 }
 .self_line{
-  border-color: #529fa3;
+  border-color: white;
 }

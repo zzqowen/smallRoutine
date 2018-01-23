@@ -65,7 +65,7 @@ Page({
   //个人信息点击事件
   userInfoTap: function(event){
     if (ableTap[1]){
-      that.getAuthority(1, '../userInfo/userInfo');
+      that.getAuthority(1, '../userInfo/userInfo?mid='+ that.data.darwinUserInfo.mid);
 
       ableTap[1] = false;
     }  
@@ -173,20 +173,31 @@ Page({
 
   //敬请期待点击透明层隐藏弹框
   expectPopupTap: function(){
-    // that.setData({
-      animationData: app.fadeAnimation(false).export(),
-    // });
-    // setTimeout(function () {
-      that.setData({
-        expectPopupStatus: true, 
-        moreOpacityStatus: true
-      })
-    // }, 1000);
+    that.setData({
+      expectPopupStatus: true, 
+      moreOpacityStatus: true
+    })
+    ableTap[5] = true;
+  },
+
+  moreCloseTap: function(){
+    that.setData({
+      expectPopupStatus: true,
+      moreOpacityStatus: true
+    })
     ableTap[5] = true;
   },
 
   //设置弹框点击透明层隐藏弹框
   popupTap: function(){
+    that.setData({
+      popupStatus: true,
+      settingOpacityStatus: true
+    });
+    ableTap[3] = true;
+  },
+
+  settingCloseTap: function(){
     that.setData({
       popupStatus: true,
       settingOpacityStatus: true
@@ -211,17 +222,7 @@ Page({
         darwinUserInfo: data,
         mid: mid
       });
-      wx.downloadFile({
-        url: that.data.darwinUserInfo.avatar, //仅为示例，并非真实的资源
-        success: function (res) {
-          console.log(res);
-          if (res.statusCode === 200) {
-            app.setGlobalData("avatar", res.tempFilePath);
-          } else {
-            app.setGlobalData("avatar", "");
-          }
-        }
-      })
+      app.setGlobalData("avatar", data.avatar);
       app.setGlobalData("darwinUserInfo", data)
       app.setGlobalData("userInfo", data)
     }, function (wxData) {

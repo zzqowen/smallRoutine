@@ -97,7 +97,6 @@ App({
       }
     },
 
-
     abilityMap: function (id, arr, circleSize, windowWidth, curAvatar, angle){
       var ctx = wx.createCanvasContext(id);
       ctx.clearRect(0, 0, 3*circleSize, 3*circleSize)
@@ -161,7 +160,6 @@ App({
       ctx.drawImage(curAvatar, -r/3, -r/3,r*2/3, r*2/3)
       ctx.draw()
     },
-
 
 
     //保存到相册canvas
@@ -355,6 +353,8 @@ App({
         data: value,
       })
     },
+
+
     userInfoData: function (darwinCB, wxCB) {
       console.log(this);
       //登录
@@ -364,28 +364,30 @@ App({
       wx.login({
         success: function (res) {
           console.log(res);
-          console.log(that.globalData.uid);
-          var url = "/weichar/getAppletWeMember?JscodeCode=" + res.code;
-          if (that.globalData.uid){
-            url += "&uid=" + that.globalData.uid;
-          }
-          console.log(url)
-          util.httpPost(url, function (data) {
-            console.log(data);
-            if (data.mid == "" || data.mid == null) {
-              wx.hideLoading();
-              wx.navigateTo({
-                url: '../phone/phone?unionid=' + data.unionid,
-              })
-            } else {
-              that.globalData.mid = data.mid;
-              darwinCB(data.userInfo, data.mid);
-            }
-          });
+         
           wx.getUserInfo({
-            success: function (res) {
-              console.log(res);
-              wxCB(res.userInfo);
+            success: function (data) {
+              console.log(data);
+              wxCB(data.userInfo);
+
+              console.log(that.globalData.uid);
+              var url = "/weichar/getAppletWeMember?JscodeCode=" + res.code + "&nickname=" + data.userInfo.nickName + "&headimgurl=" + data.userInfo.avatarUrl;
+              if (that.globalData.uid) {
+                url += "&uid=" + that.globalData.uid;
+              }
+              console.log(url)
+              util.httpPost(url, function (data) {
+                console.log(data);
+                if (data.mid == "" || data.mid == null) {
+                  wx.hideLoading();
+                  wx.navigateTo({
+                    url: '../phone/phone?unionid=' + data.unionid,
+                  })
+                } else {
+                  that.globalData.mid = data.mid;
+                  darwinCB(data.userInfo, data.mid);
+                }
+              });
             }
           })
         }
