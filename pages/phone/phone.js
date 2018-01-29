@@ -17,6 +17,7 @@ Page({
     message: "",
     phone: null,
     code: null,
+    unionid: null
   },
 
   /**
@@ -109,6 +110,14 @@ Page({
         message: "验证码不能为空"
       })
     } else {
+      if (that.data.unionid == null || that.data.unionid == undefined){
+        wx.showToast({
+          title: 'unionid获取失败',
+          duration: 2000,
+          icon: 'none'
+        });
+        return false;
+      }
       console.log(that.data.unionid);
       var url = "/api/v1/sendWxValidateCode?mobile=" + data.input + "&code=" + data.code + "&unionid=" + that.data.unionid + "&nickname=" + that.data.userInfo.nickName + "&headimgurl=" + that.data.userInfo.avatarUrl;
       if (app.globalData.uid){
@@ -143,7 +152,7 @@ Page({
         that.setData({
           message: '手机号码不能为空'
         })
-      } else if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(e.detail.value))) {
+      } else if (!(/^1\d{10}$/.test(e.detail.value))) {
         that.setData({
           message: '手机号码输入不正确',
         })
