@@ -18,6 +18,13 @@ App({
     setGlobalData: function(key, value){
       that.globalData[key] = value;
     },
+    setDarwinUserInfo: function (key, value) {
+      // var userInfo = that.globalData.darwinUserInfo;
+      // user
+      that.globalData.darwinUserInfo[key] = value;
+      console.log(that.globalData.darwinUserInfo);
+      // that.darwinUserInfo[key] = value;
+    },
     onLaunch:function(ops){
       that = this;
       if (ops.query.mid){

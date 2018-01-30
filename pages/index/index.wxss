@@ -59,8 +59,8 @@
   box-sizing: border-box;
 }
 .level_content{
-  background-color: rgba(76, 32, 46, 0.24);
-  border-radius: 10rpx;
+  background-color: #acb7ff;
+  border-radius: 6rpx;
   padding-left: 22rpx;
   box-sizing: border-box;
   padding-right: 15rpx;
@@ -355,4 +355,50 @@
   width: 80rpx;
   height: 80rpx;
   margin-top: 66rpx;
+}
+
+.moreTili {
+  width:33rpx;
+  height:33rpx;
+  border-radius:50%;
+  background-color:#FFF6CC;
+  text-align:center;
+  line-height:33rpx;
+  font-size:30rpx;
+  color:#FFD862;
+  margin-left: -36rpx;
+  margin-right: 10rpx;
+}
+
+.tili_content {
+  position: relative;
+}
+
+.tiliBox {
+  position: absolute;
+  top: 0;
+}
+
+.tili_icon_empty {
+  width:36rpx;
+  height:36rpx;
+  margin:7rpx 5rpx;
+}
+
+.moreTili_container {
+  width:680rpx;
+}
+
+.moreTili_container .expect {
+  margin-top: 50rpx;
+}
+
+.moreTili_container .develop {
+  margin-top: 20rpx;
+  padding: 0 100rpx;
+}
+
+.moreTili_container .develop text {
+  padding: 0;
+  border-bottom: none;
 }

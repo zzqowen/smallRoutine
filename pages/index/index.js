@@ -10,10 +10,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tiliEmpty: [1,1,1,1,1],
+    tili: 3,
     settingOpacityStatus: true,//初始化弹框opacity为0
     moreOpacityStatus: true,//初始化弹框opacity为0
     switchCheck: true,//音效按钮是否被选中
     popupStatus: true,//设置弹框是否显示
+    showTiliPoup: false,//更多体力值弹窗默认隐藏
     expectPopupStatus: true,//设置弹框是否显示
     darwinUserInfo: null,//答尔文用户资料
     wxUserInfo: null,//微信用户资料
@@ -56,9 +59,16 @@ Page({
   //答题点击事件
   questionTap: function(event){
     if (ableTap[0]){
-      that.getAuthority(0, '../question/question');
-
-      ableTap[0] = false;
+      if (parseInt(that.data.darwinUserInfo.hpCount)){
+        that.getAuthority(0, '../question/question');
+        ableTap[0] = false;
+      }else{
+        wx.showToast({
+          title: '体力值不够',
+          icon: "none",
+          duration: 1000
+        });
+      }
     }
   },
 
@@ -157,6 +167,13 @@ Page({
       }, 100);
       ableTap[5] = false;
     }
+  },
+
+  //体力值点击弹框
+  moreTili: function () {
+    that.setData({
+      showTiliPoup: !(that.data.showTiliPoup)
+    })
   },
 
   //打开和关闭音效

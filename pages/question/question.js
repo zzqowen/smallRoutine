@@ -98,6 +98,7 @@ Page({
 
   //获取问题回调
   questionCallBack: function(data){
+    app.setDarwinUserInfo('hpCount', --that.data.userInfo.hpCount);
     wx.hideLoading();
     app.setGlobalData("backstage", true);
 

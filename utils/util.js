@@ -1,4 +1,5 @@
-
+// var server = "https://applet.aihuawen.com";
+var server = "http://192.168.0.108:8080"
 
 function convertToStarsArray(stars) {
   var num = stars.toString().substring(0, 1);
